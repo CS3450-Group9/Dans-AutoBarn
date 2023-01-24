@@ -9,7 +9,7 @@
 7. [Account creation/modification](#use-case-7)
 
 **If one of the diagrams needs to be changed:**
-1. Open the corresponding `.drawio` file online using [draw.io](draw.io)
+1. Open the corresponding `.drawio` file online using [draw.io](https://draw.io)
 2. Update the file as needed
 3. Save a copy of the file as a `.png` and place it in `figs/`
 4. Update this `README.md` if necessary
