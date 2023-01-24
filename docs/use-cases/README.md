@@ -10,8 +10,8 @@
 
 **If one of the diagrams needs to be changed:**
 1. Open the corresponding `.drawio` file online using [draw.io](draw.io)
-2. Update the `.drawio` file as needed
-3. Save a copy of the `.drawio` file as a `.png` and place it in `figs/`
+2. Update the file as needed
+3. Save a copy of the file as a `.png` and place it in `figs/`
 4. Update this `README.md` if necessary
 
 ## Use Case 1
