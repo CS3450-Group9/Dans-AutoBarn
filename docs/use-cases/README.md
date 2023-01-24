@@ -1,4 +1,4 @@
-# Use-Case Diagrams
+# Use Case Diagrams
 
 1. [Customer makes reservation on a car](#use-case-1)
 2. [Customer picks up car](#use-case-2)
