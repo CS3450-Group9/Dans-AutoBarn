@@ -18,6 +18,6 @@
 
 > Customer makes a reservation on a car
 
-![Use case diagram 1](figs/use-case-1.pdf)
+![Use case diagram 1](figs/uc1.pdf)
 
 ## Use Case 2
