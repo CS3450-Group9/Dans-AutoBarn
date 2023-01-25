@@ -9,16 +9,15 @@
 7. [Account creation/modification/deletion](#use-case-7)
 
 **If one of the diagrams needs to be changed:**
-1. Open the corresponding `.drawio` file online using [draw.io](https://draw.io)
+1. Open the corresponding `figs/UseCaseX.png` file online using [draw.io](https://draw.io)
 2. Update the file as needed
-3. Save a copy of the file as a `.png` and place it in `figs/`
-4. Update this `README.md` if necessary
+3. Update this `README.md` if necessary
 
 ## Use Case 1
 
 > Customer makes a reservation on a car
 
-![Use case diagram 1](figs/uc1.png)
+![Use case diagram 1](figs/UseCase1.png)
 
 Participating Actor: Customer
 
@@ -46,7 +45,7 @@ Event flow:
 
 > Customer picks up car
 
-![Use case diagram 2](figs/uc2.png)
+![Use case diagram 2](figs/UseCase2.png)
 
 Participating Actor: Actor
 
@@ -63,7 +62,7 @@ Event flow:
 
 > Manager goes to pay employees
 
-![Use case diagram 3](figs/uc3.png)
+![Use case diagram 3](figs/UseCase3.png)
 
 Participating Actor: Actor
 
@@ -80,7 +79,7 @@ Event flow:
 
 > Login authentication for customers/employees
 
-![Use case diagram 4](figs/uc4.png)
+![Use case diagram 4](figs/UseCase4.png)
 
 Participating Actor: Actor
 
@@ -97,7 +96,7 @@ Event flow:
 
 > Customer adds money to balance
 
-![Use case diagram 5](figs/uc5.png)
+![Use case diagram 5](figs/UseCase5.png)
 
 Participating Actor: Actor
 
@@ -114,7 +113,7 @@ Event flow:
 
 > Customer cancels order
 
-![Use case diagram 6](figs/uc6.png)
+![Use case diagram 6](figs/UseCase6.png)
 
 Participating Actor: Actor
 
@@ -131,7 +130,7 @@ Event flow:
 
 > Account creation/modification/deletion
 
-![Use case diagram 7](figs/uc7.png)
+![Use case diagram 7](figs/UseCase7.png)
 
 Participating Actor: Actor
 
