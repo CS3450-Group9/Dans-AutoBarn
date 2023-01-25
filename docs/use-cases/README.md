@@ -34,12 +34,13 @@ Exit conditions (mutually exclusive):
 Event flow:
 1. Customer logs into the webpage
 2. Customer searches for the car they want
-3. System displays available cars
-4. Customer selects a car
-5. System displays available dates for the car
-6. Customer selects from available dates
-7. System validates that customter has sufficient funds
-8. System displays purchase confirmation and pick-up validation code
+3. System queries database for available cars matching search parameters
+4. System displays available cars
+5. Customer selects a car
+6. System displays available dates for the car
+7. Customer selects from available dates
+8. System validates that customter has sufficient funds
+9. System displays purchase confirmation and pick-up validation code
 
 ## Use Case 2
 
