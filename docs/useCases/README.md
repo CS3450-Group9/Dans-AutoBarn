@@ -47,16 +47,28 @@ Event flow:
 
 ![Use case diagram 2](figs/UseCase2.png)
 
-Participating Actor: Actor
+Participating Actors: Customer, Till Operator
 
 Entry conditions:
-- Condition
+- Customer needs to pick up the car that they rented on the website
 
-Exit conditions (mutually exclusive):
-- Condition
+Exit conditions:
+- Customer drives away in car
+- Till person verifies that the car has been taken out
+
+**OR**
+- Customer is turned away
 
 Event flow:
-- Flow items
+1. Customer goes to rental place
+1. Customer shows till operator the PIN/QR code/etc that was generated with online rental
+	- If customer does not have a code, they cannot rent the car
+2. Till operator enters code into system and validates rental
+	- If the code is invalid, the till operator asks for a different code or turns the customer away
+3. Till operator asks customer if they want insurance
+	- If they do not buy insurnace, enable the system to make the car break down after at a random time sometime during their rental
+4. Till operator (or someone else) gets car for customer
+5. Till operator verifies that the car has been given out to the customer
 
 ## Use Case 3
 
