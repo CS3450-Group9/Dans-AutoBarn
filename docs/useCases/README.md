@@ -75,21 +75,24 @@
 
 ## Use Case 3
 
-> Manager goes to pay employees
+> Manager pays employees
 
 ![Use case diagram 3](figs/UseCase3.png)
 
 ### Participating Actor
-- Actor
+- Manager
 
 ### Entry conditions:
-- Condition
+- Manager goes to pay employees
 
 ### Exit conditions:
-- Condition
+- Employees are paid
+- Manager no longer needs to pay employees
 
 ### Event flow:
-- Flow items
+1. Manager logs in to website
+2. Manager views/verifies employees' worked hours
+3. Manager pays employees
 
 ## Use Case 4
 
