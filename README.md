@@ -4,9 +4,11 @@
 All documentation will be located in the /docs/ folder   
 Files will be UpperCamelCase  
 Directorys will be lowerCamelCase
+Other structure determined as needed
 ### Team Organization
-One member will be the scrum master  
-
+One member will be selected as the scrum master  
+Discorse will be through Discord  
+Standup meetings will be held on Discord  
 ## Version-control procedures
 ### Git Branches
 Main is for "version releases"/completed Project Milestones  
@@ -26,5 +28,8 @@ The front end will use Vue.js
 1.
 2.
 ## Unit testing instructions
+All developers involved in a PR will test functionality of systems implemented  
 ## System testing instructions
+When setup, Jenkins will do all system/integration testing  
+Until that point, the all developers involved in the PR should verify changes don't affect unwanted systems  
 ## Other development notes, as needed
