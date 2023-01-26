@@ -12,8 +12,14 @@ Standup meetings will be held on Discord
 All issues will be tracked on Jira
 ## Version-Control procedures
 ### Git Branches
+**main**  
 Main is for "version releases"/completed Project Milestones  
-Dev is for development.  Dev will be merged to main for upon completion of a Project Milestone/Sprint.  
+Main will need four approvals for the pull request to be merged  
+**dev**  
+Dev will be merged to main for upon completion of a Project Milestone/Sprint.  
+Merges to dev will need at least one approval  
+Pull requests should be made when program is functional
+**other development branches**  
 All other branches should have dev as the source and will require a pull request to merge to dev.  
 All branches will be made through Jira and associated with a ticket, format should be as follows "G9-'ticket number'-'ticket title'".  
 When setup, a pull request will need a functioning build from Jenkins to merge.  
