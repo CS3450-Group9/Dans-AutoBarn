@@ -38,7 +38,7 @@ Event flow:
 5. Customer selects a car
 6. System displays available dates for the car
 7. Customer selects from available dates
-8. System validates that customter has sufficient funds
+8. System validates that customer has sufficient funds
 9. System displays purchase confirmation and pick-up validation code
 
 ## Use Case 2
