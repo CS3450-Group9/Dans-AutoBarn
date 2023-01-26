@@ -28,7 +28,7 @@
 ### Exit conditions:
 - Customer is able to make the reservation
 
-**OR**
+-OR-
 - Customer is unable to make the reservation
 
 ### Event flow:
@@ -69,7 +69,7 @@
 2. Till operator enters code into system and validates rental
 	- If the code is invalid, the till operator asks for a different code or turns the customer away
 3. Till operator asks customer if they want insurance
-	- If they do not buy insurnace, enable the system to make the car break down after at a random time sometime during their rental
+	- If they do not buy insurance, enable the system to make the car break down after at a random time sometime during their rental
 4. Till operator (or someone else) gets car for customer
 5. Till operator verifies that the car has been given out to the customer
 
