@@ -21,16 +21,16 @@
 
 Participating Actor: Customer
 
-Entry conditions:
+### Entry conditions:
 - Customer wants to make a car reservation
 
-Exit conditions (mutually exclusive):
+### Exit conditions:
 - Customer is able to make the reservation
-    - Dates are available **and** the customer has sufficient funds
-- Customer is unmable to make the reservation
-    - Dates are unavailable **or** the customer has insufficient funds
 
-Event flow:
+**OR**
+- Customer is unable to make the reservation
+
+### Event flow:
 1. Customer logs into the webpage
 2. Customer searches for the car they want
 3. System queries database for available cars matching search parameters
@@ -47,19 +47,21 @@ Event flow:
 
 ![Use case diagram 2](figs/UseCase2.png)
 
-Participating Actors: Customer, Till Operator
+### Participating Actors
+- Customer
+- Till Operator
 
-Entry conditions:
+### Entry conditions:
 - Customer needs to pick up the car that they rented on the website
 
-Exit conditions:
+### Exit conditions:
 - Customer drives away in car
 - Till person verifies that the car has been taken out
 
 **OR**
 - Customer is turned away
 
-Event flow:
+### Event flow:
 1. Customer goes to rental place
 1. Customer shows till operator the PIN/QR code/etc that was generated with online rental
 	- If customer does not have a code, they cannot rent the car
@@ -78,13 +80,13 @@ Event flow:
 
 Participating Actor: Actor
 
-Entry conditions:
+### Entry conditions:
 - Condition
 
-Exit conditions (mutually exclusive):
+### Exit conditions:
 - Condition
 
-Event flow:
+### Event flow:
 - Flow items
 
 ## Use Case 4
@@ -95,13 +97,13 @@ Event flow:
 
 Participating Actor: Actor
 
-Entry conditions:
+### Entry conditions:
 - Condition
 
-Exit conditions (mutually exclusive):
+### Exit conditions:
 - Condition
 
-Event flow:
+### Event flow:
 - Flow items
 
 ## Use Case 5
@@ -112,13 +114,13 @@ Event flow:
 
 Participating Actor: Actor
 
-Entry conditions:
+### Entry conditions:
 - Condition
 
-Exit conditions (mutually exclusive):
+### Exit conditions:
 - Condition
 
-Event flow:
+### Event flow:
 - Flow items
 
 ## Use Case 6
@@ -129,13 +131,13 @@ Event flow:
 
 Participating Actor: Actor
 
-Entry conditions:
+### Entry conditions:
 - Condition
 
-Exit conditions (mutually exclusive):
+### Exit conditions:
 - Condition
 
-Event flow:
+### Event flow:
 - Flow items
 
 ## Use Case 7
@@ -146,12 +148,12 @@ Event flow:
 
 Participating Actor: Actor
 
-Entry conditions:
+### Entry conditions:
 - Condition
 
-Exit conditions (mutually exclusive):
+### Exit conditions:
 - Condition
 
-Event flow:
+### Event flow:
 - Flow items
 
