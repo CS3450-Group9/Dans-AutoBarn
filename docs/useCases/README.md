@@ -20,17 +20,15 @@
 
 ![Use case diagram 1](figs/UseCase1.png)
 
-### Participating Actor
+### Participating Actor:
 - Customer
 
 ### Entry conditions:
 - Customer wants to make a car reservation
 
 ### Exit conditions:
-- Customer is able to make the reservation
-
--OR-
-- Customer is unable to make the reservation
+- Customer made car reservation
+- Car no longer available for other customers on those reserved days
 
 ### Event flow:
 1. Customer logs into the webpage
@@ -49,30 +47,24 @@
 
 ![Use case diagram 2](figs/UseCase2.png)
 
-### Participating Actors
+### Participating Actors:
 - Customer
 - Till Operator
 
 ### Entry conditions:
 - Customer needs to pick up the car that they rented on the website
+- Customer has the validation code to pick up the car
 
 ### Exit conditions:
-- Customer drives away in car
-- Till person verifies that the car has been taken out
-
-**OR**
-- Customer is turned away
+- Customer leaves with car
 
 ### Event flow:
 1. Customer goes to rental place
-1. Customer shows till operator the PIN/QR code/etc that was generated with online rental
-	- If customer does not have a code, they cannot rent the car
-2. Till operator enters code into system and validates rental
-	- If the code is invalid, the till operator asks for a different code or turns the customer away
-3. Till operator asks customer if they want insurance
-	- If they do not buy insurance, enable the system to make the car break down after at a random time sometime during their rental
-4. Till operator (or someone else) gets car for customer
-5. Till operator verifies that the car has been given out to the customer
+2. Customer shows till operator the PIN/QR code/etc that was generated with online rental
+3. Till operator enters code into system and validates rental
+4. Till operator asks customer if they want insurance
+5. Till operator (or someone else) gets car for customer
+6. Till operator verifies that the car has been given out to the customer
 
 ## Use Case 3
 
@@ -80,11 +72,12 @@
 
 ![Use case diagram 3](figs/UseCase3.png)
 
-### Participating Actor
+### Participating Actor:
 - Manager
 
 ### Entry conditions:
-- Manager goes to pay employees
+- Manager needs to pay employees
+- Employees have not been paid
 
 ### Exit conditions:
 - Employees are paid
@@ -92,48 +85,68 @@
 
 ### Event flow:
 1. Manager logs in to website
-2. Manager views/verifies employees' worked hours
-3. Manager pays employees
+2. Manager views employees hours
+3. System checks database for employee hours
+4. System displays employee hours
+5. Manager verifies that employee hours are correct
+6. Manager pays employees
 
 ## Use Case 4
 
-> Login authentication for customers/employees
+> Login authentication for user (customers/employees)
 
 ![Use case diagram 4](figs/UseCase4.png)
 
-### Participating Actor
-- Actor
+### Participating Actors:
+- Customer
+- Till operator
+- Manager
+- Any other employees
 
 ### Entry conditions:
-- Condition
+- User needs to login to website
+- User has valid username and password to access website
 
 ### Exit conditions:
-- Condition
+- User is logged into website
 
 ### Event flow:
-- Flow items
+1. User goes to login page
+2. User enters username and password
+3. System checks username and password against database
+4. System queries database for user status and preferences
+5. System displays a webpage showing that user is logged in
 
 ## Use Case 5
 
-> Customer adds money to balance
+> User transfers money to/from account
 
 ![Use case diagram 5](figs/UseCase5.png)
 
-### Participating Actor
-- Actor
+### Participating Actors:
+- Customer
+- Till operator
+- Manager
+- Any other employees
 
 ### Entry conditions:
-- Condition
+- User wants to transfer money to/from account
+- User has sufficient money to be transferred
 
 ### Exit conditions:
-- Condition
+- User has more or less money in their account than before
 
 ### Event flow:
-- Flow items
+1. User goes to money transfer page
+2. User enters the amount of money they want to transfer
+3. User chooses whether they want to transfer to or from their bank account
+4. User attempts to transfer money
+5. System checks whether user has enough money to transfer
+6. System displays confirmation that the money has been transferred
 
 ## Use Case 6
 
-> Customer cancels order
+> Customer cancels rental
 
 ![Use case diagram 6](figs/UseCase6.png)
 
