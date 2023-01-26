@@ -7,6 +7,7 @@
 5. [Customer adds money to balance](#use-case-5)
 6. [Customer cancels order](#use-case-6)
 7. [Account creation/modification/deletion](#use-case-7)
+8. [Another one here](#use-case-8)
 
 **If one of the diagrams needs to be changed:**
 1. Open the corresponding `figs/UseCaseX.png` file online using [draw.io](https://draw.io)
@@ -166,3 +167,20 @@
 ### Event flow:
 - Flow items
 
+## Use Case 8
+
+> Some other use case here
+
+![Use case diagram 8](figs/UseCase8.png)
+
+### Participating Actor
+- Actor
+
+### Entry conditions:
+- Condition
+
+### Exit conditions:
+- Condition
+
+### Event flow:
+- Flow items
