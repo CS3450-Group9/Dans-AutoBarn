@@ -9,6 +9,7 @@ Other structure determined as needed
 One member will be selected as the scrum master  
 Discorse will be through Discord  
 Standup meetings will be held on Discord  
+All issues will be tracked on Jira
 ## Version-Control procedures
 ### Git Branches
 Main is for "version releases"/completed Project Milestones  
@@ -20,7 +21,7 @@ When setup, a pull request will need a functioning build from Jenkins to merge.
 The tool stack will use Django for the backend  
 The Database will be the default Django SQLite Database  
 The front end will use Vue.js  
-## Setup Procedure
+### Setup Procedure
 1.
 2.
 ## Build instructions
