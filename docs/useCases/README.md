@@ -19,7 +19,8 @@
 
 ![Use case diagram 1](figs/UseCase1.png)
 
-Participating Actor: Customer
+### Participating Actor
+- Customer
 
 ### Entry conditions:
 - Customer wants to make a car reservation
@@ -78,7 +79,8 @@ Participating Actor: Customer
 
 ![Use case diagram 3](figs/UseCase3.png)
 
-Participating Actor: Actor
+### Participating Actor
+- Actor
 
 ### Entry conditions:
 - Condition
@@ -95,7 +97,8 @@ Participating Actor: Actor
 
 ![Use case diagram 4](figs/UseCase4.png)
 
-Participating Actor: Actor
+### Participating Actor
+- Actor
 
 ### Entry conditions:
 - Condition
@@ -112,7 +115,8 @@ Participating Actor: Actor
 
 ![Use case diagram 5](figs/UseCase5.png)
 
-Participating Actor: Actor
+### Participating Actor
+- Actor
 
 ### Entry conditions:
 - Condition
@@ -129,7 +133,8 @@ Participating Actor: Actor
 
 ![Use case diagram 6](figs/UseCase6.png)
 
-Participating Actor: Actor
+### Participating Actor
+- Actor
 
 ### Entry conditions:
 - Condition
@@ -146,7 +151,8 @@ Participating Actor: Actor
 
 ![Use case diagram 7](figs/UseCase7.png)
 
-Participating Actor: Actor
+### Participating Actor
+- Actor
 
 ### Entry conditions:
 - Condition
