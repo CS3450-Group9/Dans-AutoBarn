@@ -5,7 +5,7 @@ Requirements are scored by their priority with a letter symbol in four categorie
 - C) Could include
 - D) Won't include
 ## Functional Requirements 
-All Functional Requirements fall under the A) Must include category   
+All Functional Requirements fall under the A) Must include category unless otherwise specified  
 ### 1 - User Account Creation
     1.1 - User will be prompted to create their own login credentials for account authorization
     1.2 - Upon creation, user is a "customer" by default
@@ -36,7 +36,7 @@ All Functional Requirements fall under the A) Must include category
        3.2.2 - Sells insurance to the customer at time of pick-up
        3.2.3 - Has option to "low-jack" the rental to make a break-down more likely
        3.2.4 - Is paid a wage of $15/hour from the manager
-    3.3 - Car Retrieval Specialist (Could be blended with the Till Worker role)
+    3.3 - Car Retrieval Specialist (Could be blended with the Till Worker role) -> Prioritized in category C
        3.3.1 - Retrieves a broken-down rental
        3.3.2 - Is paid a wage of $15/hour from the manager
     3.4 - Manager
@@ -45,23 +45,26 @@ All Functional Requirements fall under the A) Must include category
        3.4.3 - Has ability to purchase a new vehicle to add to the inventory
 ## Non-Functional Requirements
 ### 1 - User Account Creation
-    A) Login credentials will be cached and stored in a database
-    A) Account balance for the user will be stored in their database model as well
-    B) Views for a customer and a user who is not logged in should be differentiated
+    1.1 - A) Login credentials will be cached and stored in a database
+    1.2 - A) Account balance for the user will be stored in their database model as well
+    1.3 - B) Views for a customer and a user who is not logged in should be differentiated
+    1.4 - B) Other than the manager, newly-created accounts will be assigned as customers with the appropriate corresponding view. Therefore, the manager and their view should be created as a special case
 ### 2 - Car Rentals
-    A) Each car rental must have an ID associated with it so that reservations don't overlap
-    C) A rental could have its own model in the database that contains its id, photo, availabilty, cost, amount of gas in its tank, etc.
-    A) An Availabilty Constraint must be applied so that two customers don't reserve the same rental. This may be done with the use of a database or some form of data structure
-    A) There is a limited inventory of rentals, but more can be added to the rental model by the manager
-    A) Have a library of photos so that each rental in the inventory has a corresponding photo
-    A) A rental can only be reserved by a registered user who is signed in
-    B) If a user doesn't have enough funds to make a reservation, re-direct the user to a separate view in order to deposit funds and then return them to the original reservation page
-    B) If a reservation is made, a code should be generated for the user to provide to the Till worker at time of pick-up. This may be done with a function that randomly generates a string of characters.
+    2.1 - A) Each car rental must have an ID associated with it so that reservations don't overlap
+    2.2 - A) An Availabilty Constraint must be applied so that two customers don't reserve the same rental. This may be done with the use of a database or some form of data structure
+    2.3 - A) There is a limited inventory of rentals, but more can be added to the rental model by the manager
+    2.4 - A) Have a library of photos so that each rental in the inventory has a corresponding photo
+    2.5 - A) A rental can only be reserved by a registered user who is signed in
+    2.5 - B) If a user doesn't have enough funds to make a reservation, re-direct the user to a separate view in order to deposit funds and then return them to the original reservation page
+    2.6 - B) If a reservation is made, a code should be generated for the user to provide to the Till worker at time of pick-up. This may be done with a function that randomly generates a string of characters.
+    2.7 - B) If a customer does not purchase insurance and the car is "low-jacked", a field for the in-use rental should indicate if it has broken down.
+    2.8 - C) A rental could have its own model in the database that contains its id, photo, availabilty, cost, amount of gas in its tank, etc.
 ### 3 - User Types
-    A) Each user type will have separate views. A Django views file will be used to determine which view the user should see based on their user-type.
-    B) Till Workers should be able to see the same code that the customer acquired upon making a successful reservation
-    B) The Till worker's view should include a checklist of items for the insurance that they can sell to the customer. The amount thechecklisted items sum to should be deducted from the customer's account when it is submitted/beginning of the reservation.
-    C) The till worker and car retrieval specialist could be merged into one position unless more duties can be thought of for the retrieval specialist
-    A) The manager is the only one who has the option to update a user's position to that of a till worker or car retrieval specialist
-    B) The manager adds funds into their employees' account balances to pay them. Therefore, there should be a function to deduct an amountfrom the manager's account and deposit it into the employee's account.
-    B) The manager should have some way to add a new rental to the inventory. In their view they may be able to view a catalog of cars to addto the rental database.
+    3.1 - A) Each user type will have separate views. A Django views file will be used to determine which view the user should see based on their user-type.
+    3.2 - A) The manager is the only one who has the option to update a user's position to that of a till worker or car retrieval specialist
+    3.3 - B) The manager adds funds into their employees' account balances to pay them. Therefore, there should be a function to deduct an amount from the manager's account and deposit it into the employee's account.
+    3.4 - B) The manager should have some way to add a new rental to the inventory. In their view they may be able to view a catalog of cars to add to the rental database.
+    3.5 - B) Till Workers should be able to see the same code that the customer acquired upon making a successful reservation
+    3.6 - B) The Till worker's view should include a checklist of items for the insurance that they can sell to the customer. The amount thechecklisted items sum to should be deducted from the customer's account when it is submitted/beginning of the reservation.
+    3.7 - C) The till worker and car retrieval specialist could be merged into one position unless more duties can be thought of for the retrieval specialist
+    
