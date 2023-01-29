@@ -32,18 +32,13 @@ The front end will use Vue.js
 1. Install Django  
 2. Create Django project using ```$ django-admin startproject DansAutoBarn ```
 3. Create Django app using ```$ python manage.py startapp <<app_name>> ```  
-4. Modify necessary parts of django to have app be recognized throughout project.  
-#### Install/Configuration for Vue.js
-1. Install Vue
-2. Create Vue project using  ```$ vue create <<app_name>>```
-3. Configure vue.config.js inside of the vue project
-#### Link Django and Vue.js 
-1. Install axios to handle communication  
-   Use the command ```$ npm install --save axios vue-axios```
+4. Modify necessary parts of the project to have app be recognized throughout    
+   1. Add app to installed apps in ```<<project>>/settings.py```  
+#### Configuration for Vue.js
+1. Create a regular js file for the app you'd like to use vue with  
+2. File should be created in ```<<app_name>>/static/<<app_name>>/<<view>>.js```
 #### Resources
 [Offical Django Install Guide](https://vuejs.org/guide/quick-start.html#creating-a-vue-application)  
-[Linking Django and Vue.js](https://www.webucator.com/article/connecting-django-and-vue/)  
-[Vue Cli Official Site](https://cli.vuejs.org/)  
 ## Build instructions
 1. Have python installed
 2. In a command line navigate to ```/web```  
@@ -54,4 +49,3 @@ All developers involved in a PR will test functionality of systems implemented
 When setup, Jenkins will do all system/integration testing  
 Until that point, the all developers involved in the PR should verify changes don't affect unwanted systems  
 ## Other development notes, as needed
-There may be some issues with the current integration of the tech stack, these will be worked out as we go along.  
