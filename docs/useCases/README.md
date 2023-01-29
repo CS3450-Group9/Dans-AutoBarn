@@ -20,7 +20,7 @@
 
 ![Use case diagram 1](figs/UseCase1.png)
 
-### Participating Actor:
+### Participating Actors:
 - Customer
 
 ### Entry conditions:
@@ -72,7 +72,7 @@
 
 ![Use case diagram 3](figs/UseCase3.png)
 
-### Participating Actor:
+### Participating Actors:
 - Manager
 
 ### Entry conditions:
@@ -150,50 +150,71 @@
 
 ![Use case diagram 6](figs/UseCase6.png)
 
-### Participating Actor
-- Actor
+### Participating Actors:
+- Customer
 
 ### Entry conditions:
-- Condition
+- Customer wants to cancel rental
+- Customer has one or more rentals to cancel
 
 ### Exit conditions:
-- Condition
+- Customer cancels rental(s)
+- Customer has one less active rental
 
 ### Event flow:
-- Flow items
+1. Customer logs into website
+2. Customer goes to rental cancelling page
+3. System queries database on the customer's active rentals
+4. Customer selects one or more rentals to cancel
+5. System updates database and displays cancellation confirmation
 
 ## Use Case 7
 
-> Account creation/modification/deletion
+> Account creation
 
 ![Use case diagram 7](figs/UseCase7.png)
 
-### Participating Actor
-- Actor
+### Participating Actors:
+- Customer
+- Till operator
+- Manager
+- Any other employees
 
 ### Entry conditions:
-- Condition
+- Some user needs to create an account
 
 ### Exit conditions:
-- Condition
+- User has created an account
+- User info has been entered into database
 
 ### Event flow:
-- Flow items
+1. User goes to login page
+2. User enters personal information
+3. User creates username and password
+4. System checks if username and password are valid
+5. System adds personal info, username, and password to database
+6. User is able to login
 
 ## Use Case 8
 
-> Some other use case here
+> Account modification
 
 ![Use case diagram 8](figs/UseCase8.png)
 
-### Participating Actor
-- Actor
+### Participating Actors:
+- Manager
+- User
 
 ### Entry conditions:
-- Condition
+- Manager needs to update an account to employee account
 
 ### Exit conditions:
-- Condition
+- Regular user account is updated to employee account
 
 ### Event flow:
-- Flow items
+1. Manager logs into manager account
+2. Manager goes to employee roster page and creates a random employee code
+3. Employee logs into account
+4. User goes to page to enter employee code
+5. System checks code against manager-created one
+6. System converts user account to employee account
