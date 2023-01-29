@@ -1,13 +1,13 @@
 # Use Case Diagrams
 
-1. [Customer makes reservation on a car](#use-case-1)
+1. [Customer makes reservation](#use-case-1)
 2. [Customer picks up car](#use-case-2)
-3. [Manager goes to pay employees](#use-case-3)
-4. [Login authentication for customers/employees](#use-case-4)
-5. [Customer adds money to balance](#use-case-5)
-6. [Customer cancels order](#use-case-6)
-7. [Account creation/modification/deletion](#use-case-7)
-8. [Another one here](#use-case-8)
+3. [Manager pays employees](#use-case-3)
+4. [Login authentication](#use-case-4)
+5. [Customer edits account balance](#use-case-5)
+6. [Customer cancels rental](#use-case-6)
+7. [Account creation](#use-case-7)
+8. [Account modification](#use-case-8)
 
 **If one of the diagrams needs to be changed:**
 1. Open the corresponding `figs/UseCaseX.png` file online using [draw.io](https://draw.io)
@@ -16,7 +16,7 @@
 
 ## Use Case 1
 
-> Customer makes a reservation on a car
+> Customer makes reservation
 
 ![Use case diagram 1](figs/UseCase1.png)
 
@@ -93,7 +93,7 @@
 
 ## Use Case 4
 
-> Login authentication for user (customers/employees)
+> Login authentication
 
 ![Use case diagram 4](figs/UseCase4.png)
 
