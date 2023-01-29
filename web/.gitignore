@@ -1,2 +1,4 @@
 .env
-.pyc
+*.pyc
+*.zip
+__pycache__
