@@ -162,11 +162,10 @@
 - Customer has one less active rental
 
 ### Event flow:
-1. Customer logs into website
-2. Customer goes to rental cancelling page
-3. System queries database on the customer's active rentals
-4. Customer selects one or more rentals to cancel
-5. System updates database and displays cancellation confirmation
+1. Customer goes to rental cancellation page
+2. System queries database on the customer's active rentals
+3. Customer selects one or more rentals to cancel
+4. System updates database and displays cancellation confirmation
 
 ## Use Case 7
 
@@ -217,4 +216,6 @@
 3. Employee logs into account
 4. User goes to page to enter employee code
 5. System checks code against manager-created one
-6. System converts user account to employee account
+6. Manager verifies that the account that used the code is correct
+7. System converts user account to employee account
+
