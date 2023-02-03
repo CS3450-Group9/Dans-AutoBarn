@@ -23,6 +23,8 @@ Pull requests should be made when program is functional
 All other branches should have dev as the source and will require a pull request to merge to dev.  
 All branches will be made through Jira and associated with a ticket, format should be as follows "G9-'ticket number'-'ticket title'".  
 When setup, a pull request will need a functioning build from Jenkins to merge.  
+**documentation**  
+The documentation branch is used to update sprint retrospectives and standup meeting documentation  
 ## Tool Stack
 The tool stack will use Django for the backend  
 The Database will be the default Django SQLite Database  
