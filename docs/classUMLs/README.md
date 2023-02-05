@@ -8,10 +8,10 @@
 ![User Class](figs/UserClass.png)
 
 ### Attributes:
-- name: A string field (Django's CharField)
-- password: A string field (Django's CharField)
-- user_type: A string field (Django's Charfield)
-- balance: An integer field (Django's IntegerField)
+- name: A public string field (Django's CharField)
+- password: A private string field (Django's CharField)
+- user_type: A public string field (Django's Charfield)
+- balance: A public integer field (Django's IntegerField)
 
 ### Methods:
 - get_name(self): return string for the name field
