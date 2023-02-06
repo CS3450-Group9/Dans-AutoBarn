@@ -29,4 +29,5 @@
 - User directed to reservation page
 
 ### Decision Roots
-- User information validated in database
+- User have existing account?
+- User information validated in database?
