@@ -1,7 +1,22 @@
 # Standup Meeting Notes
 > Notes for standups are listed in reverse chronological order
 > (most recent at top)  
-> Standups are held MWF @ 1:30pm on Discord 
+> Standups are held MWF @ 1:30pm on Discord  
+> Template at bottom
+
+---
+## 02/06/2023 - Scrum Master: Carter Watson
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson | Started work on login w/ DB (G9-17) | Continue work on Login w/ DB (G9-17) | Should we use django authentication or create our own? |
+| Caden Maxwell | Worked on front end login (G9-13) | Finish up front end login (G9-13) | Creating accounts (G9-16) blocked by DB setup |
+| Caleb Leavitt | Started work on wireframe views (G9-12) | Finishing up wireframe views (G9-12) | Refamilizarizing self with django |
+| Joseph Giles  | PR for User class diagram & activity diagram, looking for feedback on both | Start work on low fidelity prototype (G9-24) | What is required of low fidelity |
+### Screenshot of Burndown Chart
+![Burndown Update](referencePhotos/burndownUpdates/02-06-23.png)
+### Screenshot of Kanban Board
+![Kanban Update](referencePhotos/kanbanUpdates/02-06-23.png)
 ---
 ## 02/03/2023 - Scrum Master: Carter Watson
 ### Team Notes
