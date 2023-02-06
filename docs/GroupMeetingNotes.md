@@ -9,6 +9,7 @@
 ## 02/07/2023
 ### Questions for Dan
 * What are you looking for in a low fidelty prototype of a feature?  
+* Do the kanban board screenshots need to be of the full board? Is a general summary okay?
 ### Things we could improve on
 * 
 ### Things we're doing well
@@ -24,6 +25,8 @@
 * MSCW for functional requirements
 ### Things we're doing well
 * Github branch management
+
+
 ---
 ## MM/DD/YYYY
 ### Questions for Dan

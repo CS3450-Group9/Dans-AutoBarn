@@ -31,9 +31,7 @@
 ### Screenshot of Kanban Board
 ![Kanban Update](referencePhotos/kanbanUpdates/02-03-23.png)
 
----
----
-## TEMPLATE
+
 ---
 ## DATE - Scrum Master: UPDATE
 ### Team Notes

@@ -3,6 +3,7 @@
 > (most recent at top)  
 > Sprint retrospectives are held during the first standup after a sprint ends  
 > Template at bottom
+
 ---
 ## 02/01/2023
 ### What we did well
@@ -15,6 +16,8 @@
 * splitting large tasks into smaller ones
 ### Other Notes
 * N/A
+
+
 ---
 ## MM/DD/YYYY
 ### What we did well
