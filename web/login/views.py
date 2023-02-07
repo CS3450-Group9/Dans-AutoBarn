@@ -5,4 +5,4 @@ from django.utils import timezone
 from django.views.generic import TemplateView
 
 class LoginView(TemplateView):
-    template_name = "login.html"
+    template_name = "login/login.html"

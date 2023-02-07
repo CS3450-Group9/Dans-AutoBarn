@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 {% block html %}
 <html lang="en">
     <head>
         {% block head %}
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device—width, initial—scale=l">
+        <link rel="stylesheet" type="text/css" href="{% static 'login/style.css' %}">
         <title>{% block title %}{% endblock %}</title>
         {% endblock %}
     </head>
