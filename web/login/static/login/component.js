@@ -1,7 +1,6 @@
 export default {
-    delimiters: ['[[', ']]'],
+    delimiters: ['${', '}'],
     data() {
-        
         return {
             heading: "Dan's Auto Barn",
         }
