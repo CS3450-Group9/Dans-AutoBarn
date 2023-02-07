@@ -2,8 +2,8 @@
 
 {% block title %}Dan's Auto Barn{% endblock %}
 {% block main %}
-	<h2>Dan's Auto Barn</h2>
-    <form action="/action_page.php" method="post">
+	<h2>[[ heading ]]</h2>
+    <form action="" method="post"> {% csrf_token %}
     <div class="container">
         <label for="username"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" name="username" required>
