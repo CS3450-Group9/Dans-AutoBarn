@@ -5,7 +5,7 @@
 > Template at bottom
 
 ---
-## 02/01/2023
+## 02/01/2023 - Sprint 1
 ### What we did well
 * communication
 * divided tasks evenly
@@ -17,6 +17,8 @@
 ### Other Notes
 * N/A
 
+<details>
+  <summary>TEMPLATE</summary>
 
 ---
 ## MM/DD/YYYY
@@ -26,3 +28,4 @@
 * 
 ### Other Notes
 * 
+</details>

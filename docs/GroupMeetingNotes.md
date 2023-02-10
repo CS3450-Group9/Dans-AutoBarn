@@ -6,7 +6,7 @@
 > Template at bottom
 
 ---
-## 02/07/2023
+## 02/07/2023 - Sprint 2
 ### Questions for Dan
 * What are you looking for in a low fidelty prototype of a feature?  
 * Do the kanban board screenshots need to be of the full board? Is a general summary okay?
@@ -18,7 +18,7 @@
 * working together
 * documentation/software dev process
 ---
-## 01/26/2023
+## 01/26/2023 - Sprint 1
 ### Questions for Dan
 * None
 ### Things we could improve on
@@ -29,6 +29,8 @@
 ### Things we're doing well
 * Github branch management
 
+<details>
+  <summary>TEMPLATE</summary>
 
 ---
 ## MM/DD/YYYY
@@ -38,3 +40,4 @@
 * 
 ### Things we're doing well
 * 
+</details>

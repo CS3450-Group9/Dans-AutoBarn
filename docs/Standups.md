@@ -43,6 +43,7 @@
 ![Burndown Update](referencePhotos/burndownUpdates/02-06-23.png)
 ### Screenshot of Kanban Board
 ![Kanban Update](referencePhotos/kanbanUpdates/02-06-23.png)
+
 ---
 ## 02/03/2023 - Scrum Master: Carter Watson
 ### Team Notes
@@ -58,6 +59,9 @@
 ![Kanban Update](referencePhotos/kanbanUpdates/02-03-23.png)
 
 
+<details>
+  <summary>TEMPLATE</summary>
+
 ---
 ## DATE - Scrum Master: UPDATE
 ### Team Notes
@@ -71,3 +75,4 @@
 ![Burndown Update](referencePhotos/burndownUpdates/MM-DD-YY.png)
 ### Screenshot of Kanban Board
 ![Kanban Update](referencePhotos/kanbanUpdates/MM-DD-YY.png)
+</details>
