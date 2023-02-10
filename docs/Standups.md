@@ -5,6 +5,19 @@
 > Template at bottom
 
 ---
+## 02/10/2023 - Scrum Master: Carter Watson
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson | Pushed the model for the user | get queries working for the user model | None |
+| Caden Maxwell | PR for login page | Start on activity diagram | None |
+| Caleb Leavitt | Finishing up low fidelty html diagrams, creating some paper ones | finishing up UML diagrams | Problems with linux and django  |
+| Joseph Giles  | Creating Diagrams & Creating structure for the diagrams | Create some low fidelty diagrams | None |
+### Screenshot of Burndown Chart
+![Burndown Update](referencePhotos/burndownUpdates/02-10-23.png)
+### Screenshot of Kanban Board
+![Kanban Update](referencePhotos/kanbanUpdates/02-10-23.png)
+---
 ## 02/08/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
