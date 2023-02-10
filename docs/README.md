@@ -1,4 +1,7 @@
 # Documentation Hub
+> Documentation is organized into sprints for grading purposes  
+> Documents are not static and previous work may be changed as the project becomes more defined  
+
 ## On Going
 * [Standup Notes](https://github.com/CS3450-Group9/CS3450-Group9/tree/documentation/docs/Standups.md)  
 * [Sprint Retrospectives](https://github.com/CS3450-Group9/CS3450-Group9/tree/documentation/docs/SprintRetrospectives.md)  
