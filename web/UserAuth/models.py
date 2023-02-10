@@ -1,8 +1,9 @@
+from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class User(models.Model):
+class User(AbstractBaseUser):
     # create a subclass to be used as an enum for the type of user
     # https://stackoverflow.com/questions/54802616/how-can-one-use-enums-as-a-choice-field-in-a-django-model
     class UserType(models.TextChoices):
@@ -19,3 +20,4 @@ class User(models.Model):
         default=UserType.Customer,
     )
     balance = models.IntegerField(default=0)
+    
