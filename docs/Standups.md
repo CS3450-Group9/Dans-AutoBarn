@@ -5,6 +5,22 @@
 > Template at bottom
 
 ---
+## DATE - Scrum Master: UPDATE
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson |  |  |  |
+| Caden Maxwell |  |  |  |
+| Caleb Leavitt |  |  |  |
+| Joseph Giles  |  |  |  |
+### Questions for team discussion
+* Possibility of hosting the DB somewhere (heroku)?
+### Screenshot of Burndown Chart
+![Burndown Update](referencePhotos/burndownUpdates/MM-DD-YY.png)
+### Screenshot of Kanban Board
+![Kanban Update](referencePhotos/kanbanUpdates/MM-DD-YY.png)
+
+---
 ## 02/10/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
@@ -17,6 +33,7 @@
 ![Burndown Update](referencePhotos/burndownUpdates/02-10-23.png)
 ### Screenshot of Kanban Board
 ![Kanban Update](referencePhotos/kanbanUpdates/02-10-23.png)
+
 ---
 ## 02/08/2023 - Scrum Master: Carter Watson
 ### Team Notes
@@ -30,6 +47,7 @@
 ![Burndown Update](referencePhotos/burndownUpdates/02-08-23.png)
 ### Screenshot of Kanban Board
 ![Kanban Update](referencePhotos/kanbanUpdates/02-08-23.png)
+
 ---
 ## 02/06/2023 - Scrum Master: Carter Watson
 ### Team Notes
@@ -43,6 +61,7 @@
 ![Burndown Update](referencePhotos/burndownUpdates/02-06-23.png)
 ### Screenshot of Kanban Board
 ![Kanban Update](referencePhotos/kanbanUpdates/02-06-23.png)
+
 
 ---
 ## 02/03/2023 - Scrum Master: Carter Watson
@@ -75,4 +94,6 @@
 ![Burndown Update](referencePhotos/burndownUpdates/MM-DD-YY.png)
 ### Screenshot of Kanban Board
 ![Kanban Update](referencePhotos/kanbanUpdates/MM-DD-YY.png)
+### Questions for team discussion
+* None
 </details>
