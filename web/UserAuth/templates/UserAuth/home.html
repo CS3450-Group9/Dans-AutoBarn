@@ -4,7 +4,10 @@
     <h1>HOME PAGE</h1>
     {% if request.user.is_authenticated %}
     <div>
+        <P>User: {{request.user}}</P>
         <p>User Authlevel: {{request.user.userprofile.authLevel}}</p>
+        <P>Balance: {{request.user.userprofile.balance}}</P>
+        <P>Staff: {{request.user.is_staff}}</P>
     </div>
     {% else %}
     <div>
