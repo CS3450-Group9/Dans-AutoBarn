@@ -5,6 +5,15 @@
 > Template at bottom
 
 ---
+## 02/13/2023 - Sprint 2
+### What we did well
+* 
+### What we can improve
+* 
+### Other Notes
+* 
+
+---
 ## 02/01/2023 - Sprint 1
 ### What we did well
 * communication

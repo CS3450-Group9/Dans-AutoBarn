@@ -5,7 +5,7 @@
 > Template at bottom
 
 ---
-## DATE - Scrum Master: UPDATE
+## 02/13/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
 | ------------- | --- | --- | --- |
@@ -20,6 +20,7 @@
 ### Screenshot of Kanban Board
 ![Kanban Update](referencePhotos/kanbanUpdates/MM-DD-YY.png)
 
+
 ---
 ## 02/10/2023 - Scrum Master: Carter Watson
 ### Team Notes
@@ -29,6 +30,8 @@
 | Caden Maxwell | PR for login page | Start on activity diagram | None |
 | Caleb Leavitt | Finishing up low fidelty html diagrams, creating some paper ones | finishing up UML diagrams | Problems with linux and django  |
 | Joseph Giles  | Creating Diagrams & Creating structure for the diagrams | Create some low fidelty diagrams | None |
+### Questions for team discussion
+* None
 ### Screenshot of Burndown Chart
 ![Burndown Update](referencePhotos/burndownUpdates/02-10-23.png)
 ### Screenshot of Kanban Board
@@ -43,6 +46,8 @@
 | Caden Maxwell | Front end of login working | activity diagram | waiting on login DB to create accounts  |
 | Caleb Leavitt | reread django docs & finished low fidelty prototype | enhancing lowfidelty prototype | None |
 | Joseph Giles  | None | low-fidelty prototype (G9-24) | None |
+### Questions for team discussion
+* None
 ### Screenshot of Burndown Chart
 ![Burndown Update](referencePhotos/burndownUpdates/02-08-23.png)
 ### Screenshot of Kanban Board
@@ -57,6 +62,8 @@
 | Caden Maxwell | Worked on front end login (G9-13) | Finish up front end login (G9-13) | Creating accounts (G9-16) blocked by DB setup |
 | Caleb Leavitt | Started work on wireframe views (G9-12) | Finishing up wireframe views (G9-12) | Refamilizarizing self with django |
 | Joseph Giles  | PR for User class diagram & activity diagram, looking for feedback on both | Start work on low fidelity prototype (G9-24) | What is required of low fidelity |
+### Questions for team discussion
+* None
 ### Screenshot of Burndown Chart
 ![Burndown Update](referencePhotos/burndownUpdates/02-06-23.png)
 ### Screenshot of Kanban Board
@@ -72,6 +79,8 @@
 | Caden Maxwell | None | Activity diagram (G9-21) & Front end styling for login page (G9-13) | Creating accounts (G9-16) blocked by DB setup |
 | Caleb Leavitt | None | Get the wireframe of view setup (G9-12) | None |
 | Joseph Giles  | None | User class diagram (G9-18) & activity diagram (G9-22) & low fidelity prototype for "search for car" (G9-24) | None |
+### Questions for team discussion
+* None
 ### Screenshot of Burndown Chart
 ![Burndown Update](referencePhotos/burndownUpdates/02-03-23.png)
 ### Screenshot of Kanban Board
