@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,21 +17,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
+                <!-- invalid links for testing purposes -->
                 {% if request.user.userprofile.authLevel == "CU"%}
                 <li class="nav-item">
-                    <a class="nav-link" href="/badlink">bad link - customer</a> <!-- invalid link for testing purposes -->
+                    <a class="nav-link" href="/badlink">bad link - customer</a>
                 </li>
                 {% elif request.user.userprofile.authLevel == "TW" %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/badlink">bad link - til worker</a> <!-- invalid link for testing purposes -->
+                    <a class="nav-link" href="/badlink">bad link - til worker</a>
                 </li>
                 {% elif request.user.userprofile.authLevel == "CR" %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/badlink">bad link - Car Retrieval Specialist</a> <!-- invalid link for testing purposes -->
+                    <a class="nav-link" href="/badlink">bad link - Car Retrieval Specialist</a>
                 </li>
                 {% elif request.user.userprofile.authLevel == "MA" %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/badlink">bad link - Manager</a> <!-- invalid link for testing purposes -->
+                    <a class="nav-link" href="/badlink">bad link - Manager</a>
                 </li>
                 {% endif %}
             </ul>
@@ -54,6 +56,7 @@
         {% block content %}
         {% endblock %}
     </div>
+    <!-- Bootstrap script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>
