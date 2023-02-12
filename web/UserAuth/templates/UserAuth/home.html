@@ -2,4 +2,13 @@
 {% block title %}Home Page{% endblock %}
 {% block content %}
     <h1>HOME PAGE</h1>
+    {% if request.user.is_authenticated %}
+    <div>
+        <p>User Authlevel: {{request.user.userprofile.authLevel}}</p>
+    </div>
+    {% else %}
+    <div>
+        <p>User is not signed in!</p>
+    </div>
+    {% endif %}
 {% endblock %}

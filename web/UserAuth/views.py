@@ -16,5 +16,7 @@ def signup(request):
             return redirect('/home')
     else:
         form = RegisterForm()
+    return render(request, 'registration/signup.html', {"form": form})
 
-    return render(request, 'registration/signup.html', {"form": form})    
+def logout(request):
+    return render(request, '/home')
