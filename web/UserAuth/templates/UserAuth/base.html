@@ -15,24 +15,24 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <ul class="navbar-nav">
-                <!-- TODO: conditionally show these items based on UserProfile.authLevel -->
+                <!-- TODO: conditionally show these items based on UserProfile.auth_level -->
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <!-- invalid links for testing purposes -->
-                {% if request.user.userprofile.authLevel == "CU"%}
+                {% if request.user.userprofile.auth_level == "CU"%}
                 <li class="nav-item">
                     <a class="nav-link" href="/badlink">bad link - customer</a>
                 </li>
-                {% elif request.user.userprofile.authLevel == "TW" %}
+                {% elif request.user.userprofile.auth_level == "TW" %}
                 <li class="nav-item">
                     <a class="nav-link" href="/badlink">bad link - til worker</a>
                 </li>
-                {% elif request.user.userprofile.authLevel == "CR" %}
+                {% elif request.user.userprofile.auth_level == "CR" %}
                 <li class="nav-item">
                     <a class="nav-link" href="/badlink">bad link - Car Retrieval Specialist</a>
                 </li>
-                {% elif request.user.userprofile.authLevel == "MA" %}
+                {% elif request.user.userprofile.auth_level == "MA" %}
                 <li class="nav-item">
                     <a class="nav-link" href="/badlink">bad link - Manager</a>
                 </li>
