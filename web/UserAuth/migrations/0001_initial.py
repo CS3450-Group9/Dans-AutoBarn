@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='UserProfile',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('authLevel', models.CharField(choices=[('CU', 'Customer'), ('TW', 'TillWorker'), ('CR', 'CarRetrievalSpecialist'), ('MA', 'Manager')], default='CU', max_length=2)),
+                ('auth_level', models.CharField(choices=[('CU', 'Customer'), ('TW', 'TillWorker'), ('CR', 'CarRetrievalSpecialist'), ('MA', 'Manager')], default='CU', max_length=2)),
                 ('balance', models.IntegerField(default=0)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],

@@ -16,12 +16,15 @@ class UserProfile(models.Model):
         Manager     = 'MA', _('Manager')
 
     user = models.OneToOneField(User, on_delete=models.CASCADE) # use existing django auth.user
-    authLevel = models.CharField(
+    auth_level = models.CharField(
         max_length=2,
         choices=UserType.choices,
         default=UserType.Customer,
     )
     balance = models.IntegerField(default=0)
+
+    def __repr__(self): # For testing purposes
+        return "Username:" + self.user.username
     
 # these functions tie together the UserProfile model and the default django User profile
 @receiver(post_save, sender=User)
