@@ -1,6 +1,8 @@
 # Activity Diagrams
 
 1. [Authentication](#Authentication)
+1. [Reservation](#Reservation)
+
 
 **Symbol key**
 1. Rounded Rectangle - An action or task
@@ -31,3 +33,20 @@
 ### Decision Roots
 - User have existing account?
 - User information validated in database?
+
+## Reservation
+> User creates reservation
+
+![Reservation](figs/Reservation.png)
+
+### Actions/Tasks
+- User selects dates
+- User selects available car
+- User logins in
+- Reservation is made
+- User balance has cost subtracted
+
+### Decision Roots
+- Cars are available for selected dates
+- User is authenticate/logged
+- User balance is greater than cost
