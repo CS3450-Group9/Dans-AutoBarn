@@ -2,7 +2,7 @@
 
 1. [Authentication](#Authentication)
 2. [Reservation](#Reservation)
-3. [Add Balance](#Add Balance)
+3. [Add Balance](#Add-Balance)
 
 
 **Symbol key**
