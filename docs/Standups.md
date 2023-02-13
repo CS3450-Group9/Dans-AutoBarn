@@ -7,7 +7,7 @@
 ---
 ## 02/13/2023 - Scrum Master: Carter Watson
 ### Team Notes
-| Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
 | ------------- | --- | --- | --- |
 | Carter Watson | Created car and reservation UML diagram, finished up DB authorization stuff |  | None |
 | Caden Maxwell | Created activity diagram |  | None |
@@ -25,7 +25,7 @@
 ---
 ## 02/10/2023 - Scrum Master: Carter Watson
 ### Team Notes
-| Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
 | ------------- | --- | --- | --- |
 | Carter Watson | Pushed the model for the user | get queries working for the user model | None |
 | Caden Maxwell | PR for login page | Start on activity diagram | None |
@@ -41,7 +41,7 @@
 ---
 ## 02/08/2023 - Scrum Master: Carter Watson
 ### Team Notes
-| Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
 | ------------- | --- | --- | --- |
 | Carter Watson | None | finish user model, continue work on backend | None |
 | Caden Maxwell | Front end of login working | activity diagram | waiting on login DB to create accounts  |
@@ -57,7 +57,7 @@
 ---
 ## 02/06/2023 - Scrum Master: Carter Watson
 ### Team Notes
-| Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
 | ------------- | --- | --- | --- |
 | Carter Watson | Started work on login w/ DB (G9-17) | Continue work on Login w/ DB (G9-17) | Should we use django authentication or create our own? |
 | Caden Maxwell | Worked on front end login (G9-13) | Finish up front end login (G9-13) | Creating accounts (G9-16) blocked by DB setup |
@@ -74,7 +74,7 @@
 ---
 ## 02/03/2023 - Scrum Master: Carter Watson
 ### Team Notes
-| Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
 | ------------- | --- | --- | --- |
 | Carter Watson | None | Login Page interface with DB (G9-17) | None |
 | Caden Maxwell | None | Activity diagram (G9-21) & Front end styling for login page (G9-13) | Creating accounts (G9-16) blocked by DB setup |
@@ -94,7 +94,7 @@
 ---
 ## DATE - Scrum Master: UPDATE
 ### Team Notes
-| Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
 | ------------- | --- | --- | --- |
 | Carter Watson |  |  |  |
 | Caden Maxwell |  |  |  |
