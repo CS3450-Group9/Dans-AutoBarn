@@ -1,0 +1,26 @@
+{% extends 'UserAuth/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <h2>LOGIN</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="container">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" required>
+    
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+    
+            <button type="submit">Login</button>
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
+        </div>
+    
+        <div class="container">
+            <!-- TODO: override change password provided by django -->
+            <p class="text-center">Forgot password? Reset it <a href="#">here</a></p>
+            <p class="text-center">Need an account? Signup <a href="/signup">here</a></p>
+        </div>
+    </form>
+{% endblock %}
