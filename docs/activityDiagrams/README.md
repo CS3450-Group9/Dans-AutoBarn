@@ -1,7 +1,8 @@
 # Activity Diagrams
 
 1. [Authentication](#Authentication)
-1. [Reservation](#Reservation)
+2. [Reservation](#Reservation)
+3. [Add Balance](#Add-Balance)
 
 
 **Symbol key**
@@ -35,6 +36,7 @@
 - User information validated in database?
 
 ## Reservation
+
 > User creates reservation
 
 ![Reservation](figs/Reservation.png)
@@ -50,3 +52,19 @@
 - Cars are available for selected dates
 - User is authenticate/logged
 - User balance is greater than cost
+
+
+## Add Balance
+
+> User adds balance to account
+
+![Add Balance](figs/addBalance.png)
+
+### Actions/Tasks
+- User navigates to balance page
+- User enters balance amount
+- System queries database to add balance to user account
+
+### Decision Roots
+- Is user logged in?
+- Is balance valid?
