@@ -36,6 +36,7 @@ The front end will use Vue.js
 3. Create Django app using ```$ python manage.py startapp <<app_name>> ```  
 4. Modify necessary parts of the project to have app be recognized throughout    
    1. Add app to installed apps in ```<<project>>/settings.py```  
+5. Install [python-decouple](https://pypi.org/project/python-decouple/)
 #### Configuration for Vue.js
 1. Create a regular js file for the app you'd like to use vue with  
 2. File should be created in ```<<app_name>>/static/<<app_name>>/<<view>>.js```
