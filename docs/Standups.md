@@ -9,16 +9,17 @@
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work unitl next standup | Roadblocks |
 | ------------- | --- | --- | --- |
-| Carter Watson |  |  |  |
-| Caden Maxwell |  |  |  |
-| Caleb Leavitt |  |  |  |
-| Joseph Giles  |  |  |  |
+| Carter Watson | Created car and reservation UML diagram, finished up DB authorization stuff |  | None |
+| Caden Maxwell | Created activity diagram |  | None |
+| Caleb Leavitt | Created low fidelity prototypes |  | None |
+| Joseph Giles  | Finished up low fidelty prototypes |  | None |
 ### Questions for team discussion
 * Possibility of hosting the DB somewhere (heroku)?
+  * 
 ### Screenshot of Burndown Chart
-![Burndown Update](referencePhotos/burndownUpdates/MM-DD-YY.png)
+![Burndown Update](referencePhotos/burndownUpdates/02-13-23.png)
 ### Screenshot of Kanban Board
-![Kanban Update](referencePhotos/kanbanUpdates/MM-DD-YY.png)
+![Kanban Update](referencePhotos/kanbanUpdates/02-13-23.png)
 
 
 ---

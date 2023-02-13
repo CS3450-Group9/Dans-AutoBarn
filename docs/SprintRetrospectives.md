@@ -7,11 +7,16 @@
 ---
 ## 02/13/2023 - Sprint 2
 ### What we did well
-* 
+* Communication, keeping everyone up to date on where we're were at  
+* Meeting more regularly  
+* Good sense of scope for deliverables  
+* Prepared for changing requirements
 ### What we can improve
-* 
+* Time estimation
+* Distribute workload throughout sprint
+* Knowing/shifting requirements
 ### Other Notes
-* 
+* N/A
 
 ---
 ## 02/01/2023 - Sprint 1
