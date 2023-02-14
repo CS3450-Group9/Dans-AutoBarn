@@ -3,13 +3,13 @@
 ### File Structure
 All documentation will be located in the /docs/ folder   
 Files will be UpperCamelCase  
-Directorys will be lowerCamelCase
+Directories will be lowerCamelCase  
 Other structure determined as needed
 ### Team Organization
 One member will be selected as the scrum master  
 Discorse will be through Discord  
-Standup meetings will be held on Discord  
-All issues will be tracked on Jira
+Standup meetings will be held on Discord Voice Chat   
+All issues will be tracked on Jira  
 ## Version-Control procedures
 ### Git Branches
 **main**  
@@ -18,11 +18,13 @@ Main will need four approvals for the pull request to be merged
 **dev**  
 Dev will be merged to main for upon completion of a Project Milestone/Sprint.  
 Merges to dev will need at least one approval  
-Pull requests should be made when program is functional  
+Pull requests should only be made when program is functional  
 **other development branches**  
 All other branches should have dev as the source and will require a pull request to merge to dev.  
 All branches will be made through Jira and associated with a ticket, format should be as follows "G9-'ticket number'-'ticket title'".  
 When setup, a pull request will need a functioning build from Jenkins to merge.  
+**documentation**  
+The documentation branch is used to update sprint retrospectives and standup meeting documentation  
 ## Tool Stack
 The tool stack will use Django for the backend  
 The Database will be the default Django SQLite Database  
@@ -34,6 +36,7 @@ The front end will use Vue.js
 3. Create Django app using ```$ python manage.py startapp <<app_name>> ```  
 4. Modify necessary parts of the project to have app be recognized throughout    
    1. Add app to installed apps in ```<<project>>/settings.py```  
+5. Install [python-decouple](https://pypi.org/project/python-decouple/)
 #### Configuration for Vue.js
 1. Create a regular js file for the app you'd like to use vue with  
 2. File should be created in ```<<app_name>>/static/<<app_name>>/<<view>>.js```
