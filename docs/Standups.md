@@ -9,13 +9,13 @@
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
 | ------------- | --- | --- | --- |
-| Carter Watson | Created car and reservation UML diagram, finished up DB authorization stuff |  | None |
-| Caden Maxwell | Created activity diagram |  | None |
-| Caleb Leavitt | Created low fidelity prototypes |  | None |
-| Joseph Giles  | Finished up low fidelty prototypes |  | None |
+| Carter Watson | Created car and reservation UML diagram, finished up DB authorization stuff | N/A | None |
+| Caden Maxwell | Created activity diagram | N/A | None |
+| Caleb Leavitt | Created low fidelity prototypes | N/A | None |
+| Joseph Giles  | Finished up low fidelty prototypes | N/A | None |
 ### Questions for team discussion
 * Possibility of hosting the DB somewhere (heroku)?
-  * 
+  * No free options - ask in class tomorrow
 ### Screenshot of Burndown Chart
 ![Burndown Update](referencePhotos/burndownUpdates/02-13-23.png)
 ### Screenshot of Kanban Board
