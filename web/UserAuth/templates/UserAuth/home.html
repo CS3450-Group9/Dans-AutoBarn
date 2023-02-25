@@ -1,6 +1,8 @@
 {% extends 'UserAuth/base.html' %}
-{% block title %}Home Page{% endblock %}
+{% load static %}
+{% block title %}Dan's Auto Barn{% endblock %}
 {% block content %}
+    {% comment %}
     <h1>HOME PAGE</h1>
     {% if request.user.is_authenticated %}
     <div>
@@ -14,4 +16,16 @@
         <p>User is not signed in!</p>
     </div>
     {% endif %}
+    {% endcomment %}
+    <div class="d-flex flex-column">
+        <div style="width: 100%; background-color: var(--bg)">
+            <h1 class="text-center" style="color: var(--ac)">Dan's Auto Barn</h1>
+        </div>
+        <div align="center" style="width: 100%; background-color: var(--bg)">
+            <a class="fs-3" style="color: var(--ac)" href="/search">Make a reservation now!</a>
+        </div>
+        <div class="" style="width: 100%">
+            <img src="{% static "UserAuth/media/testarossa.jpg" %}" alt="Cars Vending Machine" style="width:100%;">
+        </div>
+    </div>
 {% endblock %}
