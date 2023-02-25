@@ -5,6 +5,58 @@
 > Template at bottom
 
 ---
+## 02/24/2023 - Scrum Master: Carter Watson
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson | Worked on home page | Continue work on various pages | None |
+| Caden Maxwell |  |  |  |
+| Caleb Leavitt |  |  |  |
+| Joseph Giles  |  |  |  |
+### Screenshot of Burndown Chart
+![Burndown Update](referencePhotos/burndownUpdates/MM-DD-YY.png)
+### Screenshot of Kanban Board
+![Kanban Update](referencePhotos/kanbanUpdates/MM-DD-YY.png)
+### Questions for team discussion
+* None
+
+---
+## 02/22/2023 - Scrum Master: Carter Watson
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson | Looked into color schemes | finish demo page and a page or two | None |
+| Caden Maxwell | Absent - Created apps |  |  |
+| Caleb Leavitt | Absent: Ski day |  |  |
+| Joseph Giles  |  |  |  |
+### Screenshot of Burndown Chart
+![Burndown Update](referencePhotos/burndownUpdates/02-22-23.png)
+### Screenshot of Kanban Board
+![Kanban Update](referencePhotos/kanbanUpdates/02-22-23.png)
+### Questions for team discussion
+* Decide color scheme
+  * first color scheme
+### Action items to look into
+* how to use interapp css file
+* start work on some models
+
+---
+## 02/20/2023 - Scrum Master: Carter Watson
+### Team Notes
+* No Meeting - Presidents day
+
+---
+## 02/17/2023 - Scrum Master: Carter Watson
+### Team Notes
+* Created tickets
+* Agreed to each attempt to complete 4-5
+
+---
+## 02/15/2023 - Scrum Master: UPDATE
+### Team Notes
+* No standup held, planning for next three sprints instead
+
+---
 ## 02/13/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
