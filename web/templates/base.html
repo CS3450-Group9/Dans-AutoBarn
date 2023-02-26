@@ -69,17 +69,23 @@
     </script>
 
     <!-- actual importing of content -->
-    <div class="content-container">
+    <div class="content-container" id="app">
         {% block content %}
         {% endblock %}
     </div>
 
     <!-- Vue script - changing delimiters due to django vue conflict -->
     <script type="module">
-        import { createApp } from 'vue';
-        import component from "{% static 'component.js' %}";
-
-        createApp(component).mount('#app');
+import { createApp } from 'vue';
+const app = createApp({
+    delimiters: ['[[', ']]'],
+    {% block vueapp %}
+    data() {
+        return {}
+    }
+    {% endblock %}
+})
+const vm = app.mount('#app');
     </script>
 
     <!-- Bootstrap script -->
