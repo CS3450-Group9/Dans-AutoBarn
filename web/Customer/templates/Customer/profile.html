@@ -7,41 +7,20 @@
 <h1>{{ request.user.userprofile.user | title }}'s Profile</h1>
 
 <div class="container-fluid row">
+
         <!-- Sidebar -->
         <hr>
         <ul class="nav nav-pills flex-column col-2">
-            <li class="nav-item" @click="selectedTab = 'info'">
-                <a class="nav-link" :class="{ active: selectedTab === 'info' }" href="#">Personal Info</a>
-            </li>
-            <li class="nav-item" @click="selectedTab = 'balance'">
-                <a class="nav-link" :class="{ active: selectedTab === 'balance' }" href="#">Manage Balance</a>
-            </li>
-            <li class="nav-item" @click="selectedTab = 'reservations'">
-                <a class="nav-link" :class="{ active: selectedTab === 'reservations' }" href="#">Current Reservations</a>
-            </li>
-            <li class="nav-item" @click="selectedTab = 'security'">
-                <a class="nav-link" :class="{ active: selectedTab === 'security' }" href="#">Account Security</a>
-            </li>
-            <li class="nav-item" @click="selectedTab = 'car-broke'">
-                <a class="nav-link" :class="{ active: selectedTab === 'car-broke' }" href="#">Car Broke Down?</a>
+            <li class="nav-item" v-for="(tab, index) in tabs" :key="index" @click="selectedTab = tab.id">
+                <a class="nav-link" :class="{ active: selectedTab === tab.id }" href="#">[[ tab.name ]]</a>
             </li>
         </ul>
         <!-- Sidebar -->
+
+        <!-- Tab Content -->
         <div class="main-content col-10">
-            <div v-if="selectedTab === 'info'" v-cloak>
-                <h1>Personal Info</h1>
-            </div>
-            <div v-else-if="selectedTab === 'balance'" v-cloak>
-                <h1>Manage Balance</h1>
-            </div>
-            <div v-else-if="selectedTab === 'reservations'" v-cloak>
-                <h1>Current Reservations</h1>
-            </div>
-            <div v-else-if="selectedTab === 'security'" v-cloak>
-                <h1>Account Security</h1>
-            </div>
-            <div v-else-if="selectedTab === 'car-broke'" v-cloak>
-                <h1>Car Broke Down?</h1>
+            <div v-cloak>
+                <h1>[[ tabContent ]]</h1>
             </div>
         </div>
 </div>
@@ -56,7 +35,30 @@
 {% block vueapp %}
     data() {
         return {
-            selectedTab: "info"
+            selectedTab: "info",
+            tabs: [
+                { id: 'info', name: 'Personal Info' },
+                { id: 'balance', name: 'Manage Balance' },
+                { id: 'reservations', name: 'Current Reservations' },
+                { id: 'security', name: 'Account Security' },
+                { id: 'car-broke', name: 'Car Broke Down?' },
+            ],
+        }
+    },
+    computed: {
+        tabContent() {
+            if (this.selectedTab === 'info') {
+            return 'Personal Info'
+            } else if (this.selectedTab === 'balance') {
+            return 'Manage Balance'
+            } else if (this.selectedTab === 'reservations') {
+            return 'Current Reservations'
+            } else if (this.selectedTab === 'security') {
+            return 'Account Security'
+            } else if (this.selectedTab === 'car-broke') {
+            return 'Car Broke Down?'
+            }
         }
     }
+    
 {% endblock vueapp %}
