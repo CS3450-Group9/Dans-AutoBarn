@@ -17,12 +17,13 @@
         </ul>
         <!-- Sidebar -->
 
-        <!-- Tab Content -->
+        <!-- Selected Tab Content -->
         <div class="main-content col-10">
             <div v-cloak>
                 <h1>[[ tabContent ]]</h1>
             </div>
         </div>
+        <!-- Selected Tab Content -->
 </div>
 
 {% else %}
@@ -47,18 +48,14 @@
     },
     computed: {
         tabContent() {
-            if (this.selectedTab === 'info') {
-            return 'Personal Info'
-            } else if (this.selectedTab === 'balance') {
-            return 'Manage Balance'
-            } else if (this.selectedTab === 'reservations') {
-            return 'Current Reservations'
-            } else if (this.selectedTab === 'security') {
-            return 'Account Security'
-            } else if (this.selectedTab === 'car-broke') {
-            return 'Car Broke Down?'
-            }
+            let tabContentMap = {
+                'info': 'Personal Info',
+                'balance': 'Manage Balance',
+                'reservations': 'Current Reservations',
+                'security': 'Account Security',
+                'car-broke': 'Car Broke Down?',
+            };
+            return tabContentMap[this.selectedTab] || '';
         }
     }
-    
 {% endblock vueapp %}
