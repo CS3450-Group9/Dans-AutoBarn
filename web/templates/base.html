@@ -76,16 +76,18 @@
 
     <!-- Vue script - changing delimiters due to django vue conflict -->
     <script type="module">
+{% block vueapp %}
 import { createApp } from 'vue';
-const app = createApp({
+let app = createApp({
     delimiters: ['[[', ']]'],
-    {% block vueapp %}
+    {% block appdata %}
     data() {
         return {}
     }
-    {% endblock %}
+    {% endblock appdata %}
 })
-const vm = app.mount('#app');
+app.mount('#app');
+{% endblock vueapp %}
     </script>
 
     <!-- Bootstrap script -->
