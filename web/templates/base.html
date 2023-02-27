@@ -70,16 +70,15 @@
 
     <!-- actual importing of content -->
     <div class="content-container" id="app">
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </div>
 
-    <!-- Vue script - changing delimiters due to django vue conflict -->
+    <!-- Vue script -->
     <script type="module">
 {% block vueapp %}
 import { createApp } from 'vue';
 let app = createApp({
-    delimiters: ['[[', ']]'],
+    delimiters: ['[[', ']]'], // Need to change delimiters due to django vue conflict
     {% block appdata %}
     data() {
         return {}

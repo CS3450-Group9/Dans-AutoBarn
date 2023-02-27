@@ -4,13 +4,13 @@
 {% block content %}
 
 {% if request.user.is_authenticated %}
-<h1>{{ request.user.userprofile.user | title }}'s Profile</h1>
+<h1 class="text-center py-2">{{ request.user.userprofile.user | title }}'s Profile</h1>
 <hr>
 
 <div class="d-flex">
 
     <!-- Sidebar -->
-    <ul class="nav nav-pills flex-column col-2">
+    <ul class="d-flex nav nav-pills flex-column">
         <li class="nav-item" v-for="(tab, index) in tabs" :key="index" @click="selectedTab = tab.id">
             <a class="nav-link" :class="{ active: selectedTab === tab.id }" href="#">[[ tab.name ]]</a>
         </li>
@@ -18,8 +18,8 @@
     <!-- Sidebar -->
 
     <!-- Selected Tab Content -->
-    <div class="col-10">
-        <component :is="selectedTab"></component>
+    <div class="d-flex">
+        <component :is="selectedTab"/>
     </div>
     <!-- Selected Tab Content -->
 
