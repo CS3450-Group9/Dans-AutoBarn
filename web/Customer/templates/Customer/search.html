@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dan's Auto Barn{% endblock %}
+    {% block content %}
+    <div class="container">
+        <h1>Dan's Auto Barn</h1>
+    </div>
+    <div class="container">
+        <h2>All Reservations</h2>
+        {% comment %} <p>Enter desired reservation dates to filter inventory</p>
+        <p><label for="startdate">Enter start date: </label>
+            <input type="text" name="From" maxlength="8" size="8">
+            <label for="enddate">Enter end date: </label>
+            <input type="text" name="To" maxlength="8" size="8"> 
+            <input type="submit" value="Filter">
+        </p> {% endcomment %}
+        <p>Today's Date: {{formatedDate}}</p>
+    </div>
+    <div class="container">
+        {% if car_inventory %}
+        <ol>
+            {% for car in car_inventory%}
+            <li class="content-container">
+                <p><img src="{% static 'Customer/pics/civic.png' %}" class="image-container" alt="civic" width="200"></p>
+                <p>
+                    Vehicle: {{car.make}} {{car.model}}<br>
+                    Year: {{car.year}}<br> 
+                    Reservation Price: $50<br>
+                    PhotoID: {{car.photoID}}
+                </p>
+                <p align="right">Click to view availability: <input type="button" value="Reserve"></p>
+            </li>
+            {% endfor %}
+        </ol>
+        {% else %}
+            <p>There are no cars in the inventory</p>
+        {% endif %}
+    </div>
+    {% endblock %}
