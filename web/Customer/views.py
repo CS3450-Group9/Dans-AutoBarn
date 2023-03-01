@@ -2,8 +2,6 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import Car
 
-<<<<<<< HEAD
-# Create your views here.
 def profile(request):
     return render(request, 'Customer/profile.html')
 
