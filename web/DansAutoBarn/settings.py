@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # created apps
     'UserAuth.apps.UserauthConfig',
     'Customer.apps.CustomerConfig',
+    'Manager.apps.ManagerConfig',
 ]
 
 MIDDLEWARE = [
