@@ -1,6 +1,7 @@
-<div>
+<div> <!-- This will need to  be changed to include the default django auth password reset page-->
     <h1>Password Change</h1>
-    <form>
+    <form method="post">
+        {% csrf_token %}
         <div class="form-group">
             <label for="inputPassword1">Password</label>
             <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
@@ -8,10 +9,6 @@
         <div class="form-group">
             <label for="inputPassword2">Re-enter Password</label>
             <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-        </div>
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
