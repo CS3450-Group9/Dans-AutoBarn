@@ -50,19 +50,19 @@ let app = createApp({
     },
 })
 app.component('info', {
-    template: `{% include 'Customer/personalInfo.html' %}`
+    template: `{% include 'Customer/profileTabs/personalInfo.html' %}`
 })
 app.component('balance', {
-    template: `{% include 'Customer/manageBalance.html' %}`
+    template: `{% include 'Customer/profileTabs/manageBalance.html' %}`
 })
 app.component('reservations', {
-    template: `{% include 'Customer/reservations.html' %}`
+    template: `{% include 'Customer/profileTabs/reservations.html' %}`
 })
 app.component('pass-change', {
-    template: `{% include 'Customer/passChange.html' %}`
+    template: `{% include 'Customer/profileTabs/passChange.html' %}`
 })
 app.component('car-broke', {
-    template: `{% include 'Customer/carBroke.html' %}`
+    template: `{% include 'Customer/profileTabs/carBroke.html' %}`
 })
 app.mount('#app');
 {% endblock vueapp %}
