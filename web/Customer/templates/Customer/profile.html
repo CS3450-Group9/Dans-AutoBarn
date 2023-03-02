@@ -10,7 +10,7 @@
 <div class="d-flex">
 
     <!-- Sidebar -->
-    <ul class="d-flex nav nav-pills flex-column">
+    <ul class="nav nav-pills flex-column">
         <li class="nav-item p-2" v-for="tab in tabs" :key="tab.id" v-cloak>
             <router-link :to="tabLink(tab)" class="nav-link" :class="{ active: isTabActive(tab) }">[[ tab.name ]]</router-link>
         </li>
@@ -18,7 +18,7 @@
     <!-- Sidebar -->
 
     <!-- Selected Tab Content -->
-    <div class="d-flex">
+    <div>
         <router-view class="p-2"></router-view>
     </div>
     <!-- Selected Tab Content -->
@@ -35,7 +35,7 @@
 
 {% block vueapp %}
 import { createApp } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
 // Initialize profile tab components
 const Info = { template: `{% include 'Customer/profileTabs/personalInfo.html' %}` };
@@ -46,13 +46,14 @@ const CarBroke = { template: `{% include 'Customer/profileTabs/carBroke.html' %}
 
 // Create router so we can jump straight to these tabs from other pages
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory("/profile/"), // The argument here is the base URL
     routes: [
-        { path: '/profile/info', component: Info},
-        { path: '/profile/balance', component: Balance},
-        { path: '/profile/reservations', component: Reservations},
-        { path: '/profile/pass-change', component: PassChange},
-        { path: '/profile/car-broke', component: CarBroke},
+        { path: '/info', component: Info},
+        { path: '/balance', component: Balance},
+        { path: '/reservations', component: Reservations},
+        { path: '/pass-change', component: PassChange},
+        { path: '/car-broke', component: CarBroke},
+        { path: '/:catchAll(.*)', redirect: '/info'}, // Redirect to the info tab if url isn't valid
     ]
 });
 
@@ -71,21 +72,19 @@ let app = createApp({
     },
     computed: {
         currentTab() {
-            if (this.$route.matched.length > 0) {
-                return this.$route.path.split('/').pop()
-            }
-            return 'info'
+            return this.$route.path.split('/').pop()
         },
     },
     methods: {
         tabLink(tab) {
-            return `/profile/${tab.id}`;
+            return `/${tab.id}`;
         },
         isTabActive(tab) {
             return this.currentTab === tab.id;
         },
     },
-})
+});
+
 app.use(router);
 app.mount('#app');
 {% endblock vueapp %}
