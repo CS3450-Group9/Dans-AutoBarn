@@ -6,6 +6,15 @@
 > Template at bottom
 
 ---
+## 03/02/2023
+### Questions for Dan
+* Database hosting options
+### Things we could improve on
+* 
+### Things we're doing well
+* 
+
+---
 ## 02/07/2023 - Sprint 2
 ### Questions for Dan
 * What are you looking for in a low fidelty prototype of a feature?  

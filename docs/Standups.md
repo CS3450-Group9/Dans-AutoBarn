@@ -5,18 +5,46 @@
 > Template at bottom
 
 ---
+## 03/01/2023 - Scrum Master: Carter Watson
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson |  |  |  |
+| Caden Maxwell |  |  |  |
+| Caleb Leavitt |  |  |  |
+| Joseph Giles  |  |  |  |
+### Screenshot of Burndown Chart
+![Burndown Update](referencePhotos/burndownUpdates/03-01-23.png)
+### Screenshot of Kanban Board
+![Kanban Update](referencePhotos/kanbanUpdates/03-01-23.png)
+### Questions for team discussion
+* None
+
+---
+## 02/27/2023 - Scrum Master: Carter Watson
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson | Absent |  |  |
+| Caden Maxwell |  |  |  |
+| Caleb Leavitt |  |  |  |
+| Joseph Giles  |  |  |  |
+### General Discussion
+* Not sure the scope of the tickets at hand
+
+---
 ## 02/24/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
 | ------------- | --- | --- | --- |
 | Carter Watson | Worked on home page | Continue work on various pages | None |
-| Caden Maxwell |  |  |  |
-| Caleb Leavitt |  |  |  |
-| Joseph Giles  |  |  |  |
+| Caden Maxwell | Working on user profile page |  | None |
+| Caleb Leavitt | Absent: Heading out of town |  |  |
+| Joseph Giles  | Worked on few pages |  | Maybe need Models created |
 ### Screenshot of Burndown Chart
-![Burndown Update](referencePhotos/burndownUpdates/MM-DD-YY.png)
+![Burndown Update](referencePhotos/burndownUpdates/02-24-23.png)
 ### Screenshot of Kanban Board
-![Kanban Update](referencePhotos/kanbanUpdates/MM-DD-YY.png)
+![Kanban Update](referencePhotos/kanbanUpdates/02-24-23.png)
 ### Questions for team discussion
 * None
 
