@@ -79,6 +79,6 @@ span.password {
   transform: translate(-50%, -50%);
 }
 
-[v-cloak] {
+[v-cloak] { /* Can be used to hide an element until Vue finishes compilation */
     display: none;
 }
