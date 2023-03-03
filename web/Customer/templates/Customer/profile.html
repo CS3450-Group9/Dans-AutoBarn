@@ -12,15 +12,13 @@
     <!-- Sidebar -->
     <ul class="nav nav-pills flex-column">
         <li class="nav-item p-2" v-for="tab in tabs" :key="tab.id" v-cloak>
-            <router-link :to="tabLink(tab)" class="nav-link" :class="{ active: isTabActive(tab) }">[[ tab.name ]]</router-link>
+            <router-link :to="tabURL(tab)" class="nav-link" :class="{ active: isTabActive(tab) }">[[ tab.name ]]</router-link>
         </li>
     </ul>
     <!-- Sidebar -->
 
     <!-- Selected Tab Content -->
-    <div>
-        <router-view class="p-2"></router-view>
-    </div>
+    <router-view class="p-2"></router-view>
     <!-- Selected Tab Content -->
 
 
@@ -53,7 +51,7 @@ const router = createRouter({
         { path: '/reservations', component: Reservations},
         { path: '/pass-change', component: PassChange},
         { path: '/car-broke', component: CarBroke},
-        { path: '/:catchAll(.*)', redirect: '/info'}, // Redirect to the info tab if url isn't valid
+        { path: '/:catchAll(.*)', redirect: '/info'}, // Redirect to the info tab if url  after '/profile/'isn't valid
     ]
 });
 
@@ -65,7 +63,7 @@ let app = createApp({
                 { id: 'info', name: 'Personal Info' },
                 { id: 'balance', name: 'Manage Balance' },
                 { id: 'reservations', name: 'Current Reservations' },
-                { id: 'pass-change', name: 'Account Security' },
+                { id: 'pass-change', name: 'Change Password' },
                 { id: 'car-broke', name: 'Car Broke Down?' },
             ],
         }
@@ -76,7 +74,7 @@ let app = createApp({
         },
     },
     methods: {
-        tabLink(tab) {
+        tabURL(tab) {
             return `/${tab.id}`;
         },
         isTabActive(tab) {
