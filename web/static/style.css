@@ -7,14 +7,15 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  
-}
-.content-container {
-  background-color: var(--bg);
+  font-family: Arial, Helvetica, sans-serif; 
 }
 
-/* end theme colorss */
+.content-container {
+  /* background-color: var(--bg); */
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 h2 {
   text-align: center;
