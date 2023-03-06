@@ -21,7 +21,6 @@
     <router-view class="p-2"></router-view>
     <!-- Selected Tab Content -->
 
-
 </div>
 
 {% else %}
@@ -51,7 +50,7 @@ const router = createRouter({
         { path: '/reservations', component: Reservations},
         { path: '/pass-change', component: PassChange},
         { path: '/car-broke', component: CarBroke},
-        { path: '/:catchAll(.*)', redirect: '/info'}, // Redirect to the info tab if url  after '/profile/'isn't valid
+        { path: '/:catchAll(.*)', redirect: '/info'}, // Redirect to the info tab if url after '/profile/' isn't valid
     ]
 });
 

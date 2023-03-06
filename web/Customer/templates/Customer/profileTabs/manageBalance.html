@@ -1,4 +1,17 @@
 <div>
     <h1>Manage Account Balance</h1>
-    <p>This is a place to transfer funds</p>
+    <form method="post" class="p-3 m-0">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="inputBal">Enter an amount to transfer:</label>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">$</div>
+                </div>
+                <input type="number" min="0" class="form-control" id="inputBal" name="inputBal" placeholder="Add Balance">
+            </div>
+        </div>
+        <div>{{ msg }}</div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </div>
