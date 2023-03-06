@@ -2,30 +2,24 @@
 {% load static %}
 {% block title %}Dan's Auto Barn{% endblock %}
 {% block content %}
-    {% comment %}
-    <h1>HOME PAGE</h1>
-    {% if request.user.is_authenticated %}
-    <div>
-        <P>User: {{request.user}}</P>
-        <p>User Authlevel: {{request.user.userprofile.auth_level}}</p>
-        <P>Balance: {{request.user.userprofile.balance}}</P>
-        <P>Staff: {{request.user.is_staff}}</P>
-    </div>
-    {% else %}
-    <div>
-        <p>User is not signed in!</p>
-    </div>
-    {% endif %}
-    {% endcomment %}
     <div class="d-flex flex-column">
+        {% comment %} TODO: Change to logo {% endcomment %}
         <div style="width: 100%; background-color: var(--bg)">
             <h1 class="text-center" style="color: var(--ac)">Dan's Auto Barn</h1>
         </div>
+        {% comment %} TODO: Stylize this so the find reservation is over the image of the car {% endcomment %}
         <div align="center" style="width: 100%; background-color: var(--bg)">
             <a class="fs-3" style="color: var(--ac)" href="/search">Make a reservation now!</a>
         </div>
         <div class="" style="width: 100%">
             <img src="{% static "UserAuth/media/testarossa.jpg" %}" alt="Cars Vending Machine" style="width:100%;">
         </div>
+        <div class="" style="width: 100%">
+            <img src="{% static "UserAuth/media/testarossa.jpg" %}" alt="Cars Vending Machine" style="width:100%;">
+        </div>
+        <div class="" style="width: 100%">
+            <img src="{% static "UserAuth/media/testarossa.jpg" %}" alt="Cars Vending Machine" style="width:100%;">
+        </div>  
+        {% comment %} TODO: Signin/login section OR profile page depending on authorization {% endcomment %}
     </div>
 {% endblock %}
