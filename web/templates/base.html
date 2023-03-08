@@ -5,22 +5,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <!-- install bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Get fontawesome icons-->
+    <script src="https://kit.fontawesome.com/aae2ea0d22.js" crossorigin="anonymous"></script>
+    <!-- import our css LEAVE THIS AS LAST IMPORT-->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <title>{% block title %}Dan's Auto Barn{% endblock %}</title>
 </head>
 <body>
     {% block body %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container-fluid">
+        <div class="container-fluid content-container">
             <ul class="navbar-nav">
                 <!-- TODO: conditionally show these items based on UserProfile.auth_level -->
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/badlink">Find Reservation</a>
+                    <a class="nav-link" href="/search">Find Reservation</a>
                 </li>
                 <!-- invalid links for testing purposes -->
                 {% if request.user.userprofile.auth_level == "CU"%}
@@ -41,8 +44,6 @@
                 </li>
                 {% endif %}
             </ul>
-        </div>
-        <div>
             <!-- display login/out depending on auth status -->
             <ul class="navbar-nav">
                 {% if request.user.is_authenticated %}
@@ -75,20 +76,64 @@
         {% block content %}{% endblock content %}
     </div>
 
+    <!-- Footer -->
+    <footer class="bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+            <div class="container-fluid content-container">
+                <!-- left hand side -->
+                <ul class="navbar-nav" style="margin-bottom: auto;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/CS3450-Group9" target="_blank">Created by: CS3450-Group9</a>
+                    </li>
+                </ul>
+                <!-- right hand side -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                <span class="nav-link">Group Members</span>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <a class="nav-link" href="https://github.com/cartwatson" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a>
+                                <a class="nav-link" href="https://linkedin.com/in/cartwatson" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+                                <a class="nav-link" href="https://cartwatson.com/" target="_blank">Carter Watson</a>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <a class="nav-link" href="https://github.com/caden-maxwell" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a>
+                                <a class="nav-link" href="https://www.linkedin.com/in/cadenmaxwell/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+                                <a class="nav-link" href="#" target="_blank">Caden Maxwell</a>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <a class="nav-link" href="https://github.com/jeonix" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a>
+                                <a class="nav-link" href="https://www.linkedin.com/in/joseph-giles-160346b2/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+                                <a class="nav-link" href="#" target="_blank">Joe Giles</a>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <a class="nav-link" href="https://github.com/Irion7-1" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a>
+                                <a class="nav-link" href="https://www.linkedin.com/in/caleb-leavitt-b21926224" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+                                <a class="nav-link" href="#" target="_blank">Caleb Leavitt</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </footer>
+
     <!-- Vue script -->
     <script type="module">
-{% block vueapp %}
-import { createApp } from 'vue';
-let app = createApp({
-    delimiters: ['[[', ']]'], // Need to change delimiters due to django vue conflict
-    {% block appdata %}
-    data() {
-        return {}
-    }
-    {% endblock appdata %}
-})
-app.mount('#app');
-{% endblock vueapp %}
+    {% block vueapp %}
+        import { createApp } from 'vue';
+        let app = createApp({
+            delimiters: ['[[', ']]'], // Need to change delimiters due to django vue conflict
+            {% block appdata %}
+            data() {
+                return {}
+            }
+            {% endblock appdata %}
+        })
+        app.mount('#app');
+    {% endblock vueapp %}
     </script>
 
     <!-- Bootstrap script -->
