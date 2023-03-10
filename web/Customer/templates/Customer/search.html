@@ -14,12 +14,11 @@
         <ol>
             {% for car in car_inventory%}
             <li class="content-container">
-                <p><img src="{% static 'Customer/pics/civic.png' %}" class="image-container" alt="civic" width="200"></p>
+                <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
                 <p>
                     Vehicle: {{car.make}} {{car.model}}<br>
                     Year: {{car.year}}<br> 
                     Reservation Price: $50<br>
-                    PhotoID: {{car.photoID}}
                 </p>
                 <p align="right">Click to view availability: <input type="button" value="Reserve"></p>
             </li>
