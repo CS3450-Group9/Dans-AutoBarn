@@ -1,7 +1,7 @@
 <div>
     <h1> Personal Information </h1>
     
-    <p>Authentication Level: {{ request.user.userprofile.auth_level }}</p>
+    <p>Authentication Level: {{ request.user.userprofile.get_auth_level_display }}</p>
     <p>Current Balance: ${{ request.user.userprofile.balance }} </p>
     <p>We probably don't need this page but I'll keep it here for now just in case</p>
 </div>
