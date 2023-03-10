@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('year', models.IntegerField()),
                 ('gasFillPercent', models.IntegerField()),
                 ('plateNumber', models.CharField(max_length=50)),
-                ('photoID', models.CharField(max_length=50)),
+                ('image', models.ImageField(upload_to="cars")),
                 ('lowjacked', models.BooleanField(default=False)),
             ],
         ),
