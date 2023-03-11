@@ -1,29 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from .models import Car
-
-def profile(request, context={}):
-    return render(request, 'Customer/profile.html', context)
-
-def add_balance(request):
-    if request.method != "POST":
-        return profile(request)
-    try:
-        # For now, we will just deal with integers
-        amount = int(request.POST.get("inputBal", 0))
-        if amount <= 0: raise ValueError
-    except ValueError:
-        context = { "msg": "Amount must be a positive integer" }
-        return profile(request, context=context)
-
-    try:
-        request.user.userprofile.balance += amount
-        request.user.userprofile.save()
-        context = { "msg": f"Successfully added ${amount} to account!" }
-    except:
-        context = {"msg": "Something went wrong... Unable to transfer funds."}
-
-    return profile(request, context=context)
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from Customer.models import Reservation
+from Manager.models import Car
 
 def search_for_res(request):
     time_now = timezone.now()
@@ -34,3 +14,19 @@ def search_for_res(request):
         'car_inventory': car_inventory,
         }
     return render(request, 'Customer/search.html', context)
+
+def create_res(request, car_id):
+    car = get_object_or_404(Car, pk=car_id)
+    time_now = timezone.now()
+    formatedDate = time_now.strftime("%m-%d-%Y")
+    res_date = Reservation.objects.all()
+    context = {
+        'formatedDate': formatedDate,
+        'car': car,
+        'res_date': res_date,
+        }
+    return render(request, 'Customer/reservation.html', context)
+
+# def all_current_res(request, car_id):
+#     car = get_object_or_404(Car, pk=car_id)
+#     res_list = Reservation.objects.get(pk=car)

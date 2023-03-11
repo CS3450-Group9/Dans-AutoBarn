@@ -2,14 +2,16 @@
 {% load static %}
 {% block title %}Dan's Auto Barn{% endblock %}
     {% block content %}
-    <div class="container">
-        <h1>Dan's Auto Barn</h1>
+    <div class="d-flex flex-column">
+        <div style="width: 100%; background-color: var(--bg)">
+            <h1 class="text-center" style="color: var(--ac)">Dan's Auto Barn</h1>
+        </div>
+        <div align="center" style="width: 100%; background-color: var(--bg)">
+            <h2 style="color: var(--ac)">All Reservations</h2>
+            <p>Today's Date: {{formatedDate}}</p>
+        </div>
     </div>
-    <div class="container">
-        <h2>All Reservations</h2>
-        <p>Today's Date: {{formatedDate}}</p>
-    </div>
-    <div class="container">
+    <div class="d-flex flex-column container">
         {% if car_inventory %}
         <ol>
             {% for car in car_inventory%}
@@ -20,7 +22,9 @@
                     Year: {{car.year}}<br> 
                     Reservation Price: $50<br>
                 </p>
-                <p align="right">Click to view availability: <input type="button" value="Reserve"></p>
+                <p align="right"><a href="{% url 'Customer:reservation' car.id %}">
+                    <button>Reserve</button></a>                
+                </p>
             </li>
             {% endfor %}
         </ol>
