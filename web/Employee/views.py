@@ -2,15 +2,15 @@ from django.shortcuts import render
 
 def staff(request):
     tabs = [
-        {"id": "active-rentals",
+        {"url": "active-rentals",
          "tab_title": "Active Rentals",
          "component_name": "ActiveRentals",
          "template": 'Employee/staffTabs/activeRentals.html' },
-        {"id": "verify",
+        {"url": "verify",
          "tab_title": "Verify Pick-Up",
          "component_name": "Verify",
          "template": 'Employee/staffTabs/verifyPickup.html' },
-        {"id": "broken-cars",
+        {"url": "broken-cars",
          "tab_title": "Currently Broken Cars",
          "component_name": "BrokenCars",
          "template": 'Employee/staffTabs/brokenCars.html' },
@@ -19,11 +19,11 @@ def staff(request):
         context = {"error": "User is not signed in!"}
     elif request.user.userprofile.auth_level == "TW" or request.user.userprofile.auth_level == "CR":
         tabs += [
-            {"id": "log-hours",
+            {"url": "log-hours",
              "tab_title": "Log Hours Worked",
              "component_name": "LogHours",
              "template": 'Employee/staffTabs/logHours.html' },
-            {"id": "pay-history",
+            {"url": "pay-history",
              "tab_title": "Pay History",
              "component_name": "PayHistory",
              "template": 'Employee/staffTabs/payHistory.html' },
@@ -31,15 +31,15 @@ def staff(request):
         context = {"tabs": tabs}
     elif request.user.userprofile.auth_level == "MA":
         tabs += [
-            {"id": "cars",
+            {"url": "cars",
              "tab_title": "Manage Cars",
              "component_name": "CarsView",
              "template": 'Manager/managerTabs/manageCars.html' },
-            {"id": "users",
+            {"url": "users",
              "tab_title": "Manage Users",
              "component_name": "UsersView",
              "template": 'Manager/managerTabs/manageUsers.html' },
-            {"id": "hours",
+            {"url": "hours",
              "tab_title": "Review Hours",
              "component_name": "Hours",
              "template": 'Manager/managerTabs/reviewHours.html' },

@@ -13,9 +13,9 @@
         {% for tab in tabs %}
         <li class="nav-item p-2">
             <router-link
-            :to="tabURL('{{ tab.id }}')"
+            :to="tabURL('{{ tab.url }}')"
             class="nav-link"
-            :class="{ active: isTabActive('{{ tab.id }}') }"
+            :class="{ active: isTabActive('{{ tab.url }}') }"
             >{{ tab.tab_title }}</router-link>
         </li>
         {% endfor %}
@@ -42,12 +42,12 @@ const {{ tab.component_name }} = { template: `{% include tab.template %}` };
 
 // Create router so we can jump straight to these tabs from other pages
 const router = createRouter({
-    history: createWebHistory("/{% block base_url %}{% endblock base_url %}/"),
+    history: createWebHistory("/{% block base_url %}{% endblock base_url %}/"), // The argument here is the base url for the page
     routes: [
         {% for tab in tabs %}
-        { path: '/{{ tab.id }}', component: {{ tab.component_name }}},
+        { path: '/{{ tab.url }}', component: {{ tab.component_name }}},
         {% endfor %}
-        { path: '/:catchAll(.*)', redirect: '/{{ tabs.0.id }}'},
+        { path: '/:catchAll(.*)', redirect: '/{{ tabs.0.url }}'}, // Default to the first tab if none matched
     ]
 });
 
