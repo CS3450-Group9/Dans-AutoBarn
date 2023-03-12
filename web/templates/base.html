@@ -122,18 +122,18 @@
 
     <!-- Vue script -->
     <script type="module">
-    {% block vueapp %}
+    {% block vue_app %}
         import { createApp } from 'vue';
         let app = createApp({
             delimiters: ['[[', ']]'], // Need to change delimiters due to django vue conflict
-            {% block appdata %}
+            {% block app_data %}
             data() {
                 return {}
             }
-            {% endblock appdata %}
+            {% endblock app_data %}
         })
         app.mount('#app');
-    {% endblock vueapp %}
+    {% endblock vue_app %}
     </script>
 
     <!-- Bootstrap script -->
