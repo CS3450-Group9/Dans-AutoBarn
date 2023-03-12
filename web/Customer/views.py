@@ -28,7 +28,7 @@ def profile(request, context=dict()):
     if request.user.is_authenticated:
         context.update({"tabs": tabs})
     else:
-        {"error": "User is not signed in!"}
+        context = {"error": "User is not signed in!"}
     return render(request, 'Customer/profile.html', context)
 
 def add_balance(request):
