@@ -3,5 +3,5 @@ from . import views
 
 app_name = 'Employee'
 urlpatterns = [
-    re_path(r'^employee/.*', views.employee, name="employee"), # Used regex path to include all paths with the prefix 'employee/'
+    re_path(r'^staff/.*', views.staff, name="staff"), # Used regex path to include all paths with the prefix 'employee/'
 ]
