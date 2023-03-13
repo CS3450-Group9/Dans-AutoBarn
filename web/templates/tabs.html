@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if not error %}
+{% block tabs_header %}
+<h1 class="text-center py-3">Default Tab Headers</h1>
+{% endblock tabs_header %}
+<hr>
+<div class="d-flex">
+
+    <!-- Sidebar -->
+    <ul class="nav nav-pills flex-column">
+        {% for tab in tabs %}
+        <li class="nav-item p-2">
+            <router-link
+            :to="tabURL('{{ tab.url }}')"
+            class="nav-link"
+            :class="{ active: isTabActive('{{ tab.url }}') }"
+            >{{ tab.tab_title }}</router-link>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Selected Tab Content -->
+    <router-view class="p-2"></router-view>
+</div>
+
+{% else %}
+<h1 class="text-center py-3">{{ error }}</h1>
+{% endif %}
+
+{% endblock content %}
+
+{% block vue_app %}
+import { createApp } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
+
+// Initialize profile tab components
+{% for tab in tabs %}
+const {{ tab.component_name }} = { template: `{% include tab.template %}` };
+{% endfor %}
+
+// Create router so we can jump straight to these tabs from other pages
+const router = createRouter({
+    history: createWebHistory("/{% block base_url %}{% endblock base_url %}/"), // The argument here is the base url for the page
+    routes: [
+        {% for tab in tabs %}
+        { path: '/{{ tab.url }}', component: {{ tab.component_name }}},
+        {% endfor %}
+        { path: '/:catchAll(.*)', redirect: '/{{ tabs.0.url }}'}, // Default to the first tab if none matched
+    ]
+});
+
+let app = createApp({
+    delimiters: ['[[', ']]'],
+    data() {
+        return {}
+    },
+    computed: {
+        currentTab() {
+            return this.$route.path.split('/').pop()
+        },
+    },
+    methods: {
+        tabURL(tab) {
+            return `/${tab}`;
+        },
+        isTabActive(tab) {
+            return this.currentTab === tab;
+        },
+    },
+});
+
+app.use(router);
+app.mount('#app');
+{% endblock vue_app %}
