@@ -16,12 +16,33 @@ class UserProfile(models.Model):
         Manager     = 'MA', _('Manager')
 
     user = models.OneToOneField(User, on_delete=models.CASCADE) # use existing django auth.user
-    auth_level = models.CharField(
+    _auth_level = models.CharField(
         max_length=2,
         choices=UserType.choices,
         default=UserType.Customer,
+        db_column="auth_level"
     )
-    balance = models.IntegerField(default=0)
+    _balance = models.IntegerField(default=0, db_column="balance")
+
+    @property
+    def balance(self):
+        return self._balance
+
+    @balance.setter
+    def balance(self, new_bal):
+        if new_bal < 0:
+            raise ValueError
+        self._balance = new_bal
+
+    @property
+    def auth_level(self):
+        return self._auth_level
+
+    @auth_level.setter
+    def auth_level(self, new_auth):
+        if new_auth not in self.UserType.choices:
+            raise ValueError
+        self._auth_level = new_auth
 
     def __repr__(self): # For testing purposes
         return "Username:" + self.user.username
