@@ -10,8 +10,7 @@ def add_balance(request):
         return profile(request)
     try:
         amount = int(request.POST.get("inputBal", 0))
-        if amount < 1:
-            raise ValueError
+        if amount < 1: raise ValueError
         request.user.userprofile.balance += amount
         request.user.userprofile.save()
     except ValueError:
