@@ -37,6 +37,7 @@
 
 ---
 ## 02/13/2023 - Sprint 2
+> Scrum Master: Carter Watson
 ### What we did well
 * Communication, keeping everyone up to date on where we're were at  
 * Meeting more regularly  
@@ -51,6 +52,7 @@
 
 ---
 ## 02/01/2023 - Sprint 1
+> Scrum Master: Carter Watson
 ### What we did well
 * communication
 * divided tasks evenly
@@ -67,9 +69,16 @@
 
 ---
 ## MM/DD/YYYY
+> Scrum Master: UPDATE
 ### What we did well
 * 
-### What we can improve
+### What didn't go well
+* 
+### What we can imporve on
+* 
+### Measurement criteria for improvements
+* 
+### Percentage of work done by each team member (decided together)
 * 
 ### Other Notes
 * 
