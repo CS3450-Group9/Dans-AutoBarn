@@ -35,17 +35,14 @@ def add_balance(request):
     if request.method != "POST":
         return profile(request)
     try:
-        # For now, we will just deal with integers
         amount = int(request.POST.get("inputBal", 0))
-        if amount <= 0: raise ValueError
-    except ValueError:
-        context = { "bal_msg": "Amount must be a positive integer" }
-        return profile(request, context=context)
-
-    try:
+        if amount < 1: raise ValueError
         request.user.userprofile.balance += amount
+        request.user.userprofile.full_clean()
         request.user.userprofile.save()
         context = { "bal_msg": f"Successfully added ${amount} to account!" }
+    except ValueError:
+        context = { "bal_msg": "Amount must be a positive integer" }
     except:
         context = {"bal_msg": "Something went wrong... Unable to transfer funds."}
 
