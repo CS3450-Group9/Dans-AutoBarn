@@ -17,8 +17,8 @@ def populate_db(apps, schema_editor):
     new_admin = UserProfile.objects.get(pk=1)
     new_customer = UserProfile.objects.get(pk=2)
     
-    res1 = Reservation(car=car1, user=new_admin, startDate=start_date, endDate=end_date, renterID='id1')
-    res2 = Reservation(car=car2, user=new_customer, startDate=start_date, endDate=end_date, renterID='id2')
+    res1 = Reservation(car=car1, user=new_admin, startDate=start_date, endDate=end_date)
+    res2 = Reservation(car=car2, user=new_customer, startDate=start_date, endDate=end_date)
     res1.save()
     res2.save()
 
