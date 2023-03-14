@@ -38,6 +38,7 @@ def add_balance(request):
         amount = int(request.POST.get("inputBal", 0))
         if amount < 1: raise ValueError
         request.user.userprofile.balance += amount
+        request.user.userprofile.full_clean()
         request.user.userprofile.save()
         context = { "bal_msg": f"Successfully added ${amount} to account!" }
     except ValueError:
