@@ -5,20 +5,32 @@
 > Template at bottom
 
 ---
-## 03/01/2023 - Scrum Master: Carter Watson
+## 03/13/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
 | ------------- | --- | --- | --- |
-| Carter Watson |  |  |  |
-| Caden Maxwell |  |  |  |
-| Caleb Leavitt |  |  |  |
-| Joseph Giles  |  |  |  |
+| Carter Watson | Created Logo, added footer | work on putting together an effective sprint | None |
+| Caden Maxwell | Worked on getting profile page to work, setup staff page - accessed by employeea and manager view changes for authLevel | Open to helping out | None |
+| Caleb Leavitt | got stuck on redirect |  working on backlog, making pages | Talk with someone about the implementation stuff that was missed |
+| Joseph Giles  | was stuck on migration files, working on create reservation page | filter by date for reservation | how to implement user filtering by date |
 ### Screenshot of Burndown Chart
-![Burndown Update](referencePhotos/burndownUpdates/03-01-23.png)
+![Burndown Update](referencePhotos/burndownUpdates/03-13-23.png)
 ### Screenshot of Kanban Board
-![Kanban Update](referencePhotos/kanbanUpdates/03-01-23.png)
+![Kanban Update](referencePhotos/kanbanUpdates/03-13-23.png)
 ### Questions for team discussion
 * None
+
+---
+## 03/10/2023 - Scrum Master: Carter Watson
+* No Meeting - Spring Break
+
+---
+## 03/08/2023 - Scrum Master: Carter Watson
+* No Meeting - Spring Break
+
+---
+## 03/06/2023 - Scrum Master: Carter Watson
+* No Meeting - Spring Break
 
 ---
 ## 02/27/2023 - Scrum Master: Carter Watson
@@ -85,6 +97,8 @@
 * No standup held, planning for next three sprints instead
 
 ---
+=======
+>>>>>>> Stashed changes
 ## 02/13/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
