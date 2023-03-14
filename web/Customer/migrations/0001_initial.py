@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('endDate', models.DateField()),
                 ('renterID', models.CharField(max_length=50)),
                 ('renterName', models.CharField(max_length=50)),
-                ('plateNumber', models.CharField(max_length=10)),
+                ('plateNumber', models.CharField(max_length=50)),
             ],
         ),
     ]
