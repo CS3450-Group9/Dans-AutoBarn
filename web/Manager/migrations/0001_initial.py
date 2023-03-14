@@ -22,6 +22,7 @@ class Migration(migrations.Migration):
                 ('plateNumber', models.CharField(max_length=50)),
                 ('image', models.ImageField(upload_to="cars")),
                 ('lowjacked', models.BooleanField(default=False)),
+                ('reservationCost', models.IntegerField())
             ],
         ),
     ]

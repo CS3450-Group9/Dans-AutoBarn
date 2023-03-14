@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from .models import Car
+from .models import Car, Reservation
 
 def profile(request, context=dict()):
     tabs = [
@@ -57,3 +57,20 @@ def search_for_res(request):
         'car_inventory': car_inventory,
         }
     return render(request, 'Customer/search.html', context)
+
+def create_res(request, car_id):
+    car = get_object_or_404(Car, pk=car_id)
+    time_now = timezone.now()
+    formatedDate = time_now.strftime("%m-%d-%Y")
+    try: 
+        curr_reservations = Reservation.objects.get(car=car_id)
+    except  (KeyError, Reservation.DoesNotExist):
+        return render(request, 'Customer/reservation.html', {'car': car})
+    else:
+        curr_reservations = curr_reservations.return_date()
+        context = {
+            'formatedDate': formatedDate,
+            'car': car,
+            'curr_reservations': curr_reservations,
+            }
+        return render(request, 'Customer/reservation.html', context)
