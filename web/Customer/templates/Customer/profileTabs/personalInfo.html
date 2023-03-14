@@ -1,6 +1,4 @@
 <div>
-    <h1> Personal Information </h1>
-    
-    <p>Authentication Level: {{ request.user.userprofile.get_auth_level_display }}</p>
+    <p>Authentication Level: {{ request.user.userprofile.auth_level }}</p>
     <p>Current Balance: ${{ request.user.userprofile.balance }} </p>
 </div>

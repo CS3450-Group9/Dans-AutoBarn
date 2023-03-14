@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'UserAuth.apps.UserauthConfig',
     'Customer.apps.CustomerConfig',
     'Manager.apps.ManagerConfig',
+    'Employee.apps.EmployeeConfig',
 ]
 
 MIDDLEWARE = [

@@ -2,7 +2,33 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import Car
 
-def profile(request, context={}):
+def profile(request, context=dict()):
+    tabs = [
+        {"url": "info",
+         "tab_title": "Personal Information",
+         "component_name": "Info",
+         "template": 'Customer/profileTabs/personalInfo.html'},
+        {"url": "balance",
+         "tab_title": "Manage Balance",
+         "component_name": "Balance",
+         "template": 'Customer/profileTabs/manageBalance.html'},
+        {"url": "reservations",
+         "tab_title": "Current Reservations",
+         "component_name": "Reservations",
+         "template": 'Customer/profileTabs/reservations.html'},
+        {"url": "pass-change",
+         "tab_title": "Change Password",
+         "component_name": "PassChange",
+         "template": 'Customer/profileTabs/passChange.html'},
+        {"url": "car-broke",
+         "tab_title": "Car Broken?",
+         "component_name": "CarBroken",
+         "template": 'Customer/profileTabs/carBroke.html'},
+    ]
+    if request.user.is_authenticated:
+        context.update({"tabs": tabs})
+    else:
+        context = {"error": "User is not signed in!"}
     return render(request, 'Customer/profile.html', context)
 
 def add_balance(request):
@@ -14,13 +40,13 @@ def add_balance(request):
         request.user.userprofile.balance += amount
         request.user.userprofile.save()
     except ValueError:
-        context = { "msg": "Amount must be a positive integer" }
+        context = { "bal_msg": "Amount must be a positive integer" }
         return profile(request, context=context)
     except:
-        context = {"msg": "Something went wrong... Unable to transfer funds."}
+        context = {"bal_msg": "Something went wrong... Unable to transfer funds."}
         return profile(request, context=context)
 
-    context = { "msg": f"Successfully added ${amount} to account!" }
+    context = { "bal_msg": f"Successfully added ${amount} to account!" }
     return profile(request, context=context)
 
 def search_for_res(request):
