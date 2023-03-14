@@ -9,6 +9,13 @@
 body {
   font-family: Arial, Helvetica, sans-serif; 
   background-color: var(--bg);
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
 }
 
 .content-container {
