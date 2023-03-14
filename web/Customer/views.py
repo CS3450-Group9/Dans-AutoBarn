@@ -19,14 +19,14 @@ def create_res(request, car_id):
     car = get_object_or_404(Car, pk=car_id)
     time_now = timezone.now()
     formatedDate = time_now.strftime("%m-%d-%Y")
-    res_date = Reservation.objects.all()
-    context = {
-        'formatedDate': formatedDate,
-        'car': car,
-        'res_date': res_date,
-        }
-    return render(request, 'Customer/reservation.html', context)
-
-# def all_current_res(request, car_id):
-#     car = get_object_or_404(Car, pk=car_id)
-#     res_list = Reservation.objects.get(pk=car)
+    try: 
+        curr_reservations = Reservation.objects.filter(car=car_id)
+    except  (KeyError, Reservation.DoesNotExist):
+        return render(request, 'Customer/reservation.html', {'car': car})
+    else:
+        context = {
+            'formatedDate': formatedDate,
+            'car': car,
+            'curr_reservations': curr_reservations,
+            }
+        return render(request, 'Customer/reservation.html', context)

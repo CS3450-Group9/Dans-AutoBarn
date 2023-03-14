@@ -20,7 +20,7 @@
                 <p>
                     Vehicle: {{car.make}} {{car.model}}<br>
                     Year: {{car.year}}<br> 
-                    Reservation Price: $50<br>
+                    Reservation Price: ${{car.reservationCost}}<br>
                 </p>
                 <p align="right"><a href="{% url 'Customer:reservation' car.id %}">
                     <button>Reserve</button></a>                

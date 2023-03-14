@@ -7,16 +7,12 @@ class Reservation(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     startDate = models.DateField()
     endDate = models.DateField()
-    renterID = models.CharField(max_length=50)
     
-    class Meta:
-        abstract = True
+    def get_num_days(self):
+        days = self.endDate.day - self.startDate.day
+        return days
     
     def return_date(self):
-        return f"{self.startDate} - {self.endDate}"
+        days = self.get_num_days()
+        return f"Reserved for {days} days from {self.startDate} to {self.endDate}"
     
-    # def createReservation():
-    #     reservation = Reservation()
-    
-    # def cancelReservation():
-    #     pass
