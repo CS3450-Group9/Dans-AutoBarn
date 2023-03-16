@@ -1,15 +1,20 @@
-<div> <!-- This will need to  be changed to include the default django auth password reset page-->
-    <h1>Password Change</h1>
-    <form method="post">
+<div>
+    {% if messages %}
+    {% for message in messages %}
+
+    <div class="alert alert-{{ message.tags }}">
+        {% if message.tags == "success" %}
+        <i class="fa-solid fa-circle-check me-2"></i>
+        {% elif message.tags == "danger" %}
+        <i class="fa-solid fa-triangle-exclamation me-2"></i>
+        {% endif %}
+        <strong>{{ message }}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <form method="post" class="p-3 m-0">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="inputPassword1">Password</label>
-            <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <label for="inputPassword2">Re-enter Password</label>
-            <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-        </div>
+        {{ password_form }}
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
