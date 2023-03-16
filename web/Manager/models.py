@@ -6,5 +6,9 @@ class Car(models.Model):
     year = models.IntegerField()
     gasFillPercent = models.IntegerField()
     plateNumber = models.CharField(max_length=50)
-    photoID = models.CharField(max_length=50)
+    image = models.ImageField(upload_to="cars")
     lowjacked = models.BooleanField(default=False)
+    reservationCost = models.IntegerField()
+    
+    def get_res_cost(self):
+        return self.reservationCost()

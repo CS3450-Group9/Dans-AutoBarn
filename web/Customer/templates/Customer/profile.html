@@ -1,68 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'tabs.html' %}
 {% block title %}User Profile{% endblock title %}
 
-{% block content %}
-
-{% if request.user.is_authenticated %}
-<h1 class="text-center py-2">{{ request.user.userprofile.user | title }}'s Profile</h1>
-<hr>
-
-<div class="d-flex">
-
-    <!-- Sidebar -->
-    <ul class="d-flex nav nav-pills flex-column">
-        <li class="nav-item" v-for="(tab, index) in tabs" :key="index" @click="selectedTab = tab.id">
-            <a class="nav-link" :class="{ active: selectedTab === tab.id }" href="#">[[ tab.name ]]</a>
-        </li>
-    </ul>
-    <!-- Sidebar -->
-
-    <!-- Selected Tab Content -->
-    <div class="d-flex">
-        <component :is="selectedTab"/>
-    </div>
-    <!-- Selected Tab Content -->
-
-</div>
-
-{% else %}
-<div>
-    <p>User is not signed in!</p>
-</div>
-{% endif %}
-{% endblock content %}
-
-{% block vueapp %}
-import { createApp } from 'vue';
-let app = createApp({
-    delimiters: ['[[', ']]'],
-    data() {
-        return {
-            selectedTab: "info",
-            tabs: [
-                { id: 'info', name: 'Personal Info' },
-                { id: 'balance', name: 'Manage Balance' },
-                { id: 'reservations', name: 'Current Reservations' },
-                { id: 'pass-change', name: 'Account Security' },
-                { id: 'car-broke', name: 'Car Broke Down?' },
-            ],
-        }
-    },
-})
-app.component('info', {
-    template: `{% include 'Customer/personalInfo.html' %}`
-})
-app.component('balance', {
-    template: `{% include 'Customer/manageBalance.html' %}`
-})
-app.component('reservations', {
-    template: `{% include 'Customer/reservations.html' %}`
-})
-app.component('pass-change', {
-    template: `{% include 'Customer/passChange.html' %}`
-})
-app.component('car-broke', {
-    template: `{% include 'Customer/carBroke.html' %}`
-})
-app.mount('#app');
-{% endblock vueapp %}
+{% block tabs_header %}
+<h1 class="text-center py-3">{{ request.user.userprofile.user | title }}'s Profile</h1>
+{% endblock tabs_header %}
+{% block base_url %}profile{% endblock base_url %}

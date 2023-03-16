@@ -1,0 +1,7 @@
+{% extends 'tabs.html' %}
+{% block title %}Staff Portal{% endblock title %}
+
+{% block tabs_header %}
+<h1 class="text-center py-3">{{ request.user.userprofile.user | title }}'s Staff Portal</h1>
+{% endblock tabs_header %}
+{% block base_url %}staff{% endblock base_url %}
