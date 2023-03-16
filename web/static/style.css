@@ -30,6 +30,7 @@ body {
   transition: 0.3s;
   border-radius: 10px;
   margin-bottom: 3%;
+  background-color: rgb(240, 240, 240);
 }
 
 /* On mouse-over, add a deeper shadow */
