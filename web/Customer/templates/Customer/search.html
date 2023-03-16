@@ -1,31 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Dan's Auto Barn{% endblock %}
-    {% block content %}
-    <div class="container">
-        <h1>Dan's Auto Barn</h1>
-    </div>
+{% block content %}
     <div class="container">
         <h2>All Reservations</h2>
-        <p>Today's Date: {{formatedDate}}</p>
+        <p style="text-align: center;">Today's Date: {{formatedDate}}</p>
     </div>
     <div class="container">
         {% if car_inventory %}
-        <ol>
             {% for car in car_inventory%}
-            <li class="content-container">
-                <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
-                <p>
-                    Vehicle: {{car.make}} {{car.model}}<br>
-                    Year: {{car.year}}<br> 
-                    Reservation Price: ${{car.reservationCost}}<br>
-                </p>
-                <p align="right">Click to view availability: <input type="button" value="Reserve"></p>
-            </li>
+                <div class="card d-flex flex-row">
+                    <div><img src="{{ MEDIA_URL }}{{ car.image }}" class="img" alt="Image of {{ car.make }} {{ car.model }}" width="200"></div>
+                    <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
+                        <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
+                        <p>{{car.year}}</p>
+                        <p><span>${{car.reservationCost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
+                    </div>
+                    <input type="button" value="View Availability"  onclick="location.href = '/reserver';" style="border-radius: 0 10px 10px 0; border-style: none; background-color: var(--ac); color: white;">
+                </div>
             {% endfor %}
-        </ol>
         {% else %}
-            <p>There are no cars in the inventory</p>
+            <p>Sorry! All our cars were stolen by Dan Watson, if you find him please report him to the authorities.</p>
         {% endif %}
     </div>
-    {% endblock %}
+{% endblock %}

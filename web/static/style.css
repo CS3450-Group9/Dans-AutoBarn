@@ -24,6 +24,47 @@ body {
   margin-right: auto;
 }
 
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 10px;
+  margin-bottom: 3%;
+  background-color: rgb(240, 240, 240);
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.img {
+  border-radius: 10px 0 0 10px;
+}
+
+.home-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: var(--bg);
+  color: var(--ac);
+  font-size: 16px;
+  padding: 12px 24px;
+  border: double;
+  border-color: var(--ac);
+  border-width: 0.5em;
+  cursor: pointer;
+  border-radius: 13px;
+}
+
+.home-button:hover {
+  background-color: var(--ac);
+  color: var(--bg);
+  border-color: var(--bg);
+}
+
 h2 {
   text-align: center;
 }
