@@ -5,6 +5,22 @@
 > Template at bottom
 
 ---
+## 03/15/2023 - Scrum Master: Carter Watson
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson | Prep'd tickets for next sprint | continue working on styling and UI/UX | None |
+| Caden Maxwell |  |  |  |
+| Caleb Leavitt | working on create reservation view | working on styling |  |
+| Joseph Giles  | worked on reservaton process, created reservation model |  |  |
+### Screenshot of Burndown Chart
+![Burndown Update](referencePhotos/burndownUpdates/03-15-23.png)
+### Screenshot of Kanban Board
+![Kanban Update](referencePhotos/kanbanUpdates/03-15-23.png)
+### Questions for team discussion
+* Opinion on splitting work into styling and working prototypes
+
+---
 ## 03/13/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
