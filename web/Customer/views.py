@@ -1,6 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from .models import Car, Reservation
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+
 
 def profile(request, context=dict()):
     tabs = [
@@ -27,6 +31,7 @@ def profile(request, context=dict()):
     ]
     if request.user.is_authenticated:
         context.update({"tabs": tabs})
+        context.update({ "password_form": PasswordChangeForm(request.user.userprofile.user) })
     else:
         context = {"error": "User is not signed in!"}
     return render(request, 'Customer/profile.html', context)
@@ -47,6 +52,19 @@ def add_balance(request):
         context = {"bal_msg": "Something went wrong... Unable to transfer funds."}
 
     return profile(request, context=context)
+
+def password_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user.userprofile.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'Your password was successfully updated!')
+        else:
+            for errors in form.errors.values():
+                for error in errors:
+                    messages.error(request, error)
+    return profile(request)
 
 def search_for_res(request):
     time_now = timezone.now()
