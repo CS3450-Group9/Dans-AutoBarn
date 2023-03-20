@@ -5,6 +5,22 @@
 > Template at bottom
 
 ---
+## 03/20/2023 - Scrum Master: Carter Watson
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson | None | Styling Nav | None |
+| Caden Maxwell | None | Working "currently checked out cars" | None |
+| Caleb Leavitt | None | Working on styling | None |
+| Joseph Giles  | Create reservation with date checks against other dates | Balance subtraction when user makes reservation | None |
+### Screenshot of Burndown Chart
+![Burndown Update](referencePhotos/burndownUpdates/03-20-23.png)
+### Screenshot of Kanban Board
+![Kanban Update](referencePhotos/kanbanUpdates/03-20-23.png)
+### Questions for team discussion
+* None
+
+---
 ## 03/15/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
@@ -113,8 +129,6 @@
 * No standup held, planning for next three sprints instead
 
 ---
-=======
->>>>>>> Stashed changes
 ## 02/13/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
@@ -130,7 +144,6 @@
 ![Burndown Update](referencePhotos/burndownUpdates/02-13-23.png)
 ### Screenshot of Kanban Board
 ![Kanban Update](referencePhotos/kanbanUpdates/02-13-23.png)
-
 
 ---
 ## 02/10/2023 - Scrum Master: Carter Watson
