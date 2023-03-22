@@ -5,6 +5,22 @@
 > Template at bottom
 
 ---
+## 03/22/2023 - Scrum Master: Carter Watson
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson | Styling | Continue styling | None |
+| Caden Maxwell | Manager seeing users page, basic view up |  | None |
+| Caleb Leavitt | Absent |  |  |
+| Joseph Giles  | Working on creating reservation, checks against other reservations, creates error message |  | issues with multiple post requests from one view |
+### Screenshot of Burndown Chart
+![Burndown Update](referencePhotos/burndownUpdates/03-22-23.png)
+### Screenshot of Kanban Board
+![Kanban Update](referencePhotos/kanbanUpdates/03-22-23.png)
+### Questions for team discussion
+* None
+
+---
 ## 03/15/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
