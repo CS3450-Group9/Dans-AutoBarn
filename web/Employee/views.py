@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from UserAuth.models import UserProfile
 
-def staff(request):
+
+def staff(request, context={}):
     tabs = [
         {"url": "active-rentals",
          "tab_title": "Active Rentals",
@@ -24,7 +26,7 @@ def staff(request):
              "component_name": "LogHours",
              "template": 'Employee/staffTabs/logHours.html' },
         ]
-        context = {"tabs": tabs}
+        context.update({"tabs": tabs})
     elif request.user.userprofile.auth_level == "MA":
         tabs += [
             {"url": "cars",
@@ -40,7 +42,8 @@ def staff(request):
              "component_name": "Hours",
              "template": 'Manager/managerTabs/reviewHours.html' },
         ]
-        context = {"tabs": tabs}
+        context.update({"tabs": tabs})
+        context.update({"users": UserProfile.objects.all()})
     else:
         context = {"error": "User is not part of staff!"}
 
