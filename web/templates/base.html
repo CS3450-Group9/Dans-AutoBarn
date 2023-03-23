@@ -47,12 +47,26 @@
             <!-- display login/out depending on auth status -->
             <ul class="navbar-nav">
                 {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
-                </li>
+
+                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ request.user.userprofile.user}}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'Customer:profile' %}">Profile</a></li>
+                                {% if request.user.userprofile.auth_level != "CU" %}
+                                <li><a class="dropdown-item" href="{% url 'Employee:staff' %}">Staff</a></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
                 {% endif %}
             </ul>
@@ -72,7 +86,7 @@
     </script>
 
     <!-- actual importing of content -->
-    <div class="content-container" id="app">
+    <div class="content-container page-content" style="" id="app">
         {% block content %}{% endblock content %}
     </div>
 
@@ -122,18 +136,18 @@
 
     <!-- Vue script -->
     <script type="module">
-    {% block vueapp %}
+    {% block vue_app %}
         import { createApp } from 'vue';
         let app = createApp({
             delimiters: ['[[', ']]'], // Need to change delimiters due to django vue conflict
-            {% block appdata %}
+            {% block app_data %}
             data() {
                 return {}
             }
-            {% endblock appdata %}
+            {% endblock app_data %}
         })
         app.mount('#app');
-    {% endblock vueapp %}
+    {% endblock vue_app %}
     </script>
 
     <!-- Bootstrap script -->

@@ -1,4 +1,20 @@
 <div>
-    <h1>Password Change</h1>
-    <p>This is some form to change your password</p>
+    {% if messages %}
+    {% for message in messages %}
+
+    <div class="alert alert-{{ message.tags }}">
+        {% if message.tags == "success" %}
+        <i class="fa-solid fa-circle-check me-2"></i>
+        {% elif message.tags == "danger" %}
+        <i class="fa-solid fa-triangle-exclamation me-2"></i>
+        {% endif %}
+        <strong>{{ message }}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <form method="post" class="p-3 m-0">
+        {% csrf_token %}
+        {{ password_form }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </div>

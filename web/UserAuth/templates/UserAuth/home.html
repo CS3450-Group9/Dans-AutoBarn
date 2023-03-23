@@ -8,12 +8,13 @@
             <h1 class="text-center" style="color: var(--ac)">Dan's Auto Barn</h1>
         </div>
         {% comment %} TODO: Stylize this so the find reservation is over the image of the car {% endcomment %}
-        <div align="center" style="width: 100%; background-color: var(--bg)">
-            <a class="fs-3" style="color: var(--ac)" href="/search">Make a reservation now!</a>
+        <div style="position: relative;">
+            <div class="" style="width: 100%">
+                <img src="{% static "UserAuth/media/testarossa.jpg" %}" alt="Ferrari Testarossa" style="width:100%;">
+            </div>
+            <div class="home-button" align="center" onclick="location.href = '/search';">Make a reservation now!</div>
         </div>
-        <div class="" style="width: 100%">
-            <img src="{% static "UserAuth/media/testarossa.jpg" %}" alt="Cars Vending Machine" style="width:100%;">
-        </div>
+        {% comment %} Filler Content below {% endcomment %}
         <div class="" style="width: 100%">
             <img src="{% static "UserAuth/media/testarossa.jpg" %}" alt="Cars Vending Machine" style="width:100%;">
         </div>

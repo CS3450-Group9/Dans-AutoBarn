@@ -20,7 +20,6 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('startDate', models.DateField()),
                 ('endDate', models.DateField()),
-                ('renterID', models.CharField(max_length=50)),
                 ('car', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Manager.car')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='UserAuth.userprofile')),
             ],
