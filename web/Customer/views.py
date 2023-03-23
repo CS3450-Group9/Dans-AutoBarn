@@ -6,8 +6,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-
+from django.utils.datastructures import MultiValueDictKeyError
+from django.db.models import Q
 
 
 def profile(request, context=dict()):
@@ -90,45 +90,37 @@ def create_res(request, car_id):
         'car': car,
         'curr_reservations': curr_reservations,
     }
-    
-    if request.method == "POST":
-        try:
-            start_date = format_date(request.POST.get("start-date"))
-            end_date = format_date(request.POST.get("end-date"))
-        except Exception as e:
-            print(e)
-            messages.error(request, "The date entered was not valid")
-            return render(request, 'Customer/reservation.html', context)
-
-        user = request.user.userprofile
-        response = check_availability(request, car_id, "dict")
-        if not response["available"]:
-            messages.error(request, "Reservation not available")
-            return render(request, 'Customer/reservation.html', context)
-
     return render(request, 'Customer/reservation.html', context)
 
-@require_POST
-def check_availability(request, car_id, mode="JSONResponse"):
+def check_availability(request):
     json = {}
     try:
-        start_date = format_date(request.POST.get("start-date"))
-        end_date = format_date(request.POST.get("end-date"))
+        car_id = int(request.GET["carID"])
         car = Car.objects.get(pk=car_id)
-        price = (end_date - start_date).days * car.get_res_cost()
+        start_date = format_date(request.GET["start"])
+        end_date = format_date(request.GET["end"])
+        timedelta = (end_date - start_date).days + 1
+        if timedelta <= 0:
+            raise ValueError("End date cannot be before start date.")
+        elif timedelta > 50:
+            raise ValueError("Cannot reserve a car for more than 50 days.")
+        price = timedelta * car.get_res_cost()
         json['price'] = price
+    except ValueError as e:
+        json["error"] = str(e)
+        return JsonResponse(json)
+    except MultiValueDictKeyError:
+        json["error"] = "Request must contain parameters 'carID', 'start', and 'end'."
+        return JsonResponse(json)
+    except Car.DoesNotExist:
+        json["error"] = f"Car with ID '{car_id}' does not exist."
+        return JsonResponse(json)
     except Exception as e:
-        print(e)
-        json["error_msg"] = "The dates entered are not valid."
+        # print(e)
+        json["error"] = "Something went wrong."
+        return JsonResponse(json)
 
-    curr_reservations = Reservation.objects.filter(car=car_id)
-    json["available"] = True
-    for res in curr_reservations:
-        if res.check_res_conflict(start_date) or res.check_res_conflict(end_date):
-            json["available"] = False
-            break
-
-    if mode == "dict": return json
+    json["available"] = res_available(car_id, start_date, end_date)
     return JsonResponse(json)
 
 def confirm_res(request, reservation_id):
@@ -145,3 +137,11 @@ def format_date(date: str):
     date_format = "%Y-%m-%d"
     date_obj = datetime.strptime(date, date_format).date()
     return date_obj
+
+def res_available(car_id, start_date, end_date):
+    overlapping = Reservation.objects.filter(
+        car_id = car_id,
+        end_date__gte=start_date,
+        start_date__lte=end_date
+    )
+    return not overlapping.exists()

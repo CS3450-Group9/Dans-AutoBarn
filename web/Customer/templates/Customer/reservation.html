@@ -46,13 +46,10 @@
                 <input type="date" id="start-date" name="start-date" v-model="startDate">
                 <label for="end-date">End Date:</label>
                 <input type="date" id="end-date" name="end-date" v-model="endDate">
-                <button class="btn btn-primary" type="submit">Make Reservation</button>
+                <p v-cloak >[[ availabilityMessage ]]</p>
+                <p v-cloak >[[ costMessage ]]</p>
+                <button class="btn btn-primary" :class="{ 'disabled': buttonDisabled }" type="submit" v-cloak>Make Reservation</button>
             </form>
-            <p v-cloak >[[ availabilityMessage ]]</p>
-            <div>
-                <p>Total cost: ${{price}}</p>
-                <p>Confirm reservation:</p>
-            </div>
         </div>
     {% else %}
     <div>
@@ -71,9 +68,8 @@ let app = createApp({
         return {
             startDate: '',
             endDate: '',
-            availability: null,
-            price: '$0',
-            error_msg: null,
+            available: undefined,
+            price: undefined,
         };
     },
     watch: {
@@ -86,31 +82,46 @@ let app = createApp({
     },
     methods: {
         checkAvailability() { // Submit a post request to check for the availability of a certain car
-            if (!this.startDate || !this.endDate) return;
 
-            let data = new FormData();
-            data.append("start-date", this.startDate)  
-            data.append("end-date", this.endDate)
-            data.append("csrfmiddlewaretoken", '{{csrf_token}}')
-
-            axios.post('/check-availability/{{ car.id }}/', data)
+            axios.get(`/check-availability/?carID={{ car.id }}&start=${this.startDate}&end=${this.endDate}`)
             .then((response) => {
-                this.availability = response.data.available;
-                this.price = response.data.price;
-                this.error_msg = response.data.error_msg;
+                if ("error" in response.data) {
+                    console.log(response.data.error)
+                    this.available = undefined;
+                    this.price = 0;
+                } else {
+                    this.available = response.data.available;
+                    this.price = response.data.price;
+                }
             })
             .catch((error) => console.log(error));
         },
     },
     computed: {
         availabilityMessage() {
-            if (this.availability === null) {
-                return '';
-            } else if (this.availability) {
+            if (!this.startDate && !this.endDate) {
+                return 'Please enter a start date and an end date.'
+            } else if (!this.startDate) {
+                return 'Please enter a start date.'
+            } else if (!this.endDate) {
+                return 'Please enter an end date.'
+            }
+
+            if (this.available) {
                 return 'The selected dates are available.';
             } else {
                 return 'The selected dates are not available.';
             }
+        },
+        costMessage() {
+            if (this.price) {
+                return `Reservation Cost: ${this.price}`
+            }
+            return ''
+        },
+        buttonDisabled() {
+            if (!this.startDate || !this.endDate) return true;
+            return !this.available
         },
     },
 })

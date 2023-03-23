@@ -5,18 +5,14 @@ from Manager.models import Car
 class Reservation(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    startDate = models.DateField()
-    endDate = models.DateField()
-    
-    def check_res_conflict(self, date):
-        if date >= self.startDate and date <= self.endDate:
-            return True
+    start_date = models.DateField()
+    end_date = models.DateField()
     
     def get_num_days(self):
-        days = self.endDate.day - self.startDate.day
+        days = self.end_date.day - self.start_date.day
         return days
     
     def return_date(self):
         days = self.get_num_days()
-        return f"Reserved for {days} days from {self.startDate} to {self.endDate}"
+        return f"Reserved for {days} days from {self.start_date} to {self.end_date}"
     

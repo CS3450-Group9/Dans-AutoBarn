@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             name='Reservation',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('startDate', models.DateField()),
-                ('endDate', models.DateField()),
+                ('start_date', models.DateField()),
+                ('end_date', models.DateField()),
                 ('car', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Manager.car')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='UserAuth.userprofile')),
             ],
