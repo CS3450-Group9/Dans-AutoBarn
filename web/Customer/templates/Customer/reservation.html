@@ -1,66 +1,120 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Dan's Auto Barn{% endblock %}
-    {% block content %}
-        <div class="d-flex flex-column">
-            <div style="width: 100%; background-color: var(--bg)">
-                <h1 class="text-center" style="color: var(--ac)">Dan's Auto Barn</h1>
+{% block content %}
+    <div class="d-flex flex-column">
+        <div style="width: 100%; background-color: var(--bg)">
+            <h1 class="text-center" style="color: var(--ac)">Dan's Auto Barn</h1>
+        </div>
+        <div align="center" style="width: 100%; background-color: var(--bg)">
+            <h2 style="color: var(--ac)">Reservation</h2>
+            <p>Today's Date: {{formattedDate}}</p>
+        </div>
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+
+        <div class="alert alert-{{ message.tags }}">
+            {% if message.tags == "success" %}
+            <i class="fa-solid fa-circle-check me-2"></i>
+            {% elif message.tags == "danger" %}
+            <i class="fa-solid fa-triangle-exclamation me-2"></i>
+            {% endif %}
+            <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <div class="d-flex flex-column container" align="center">
+            <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
+            <p>
+                Vehicle: {{car.make}} {{car.model}}<br>
+                Year: {{car.year}}<br> 
+                Reservation Price: ${{car.reservationCost}} (per day)<br>
+            </p>
+            <div class="container">
+                <p>Current reservations for this car:</p>
+                {% for res in curr_reservations %}
+                    {{res.return_date}} <br>
+                {% empty %}
+                    <p>There are currently no reservations scheduled.</p>
+                {% endfor %}
             </div>
-            <div align="center" style="width: 100%; background-color: var(--bg)">
-                <h2 style="color: var(--ac)">Reservation</h2>
-                <p>Today's Date: {{formatedDate}}</p>
+            <p> Select dates for your reservation </p>
+            <form action={% url 'Customer:confirmation' car.id %} method="post">
+                {% csrf_token %}
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" name="start-date" v-model="startDate">
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" name="end-date" v-model="endDate">
+                <button class="btn btn-primary" type="submit">Make Reservation</button>
+            </form>
+            <p v-cloak >[[ availabilityMessage ]]</p>
+            <div>
+                <p>Total cost: ${{price}}</p>
+                <p>Confirm reservation:</p>
             </div>
         </div>
-        {% if request.user.is_authenticated %}
-            <div class="d-flex flex-column container" align="center">
-                <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
-                <p>
-                    Vehicle: {{car.make}} {{car.model}}<br>
-                    Year: {{car.year}}<br> 
-                    Reservation Price: ${{car.reservationCost}} (per day)<br>
-                </p>
-                <div class="container">
-                    {% if curr_reservations %}
-                        <p>Current reservation dates for this car:</p>
-                        {% for res in curr_reservations %}
-                            {{res.return_date}} <br>
-                        {% endfor %}
-                    {% else %}
-                        <p>There are currently no reservations scheduled for this car</p>
-                    {% endif %}
-                </div>
-                <p> Select dates for your reservation
-                    <form action={% url 'Customer:reservation' car.id %} method="post">
-                        {% csrf_token %}
-                        <label for="start">Start date:</label>
-                        <input type="date" id="startDate" name="startDate"
-                            value={{formatedDate}}
-                            min={{formatedDate}}>
-                        <label for="end">End date:</label>
-                        <input type="date" id="endDate" name="endDate"
-                            value={{formatedDate}}
-                            min={{formatedDate}}>
-                        <input class="button" name="check_availability" type="submit" value="Check Availability">
-                    </form>
-                </p>
-                {% if error_message %}
-                    <p><strong>{{ error_message }}</strong></p>
-                {% elif new_reservation %}
-                    <div>
-                        <p>Your reservation: {{new_reservation.return_date}}</p>
-                        <p>Total cost: ${{price}}</p>
-                        <p>Confirm reservation: 
-                            <form action={% url 'Customer:reservation' car.id %} method="post">
-                            {% csrf_token %}
-                            <input class="button" name="confirm_res" type="submit" value="Confirm">
-                            </form>
-                        </p>
-                    </div>
-                {% endif %}
-            </div>
-        {% else %}
-        <div>
-            <p>User is not signed in!</p>
-        </div>
-        {% endif %}
-    {% endblock %}
+    {% else %}
+    <div>
+        <h2>User is not signed in!</h2>
+    </div>
+    {% endif %}
+{% endblock content %}
+
+{% block vue_app %}
+import axios from 'axios';
+import { createApp } from 'vue';
+
+let app = createApp({
+    delimiters: ['[[', ']]'],
+    data() {
+        return {
+            startDate: '',
+            endDate: '',
+            availability: null,
+            price: '$0',
+            error_msg: null,
+        };
+    },
+    watch: {
+        startDate() {
+            this.checkAvailability();
+        },
+        endDate() {
+            this.checkAvailability();
+        },
+    },
+    methods: {
+        checkAvailability() { // Submit a post request to check for the availability of a certain car
+            if (!this.startDate || !this.endDate) return;
+
+            let data = new FormData();
+            data.append("start-date", this.startDate)  
+            data.append("end-date", this.endDate)
+            data.append("csrfmiddlewaretoken", '{{csrf_token}}')
+
+            axios.post('/check-availability/{{ car.id }}/', data)
+            .then((response) => {
+                this.availability = response.data.available;
+                this.price = response.data.price;
+                this.error_msg = response.data.error_msg;
+            })
+            .catch((error) => console.log(error));
+        },
+    },
+    computed: {
+        availabilityMessage() {
+            if (this.availability === null) {
+                return '';
+            } else if (this.availability) {
+                return 'The selected dates are available.';
+            } else {
+                return 'The selected dates are not available.';
+            }
+        },
+    },
+})
+
+app.mount('#app');
+
+{% endblock vue_app %}

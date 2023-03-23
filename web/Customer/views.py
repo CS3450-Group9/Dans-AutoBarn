@@ -1,14 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from datetime import datetime
-from Customer.models import Reservation
-from Manager.models import Car
 from .models import Car, Reservation
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+
 
 
 def profile(request, context=dict()):
@@ -84,34 +83,53 @@ def search_for_res(request):
 def create_res(request, car_id):
     car = get_object_or_404(Car, pk=car_id)
     time_now = timezone.now()
-    formatedDate = time_now.strftime("%m-%d-%Y")
+    formattedDate = time_now.strftime("%m-%d-%Y")
     curr_reservations = Reservation.objects.filter(car=car_id)
     context = {
-                'formatedDate': formatedDate,
-                'car': car,
-                'curr_reservations': curr_reservations,
-                }
-    if request.method == 'POST':
-        input_startDate = request.POST['startDate']
-        input_endDate = request.POST['endDate']
-        datetime_startDate = get_datetime_object(input_startDate)
-        datetime_endDate = get_datetime_object(input_endDate)
-        user = request.user.userprofile
-        for res in curr_reservations:
-            if res.check_res_conflict(datetime_startDate) or res.check_res_conflict(datetime_endDate):
-                context['error_message'] = 'Selected dates are unavailable'                
-        new_reservation = Reservation(car=car, user=user, startDate=datetime_startDate, endDate=datetime_endDate)
-        price = new_reservation.get_num_days() * car.get_res_cost()
-        context['input_startDate'] = input_startDate
-        context['input_endDate'] = input_endDate
-        context['new_reservation'] = new_reservation
-        context['price'] = price
-        print(request.POST)
-        if request.method == 'POST':
-            print("Confirm works")
-            new_reservation.save()
+        'formattedDate': formattedDate,
+        'car': car,
+        'curr_reservations': curr_reservations,
+    }
+    
+    if request.method == "POST":
+        try:
+            start_date = format_date(request.POST.get("start-date"))
+            end_date = format_date(request.POST.get("end-date"))
+        except Exception as e:
+            print(e)
+            messages.error(request, "The date entered was not valid")
             return render(request, 'Customer/reservation.html', context)
+
+        user = request.user.userprofile
+        response = check_availability(request, car_id, "dict")
+        if not response["available"]:
+            messages.error(request, "Reservation not available")
+            return render(request, 'Customer/reservation.html', context)
+
     return render(request, 'Customer/reservation.html', context)
+
+@require_POST
+def check_availability(request, car_id, mode="JSONResponse"):
+    json = {}
+    try:
+        start_date = format_date(request.POST.get("start-date"))
+        end_date = format_date(request.POST.get("end-date"))
+        car = Car.objects.get(pk=car_id)
+        price = (end_date - start_date).days * car.get_res_cost()
+        json['price'] = price
+    except Exception as e:
+        print(e)
+        json["error_msg"] = "The dates entered are not valid."
+
+    curr_reservations = Reservation.objects.filter(car=car_id)
+    json["available"] = True
+    for res in curr_reservations:
+        if res.check_res_conflict(start_date) or res.check_res_conflict(end_date):
+            json["available"] = False
+            break
+
+    if mode == "dict": return json
+    return JsonResponse(json)
 
 def confirm_res(request, reservation_id):
     reservation = get_object_or_404(Reservation, pk=reservation_id)
@@ -123,13 +141,7 @@ def confirm_res(request, reservation_id):
         }
     return render(request, 'Customer/confirmation.html', context)
 
-def get_datetime_object(date_string):
-    year = date_string[:4]
-    month = date_string[5:7]
-    day = date_string[8:10]
-    year = int(year)
-    month = int(month)
-    day = int(day)
-    date = datetime(year, month, day)
-    date = datetime.date(date)
-    return date
+def format_date(date: str):
+    date_format = "%Y-%m-%d"
+    date_obj = datetime.strptime(date, date_format).date()
+    return date_obj
