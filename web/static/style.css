@@ -32,7 +32,7 @@ body {
   background-color: var(--bg);
 }
 
-.custom-nav-item {
+.nav-item {
   background-color: var(--c3);
   border-color: var(--chrome);
   border-width: 3px;
@@ -42,8 +42,12 @@ body {
   margin-left: 0.25rem;
 }
 
-.custom-nav-item:hover {
+.nav-item:hover {
   background-color: var(--ac);
+}
+
+.nav-item .nav-link {
+  color: black;
 }
 
 .nav-item:hover .nav-link {

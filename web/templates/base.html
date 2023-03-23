@@ -22,10 +22,10 @@
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="content-container d-flex justify-content-between align-items-center">
             <div class="navbar-nav">
-                <div class="nav-item custom-nav-item">
+                <div class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </div>
-                <div class="nav-item custom-nav-item">
+                <div class="nav-item">
                     <a class="nav-link" href="/search">Find Reservation</a>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                     <div class="navbar-nav">
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle custom-nav-item" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ request.user.userprofile.user}}
                             </a>
                             <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
@@ -75,9 +75,9 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-dark d-flex flex-column">
+    <footer class="d-flex flex-column" style="background-color: var(--c1) !important;">
         <div class="chrome-bar"></div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid content-container">
                 <!-- left hand side -->
                 <div class="navbar-nav" style="margin-bottom: auto;">
@@ -88,28 +88,28 @@
                 <!-- right hand side -->
                 <div class="navbar-nav">
                     <div class="d-flex flex-column">
-                        <div class="d-flex flex-row">
+                        <div class="d-flex flex-row nav-item" style="margin-bottom: 0.5rem;">
                             <a class="nav-link" href="https://github.com/orgs/CS3450-Group9/people" target="_blank">Group Members</a>
                         </div>
-                        <div class="d-flex flex-row">
-                            <a class="nav-link" href="https://github.com/cartwatson" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a>
-                            <a class="nav-link" href="https://linkedin.com/in/cartwatson" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
-                            <a class="nav-link" href="https://cartwatson.com/" target="_blank">Carter Watson</a>
+                        <div class="d-flex flex-row" style="margin-bottom: 0.5rem;">
+                            <div class="nav-item"><a class="nav-link" href="https://github.com/cartwatson" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
+                            <div class="nav-item"><a class="nav-link" href="https://linkedin.com/in/cartwatson" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
+                            <div class="nav-item" style="min-width: 10rem;"><a class="nav-link" href="https://cartwatson.com/" target="_blank">Carter Watson</a></div>
                         </div>
-                        <div class="d-flex flex-row">
-                            <a class="nav-link" href="https://github.com/caden-maxwell" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a>
-                            <a class="nav-link" href="https://www.linkedin.com/in/cadenmaxwell/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
-                            <a class="nav-link" href="#" target="_blank">Caden Maxwell</a>
+                        <div class="d-flex flex-row" style="margin-bottom: 0.5rem;">
+                            <div class="nav-item"><a class="nav-link" href="https://github.com/caden-maxwell" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
+                            <div class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/cadenmaxwell/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
+                            <div class="nav-item" style="min-width: 10rem;"><a class="nav-link" href="#" target="_blank">Caden Maxwell</a></div>
                         </div>
-                        <div class="d-flex flex-row">
-                            <a class="nav-link" href="https://github.com/jeonix" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a>
-                            <a class="nav-link" href="https://www.linkedin.com/in/joseph-giles-160346b2/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
-                            <a class="nav-link" href="#" target="_blank">Joe Giles</a>
+                        <div class="d-flex flex-row" style="margin-bottom: 0.5rem;">
+                            <div class="nav-item"><a class="nav-link" href="https://github.com/jeonix" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
+                            <div class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/joseph-giles-160346b2/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
+                            <div class="nav-item" style="min-width: 10rem;"><a class="nav-link" href="#" target="_blank">Joe Giles</a></div>
                         </div>
-                        <div class="d-flex flex-row">
-                            <a class="nav-link" href="https://github.com/Irion7-1" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a>
-                            <a class="nav-link" href="https://www.linkedin.com/in/caleb-leavitt-b21926224" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
-                            <a class="nav-link" href="#" target="_blank">Caleb Leavitt</a>
+                        <div class="d-flex flex-row" style="margin-bottom: 0.5rem;">
+                            <div class="nav-item"><a class="nav-link" href="https://github.com/Irion7-1" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
+                            <div class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/caleb-leavitt-b21926224" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
+                            <div class="nav-item" style="min-width: 10rem;"><a class="nav-link" href="#" target="_blank">Caleb Leavitt</a></div>
                         </div>
                     </div>
                 </div>
