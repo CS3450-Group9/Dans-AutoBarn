@@ -16,7 +16,7 @@
                         <p>{{car.year}}</p>
                         <p><span>${{car.reservationCost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
                     </div>
-                    <input type="button" value="View Availability"  onclick="location.href = '/reserver';" style="border-radius: 0 10px 10px 0; border-style: none; background-color: var(--ac); color: white;">
+                    <input type="button" value="View Availability"  onclick="location.href = '{% url 'Customer:reservation' car.id %}'" style="border-radius: 0 10px 10px 0; border-style: none; background-color: var(--ac); color: white;">
                 </div>
             {% endfor %}
         {% else %}
