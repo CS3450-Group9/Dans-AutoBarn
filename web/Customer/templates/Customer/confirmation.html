@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dan's Auto Barn{% endblock %}
+    {% block content %}
+        <div class="d-flex flex-column">
+            <div style="width: 100%; background-color: var(--bg)">
+                <h1 class="text-center" style="color: var(--ac)">Dan's Auto Barn</h1>
+            </div>
+            <div align="center" style="width: 100%; background-color: var(--bg)">
+                <h2 style="color: var(--ac)">Confirm Reservation</h2>
+                <p>Today's Date: {{formatedDate}}</p>
+            </div>
+        </div>
+        {% if request.user.is_authenticated %}
+            <div class="d-flex flex-column container" align="center">
+                <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
+                <p>
+                    Vehicle: {{reservation.car.make}} {{reservation.car.model}}<br>
+                    Year: {{reservation.car.year}}<br> 
+                    Reservation Price: ${{reservation.car.reservationCost}} (per day)<br>
+                </p>
+                <p> 
+                    Your reservation has been confirmed!
+                </p>
+                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            </div>
+        {% else %}
+        <div>
+            <p>User is not signed in!</p>
+        </div>
+        {% endif %}
+    {% endblock %}

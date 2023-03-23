@@ -8,6 +8,10 @@ class Reservation(models.Model):
     startDate = models.DateField()
     endDate = models.DateField()
     
+    def check_res_conflict(self, date):
+        if date >= self.startDate and date <= self.endDate:
+            return True
+    
     def get_num_days(self):
         days = self.endDate.day - self.startDate.day
         return days

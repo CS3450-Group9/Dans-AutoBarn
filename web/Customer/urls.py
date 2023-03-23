@@ -10,4 +10,5 @@ urlpatterns = [
     # re_path(r'^profile/.*', views.profile, name="profile"), # Used regex path to include all paths with the prefix 'profile/'
     path('search/', views.search_for_res, name='search'),
     path('<int:car_id>/', views.create_res, name='reservation'),
+    path('<int:reservation_id>/', views.confirm_res, name='confirmation'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

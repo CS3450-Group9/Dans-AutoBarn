@@ -11,4 +11,4 @@ class Car(models.Model):
     reservationCost = models.IntegerField()
     
     def get_res_cost(self):
-        return self.reservationCost()
+        return self.reservationCost

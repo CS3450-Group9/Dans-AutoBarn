@@ -11,47 +11,56 @@
                 <p>Today's Date: {{formatedDate}}</p>
             </div>
         </div>
-        <div class="d-flex flex-column container" align="center">
-            <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
-            <p>
-                Vehicle: {{car.make}} {{car.model}}<br>
-                Year: {{car.year}}<br> 
-                Reservation Price: ${{car.reservationCost}}<br>
-            </p>
-            <div class="container">
-                {% if curr_reservations %}
-                    <p>Current reservation dates for this car:</p>
-                    {% for res in curr_reservations %}
-                        {{res.return_date}}
-                    {% endfor %}
-                {% else %}
-                    <p>There are no current scheduled reservations at this time</p>
+        {% if request.user.is_authenticated %}
+            <div class="d-flex flex-column container" align="center">
+                <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
+                <p>
+                    Vehicle: {{car.make}} {{car.model}}<br>
+                    Year: {{car.year}}<br> 
+                    Reservation Price: ${{car.reservationCost}} (per day)<br>
+                </p>
+                <div class="container">
+                    {% if curr_reservations %}
+                        <p>Current reservation dates for this car:</p>
+                        {% for res in curr_reservations %}
+                            {{res.return_date}} <br>
+                        {% endfor %}
+                    {% else %}
+                        <p>There are currently no reservations scheduled for this car</p>
+                    {% endif %}
+                </div>
+                <p> Select dates for your reservation
+                    <form action={% url 'Customer:reservation' car.id %} method="post">
+                        {% csrf_token %}
+                        <label for="start">Start date:</label>
+                        <input type="date" id="startDate" name="startDate"
+                            value={{formatedDate}}
+                            min={{formatedDate}}>
+                        <label for="end">End date:</label>
+                        <input type="date" id="endDate" name="endDate"
+                            value={{formatedDate}}
+                            min={{formatedDate}}>
+                        <input class="button" name="check_availability" type="submit" value="Check Availability">
+                    </form>
+                </p>
+                {% if error_message %}
+                    <p><strong>{{ error_message }}</strong></p>
+                {% elif new_reservation %}
+                    <div>
+                        <p>Your reservation: {{new_reservation.return_date}}</p>
+                        <p>Total cost: ${{price}}</p>
+                        <p>Confirm reservation: 
+                            <form action={% url 'Customer:reservation' car.id %} method="post">
+                            {% csrf_token %}
+                            <input class="button" name="confirm_res" type="submit" value="Confirm">
+                            </form>
+                        </p>
+                    </div>
                 {% endif %}
             </div>
-            <p> Select dates for your reservation
-                <form action={% url 'Customer:search' %} method="get">
-                    <label for="start">Start date:</label>
-                    <input type="date" id="startDate" name="startDate"
-                        value={{formatedDate}}
-                        min={{formatedDate}}>
-                    <label for="end">End date:</label>
-                    <input type="date" id="endDate" name="endDate"
-                        value={{formatedDate}}
-                        min={{formatedDate}}>
-                    <input type="submit" value="Reserve">
-                </form>
-            </p>
-        </div>
-        {% comment %} {% if request.user.is_authenticated %}
-        <div>
-            <P>User: {{request.user}}</P>
-            <p>User Authlevel: {{request.user.userprofile.auth_level}}</p>
-            <P>Balance: {{request.user.userprofile.balance}}</P>
-            <P>Staff: {{request.user.is_staff}}</P>
-        </div>
         {% else %}
         <div>
             <p>User is not signed in!</p>
         </div>
-        {% endif %} {% endcomment %}
+        {% endif %}
     {% endblock %}
