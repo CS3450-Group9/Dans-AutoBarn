@@ -1,13 +1,14 @@
-from django.shortcuts import render, get_object_or_404
+from django.conf import settings
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from datetime import datetime
+from datetime import datetime, timedelta
 from .models import Car, Reservation
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.http import JsonResponse
 from django.utils.datastructures import MultiValueDictKeyError
-from django.db.models import Q
+import secrets
 
 
 def profile(request, context=dict()):
@@ -81,67 +82,111 @@ def search_for_res(request):
     return render(request, 'Customer/search.html', context)
 
 def create_res(request, car_id):
-    car = get_object_or_404(Car, pk=car_id)
+    delete_unconfirmed()
     time_now = timezone.now()
-    formattedDate = time_now.strftime("%m-%d-%Y")
-    curr_reservations = Reservation.objects.filter(car=car_id)
+    formatted_date = time_now.strftime("%m-%d-%Y")
+    car = get_object_or_404(Car, pk=car_id)
     context = {
-        'formattedDate': formattedDate,
+        'formatted_date': formatted_date,
         'car': car,
-        'curr_reservations': curr_reservations,
+        'curr_reservations': Reservation.objects.filter(car=car_id),
     }
+    if request.method == "POST":
+        token = secrets.token_urlsafe(16)
+        expiration = timezone.now() + timedelta(minutes=settings.RESERVATION_EXPIRY_TIME)
+        request.session['reservation'] = {
+            "token": token,
+            "expiration": expiration.isoformat()
+        }
+        try:
+            start_date = format_date(request.POST["start-date"])
+            end_date = format_date(request.POST["end-date"])
+        except ValueError:
+            messages.error(request, "Incorrectly formatted start or end date.")
+            return render(request, 'Customer/reservation.html', context)
+        except MultiValueDictKeyError:
+            messages.error(request, "Incorrectly formatted start or end date.")
+            return render(request, 'Customer/reservation.html', context)
+        except:
+            messages.error(request, "Something went wrong.")
+            return render(request, 'Customer/reservation.html', context)
+
+        if not res_available(car_id, start_date, end_date):
+            messages.error(request, "Reservation no longer available.")
+            return render(request, 'Customer/reservation.html', context)
+        
+        new_reservation = Reservation.objects.create(
+            car=car,
+            user=request.user.userprofile,
+            start_date=start_date,
+            end_date=end_date,
+            confirmed=False,
+            processed_on=timezone.now()
+        )
+        new_reservation.save()
+        return redirect(f'/confirm/{token}')
+        
     return render(request, 'Customer/reservation.html', context)
 
-def check_availability(request):
+def confirm_res(request, token):
+    try:
+        session_token = request.session['reservation']['token']
+        expiration = request.session['reservation']['expiration']
+        expiration = datetime.fromisoformat(expiration)
+    except:
+        messages.error(request, "Reservation unavailable.")
+        return redirect('/search')
+
+    if token != session_token or expiration < timezone.now():
+        messages.error(request, "Reservation unavailable.")
+        return redirect('/search')
+    
+
+    return render(request, 'Customer/confirmation.html')
+
+def availability_api(request):
     json = {}
     try:
         car_id = int(request.GET["carID"])
-        car = Car.objects.get(pk=car_id)
         start_date = format_date(request.GET["start"])
         end_date = format_date(request.GET["end"])
-        timedelta = (end_date - start_date).days + 1
-        if timedelta <= 0:
+        car = Car.objects.get(pk=car_id)
+        delta = (end_date - start_date).days + 1
+        if delta <= 0:
             raise ValueError("End date cannot be before start date.")
-        elif timedelta > 50:
+        elif delta > 50: # Arbitrarily made this 50 days. We probably wanna change this later
             raise ValueError("Cannot reserve a car for more than 50 days.")
-        price = timedelta * car.get_res_cost()
+        price = delta * car.get_res_cost()
         json['price'] = price
     except ValueError as e:
-        json["error"] = str(e)
-        return JsonResponse(json)
+        return JsonResponse({"error": str(e)})
     except MultiValueDictKeyError:
-        json["error"] = "Request must contain parameters 'carID', 'start', and 'end'."
-        return JsonResponse(json)
+        return JsonResponse({"error": "Request must contain parameters 'carID', 'start', and 'end'."})
     except Car.DoesNotExist:
-        json["error"] = f"Car with ID '{car_id}' does not exist."
-        return JsonResponse(json)
+        return JsonResponse({"error": f"Car with ID '{car_id}' does not exist."})
     except Exception as e:
-        # print(e)
-        json["error"] = "Something went wrong."
-        return JsonResponse(json)
+        print(e)
+        return JsonResponse({"error": "Something went wrong."})
 
-    json["available"] = res_available(car_id, start_date, end_date)
+    json["available"] = res_available(car, start_date, end_date)
     return JsonResponse(json)
-
-def confirm_res(request, reservation_id):
-    reservation = get_object_or_404(Reservation, pk=reservation_id)
-    time_now = timezone.now()
-    formatedDate = time_now.strftime("%m-%d-%Y")
-    context = {
-        'formatedDate': formatedDate,
-        'reservation': reservation,
-        }
-    return render(request, 'Customer/confirmation.html', context)
 
 def format_date(date: str):
     date_format = "%Y-%m-%d"
     date_obj = datetime.strptime(date, date_format).date()
     return date_obj
 
-def res_available(car_id, start_date, end_date):
+def res_available(car, start_date, end_date):
+    delete_unconfirmed()
     overlapping = Reservation.objects.filter(
-        car_id = car_id,
+        car=car,
         end_date__gte=start_date,
-        start_date__lte=end_date
+        start_date__lte=end_date,
     )
     return not overlapping.exists()
+
+def delete_unconfirmed():
+    ''' Delete all reservations that were never confirmed and have since expired '''
+    expiration = timezone.now() - timedelta(minutes=settings.RESERVATION_EXPIRY_TIME)
+    unconfirmed = Reservation.objects.filter(confirmed=False, processed_on__lte=expiration)
+    unconfirmed.delete()

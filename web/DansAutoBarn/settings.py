@@ -144,3 +144,5 @@ MEDIA_URL = '/media/'
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
+RESERVATION_EXPIRY_TIME = 10  # Time until unconfirmed reservations are invalidated

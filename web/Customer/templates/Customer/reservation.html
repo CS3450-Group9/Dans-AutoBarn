@@ -7,22 +7,20 @@
         </div>
         <div align="center" style="width: 100%; background-color: var(--bg)">
             <h2 style="color: var(--ac)">Reservation</h2>
-            <p>Today's Date: {{formattedDate}}</p>
+            <p>Today's Date: {{formatted_date}}</p>
         </div>
     </div>
-    {% if messages %}
-        {% for message in messages %}
+    {% for message in messages %}
 
-        <div class="alert alert-{{ message.tags }}">
-            {% if message.tags == "success" %}
-            <i class="fa-solid fa-circle-check me-2"></i>
-            {% elif message.tags == "danger" %}
-            <i class="fa-solid fa-triangle-exclamation me-2"></i>
-            {% endif %}
-            <strong>{{ message }}</strong>
-        </div>
-        {% endfor %}
-    {% endif %}
+    <div class="alert alert-{{ message.tags }}">
+        {% if message.tags == "success" %}
+        <i class="fa-solid fa-circle-check me-2"></i>
+        {% elif message.tags == "danger" %}
+        <i class="fa-solid fa-triangle-exclamation me-2"></i>
+        {% endif %}
+        <strong>{{ message }}</strong>
+    </div>
+    {% endfor %}
     {% if request.user.is_authenticated %}
         <div class="d-flex flex-column container" align="center">
             <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
@@ -40,7 +38,7 @@
                 {% endfor %}
             </div>
             <p> Select dates for your reservation </p>
-            <form action={% url 'Customer:confirmation' car.id %} method="post">
+            <form action={% url 'Customer:reservation' car.id %} method="post">
                 {% csrf_token %}
                 <label for="start-date">Start Date:</label>
                 <input type="date" id="start-date" name="start-date" v-model="startDate">
@@ -83,7 +81,7 @@ let app = createApp({
     methods: {
         checkAvailability() { // Submit a post request to check for the availability of a certain car
 
-            axios.get(`/check-availability/?carID={{ car.id }}&start=${this.startDate}&end=${this.endDate}`)
+            axios.get(`{% url 'Customer:availability'%}?carID={{ car.id }}&start=${this.startDate}&end=${this.endDate}`)
             .then((response) => {
                 if ("error" in response.data) {
                     console.log(response.data.error)
@@ -115,7 +113,7 @@ let app = createApp({
         },
         costMessage() {
             if (this.price) {
-                return `Reservation Cost: ${this.price}`
+                return `Reservation Cost: $${this.price}`
             }
             return ''
         },

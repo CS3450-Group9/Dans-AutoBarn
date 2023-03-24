@@ -7,6 +7,8 @@ class Reservation(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField()
+    confirmed = models.BooleanField()
+    processed_on = models.DateTimeField()
     
     def get_num_days(self):
         days = self.end_date.day - self.start_date.day
