@@ -46,12 +46,17 @@ body {
   background-color: var(--ac);
 }
 
-.nav-item .nav-link {
+.nav-item:hover > .nav-link {
+  color: white !important;
+}
+
+.nav-item > .nav-link {
   color: black;
 }
 
-.nav-item:hover .nav-link {
-  color: white !important;
+.dropdown-menu {
+  /* this is just a temp, need to do something for positioning */
+  color: black;
 }
 
 .page-content {

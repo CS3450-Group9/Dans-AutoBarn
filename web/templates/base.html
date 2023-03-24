@@ -34,16 +34,24 @@
                 <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                     <div class="navbar-nav">
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ request.user.userprofile.user}}
+                            <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ request.user.userprofile.user }}
                             </a>
-                            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <div><a class="dropdown-item" href="{% url 'Customer:profile' %}">Profile</a></div>
+                            <!-- drop down items -->
+                            <div class="dropdown-menu nav-item" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <div class="nav-item" style="margin-bottom: 0.25rem;">
+                                    <a class="nav-link" href="{% url 'Customer:profile' %}">Profile</a>
+                                </div>
                                 {% if request.user.userprofile.auth_level != "CU" %}
-                                <div><a class="dropdown-item" href="{% url 'Employee:staff' %}">Staff</a></div>
+                                <div class="nav-item" style="margin-bottom: 0.25rem; margin-top: 0.25rem;">
+                                    <a class="nav-link" href="{% url 'Employee:staff' %}">Staff</a>
+                                </div>
                                 {% endif %}
-                                <div><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></div>
+                                <div class="nav-item" style="margin-top: 0.25rem;">
+                                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                                </div>
                             </div>
+                            <!-- end of dropdown items -->
                         </div>
                     </div>
                 </div>
