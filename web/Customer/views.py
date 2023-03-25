@@ -8,6 +8,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.http import JsonResponse
 from django.utils.datastructures import MultiValueDictKeyError
+from django.db import IntegrityError
 import secrets
 
 
@@ -151,6 +152,15 @@ def confirm_res(request, token, res_id):
         return redirect('/search')
 
     if request.method == "POST":
+        user = reservation.user
+        user.balance -= reservation.get_total_cost()
+        try:
+            user.save()
+        except IntegrityError:
+            messages.error(request, "Insufficient Funds.")
+            reservation.delete()
+            return redirect('/search') # TODO: Take user to the 'add balance' page if they don't have enough money then bring them back
+
         reservation.confirmed = True
         reservation.save()
         messages.success(request, "Successfully created reservation!")
