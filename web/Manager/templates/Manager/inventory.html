@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dan's Auto Barn{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2>Car Inventory</h2>
+        <p style="text-align: center;">Today's Date: {{formattedDate}}</p>
+    </div>
+    <div class="container">
+    {% if request.user.userprofile.auth_level == 'MA' %}
+            {% if car_inventory %}
+                {% for car in car_inventory%}
+                    <div class="card d-flex flex-row">
+                        <div><img src="{{ MEDIA_URL }}{{ car.image }}" class="img" alt="Image of {{ car.make }} {{ car.model }}" width="200"></div>
+                        <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
+                            <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
+                            <p>{{car.year}}</p>
+                            <p><span>${{car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Sorry! All our cars were stolen by Dan Watson, if you find him please report him to the authorities.</p>
+            {% endif %}    
+    {% else %}
+        <div>
+            <h2>This page is only accessible to the Manager</h2>
+        </div>
+    {% endif %}     
+    </div>
+{% endblock %}
