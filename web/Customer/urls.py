@@ -11,5 +11,5 @@ urlpatterns = [
     path('search/', views.search_for_res, name='search'),
     path('cars/<int:car_id>/', views.create_res, name='reservation'),
     path('check-availability/', views.availability_api, name='availability'),
-    path('confirm/<str:token>/', views.confirm_res, name='confirmation'),
+    path('confirm/<str:token>/<int:res_id>/', views.confirm_res, name='confirmation'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

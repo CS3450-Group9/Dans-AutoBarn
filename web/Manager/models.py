@@ -4,11 +4,8 @@ class Car(models.Model):
     make = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     year = models.IntegerField()
-    gasFillPercent = models.IntegerField()
-    plateNumber = models.CharField(max_length=50)
+    gas_fill_percent = models.IntegerField()
+    plate_number = models.CharField(max_length=50)
     image = models.ImageField(upload_to="cars")
     lowjacked = models.BooleanField(default=False)
-    reservationCost = models.IntegerField()
-    
-    def get_res_cost(self):
-        return self.reservationCost
+    reservation_cost = models.IntegerField()

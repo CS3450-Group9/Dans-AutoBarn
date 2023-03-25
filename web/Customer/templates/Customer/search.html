@@ -24,7 +24,7 @@
             <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
                 <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
                 <p>{{car.year}}</p>
-                <p><span>${{car.reservationCost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
+                <p><span>${{car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
             </div>
             <input type="button" value="View Availability"  onclick="location.href = '{% url 'Customer:reservation' car.id %}'" style="border-radius: 0 10px 10px 0; border-style: none; background-color: var(--ac); color: white;">
         </div>

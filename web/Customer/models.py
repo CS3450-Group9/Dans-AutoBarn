@@ -11,10 +11,9 @@ class Reservation(models.Model):
     processed_on = models.DateTimeField()
     
     def get_num_days(self):
-        days = self.end_date.day - self.start_date.day
-        return days
-    
-    def return_date(self):
-        days = self.get_num_days()
-        return f"Reserved for {days} days from {self.start_date} to {self.end_date}"
+        days = self.end_date - self.start_date
+        return days.days + 1
+
+    def get_total_cost(self):
+        return self.car.reservation_cost * self.get_num_days()
     

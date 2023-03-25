@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
     <div class="d-flex flex-column">
         <div style="width: 100%; background-color: var(--bg)">
             <h1 class="text-center" style="color: var(--ac)">Dan's Auto Barn</h1>
@@ -10,8 +11,8 @@
             <p>Today's Date: {{formatted_date}}</p>
         </div>
     </div>
-    {% for message in messages %}
 
+    {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">
         {% if message.tags == "success" %}
         <i class="fa-solid fa-circle-check me-2"></i>
@@ -21,39 +22,43 @@
         <strong>{{ message }}</strong>
     </div>
     {% endfor %}
+
     {% if request.user.is_authenticated %}
-        <div class="d-flex flex-column container" align="center">
-            <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
-            <p>
-                Vehicle: {{car.make}} {{car.model}}<br>
-                Year: {{car.year}}<br> 
-                Reservation Price: ${{car.reservationCost}} (per day)<br>
-            </p>
-            <div class="container">
-                <p>Current reservations for this car:</p>
-                {% for res in curr_reservations %}
-                    {{res.return_date}} <br>
-                {% empty %}
-                    <p>There are currently no reservations scheduled.</p>
-                {% endfor %}
-            </div>
-            <p> Select dates for your reservation </p>
-            <form action={% url 'Customer:reservation' car.id %} method="post">
-                {% csrf_token %}
-                <label for="start-date">Start Date:</label>
-                <input type="date" id="start-date" name="start-date" v-model="startDate">
-                <label for="end-date">End Date:</label>
-                <input type="date" id="end-date" name="end-date" v-model="endDate">
-                <p v-cloak >[[ availabilityMessage ]]</p>
-                <p v-cloak >[[ costMessage ]]</p>
-                <button class="btn btn-primary" :class="{ 'disabled': buttonDisabled }" type="submit" v-cloak>Make Reservation</button>
-            </form>
+    <div class="d-flex flex-column container" align="center">
+        <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
+        <p>
+            Vehicle: {{car.make}} {{car.model}}<br>
+            Year: {{car.year}}<br> 
+            Reservation Price: ${{car.reservation_cost}} (per day)<br>
+        </p>
+        <div class="container">
+            <p>Current reservations for this car:</p>
+            {% for res in curr_reservations %}
+                <p>Reserved for {{ res.get_num_days }} day{{ res.get_num_days|pluralize }} from {{ res.start_date }} to {{ res.end_date }}</p>
+            {% empty %}
+                <p>There are currently no reservations scheduled.</p>
+            {% endfor %}
         </div>
+        <p> Select dates for your reservation </p>
+        <form action={% url 'Customer:reservation' car.id %} method="post">
+            {% csrf_token %}
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" name="start-date" v-model="startDate">
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date" name="end-date" v-model="endDate">
+            <p v-cloak >[[ availabilityMessage ]]</p>
+            <p v-cloak >[[ costMessage ]]</p>
+            <button class="btn btn-primary" :class="{ 'disabled': buttonDisabled }" type="submit" v-cloak>Make Reservation</button>
+        </form>
+    </div>
+
     {% else %}
     <div>
         <h2>User is not signed in!</h2>
     </div>
+
     {% endif %}
+
 {% endblock content %}
 
 {% block vue_app %}
