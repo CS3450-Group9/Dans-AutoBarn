@@ -11,8 +11,14 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.db import IntegrityError
 import secrets
 
+def profile_default(request):
+    return redirect('/profile/info/')
 
-def profile(request, context=dict()):
+def profile(request, tab: str):
+    if request.method == "POST":
+        match tab:
+            case "balance": return add_balance(request)
+            case "pass-change": return password_change(request)
     tabs = [
         {"url": "info",
          "tab_title": "Personal Information",
@@ -35,42 +41,41 @@ def profile(request, context=dict()):
          "component_name": "CarBroken",
          "template": 'Customer/profileTabs/carBroke.html'},
     ]
+    context = {}
     if request.user.is_authenticated:
-        context.update({"tabs": tabs})
-        context.update({ "password_form": PasswordChangeForm(request.user.userprofile.user) })
+        context["tabs"] = tabs
+        context["password_form"] = PasswordChangeForm(request.user.userprofile.user)
     else:
-        context = {"error": "User is not signed in!"}
+        context["error"] = "User is not signed in!"
     return render(request, 'Customer/profile.html', context)
 
 def add_balance(request):
-    if request.method != "POST":
-        return profile(request)
     try:
         amount = int(request.POST.get("inputBal", 0))
         if amount < 1: raise ValueError
         request.user.userprofile.balance += amount
         request.user.userprofile.full_clean()
         request.user.userprofile.save()
-        context = { "bal_msg": f"Successfully added ${amount} to account!" }
+        messages.success(request, f"Successfully added ${amount} to account!")
     except ValueError:
-        context = { "bal_msg": "Amount must be a positive integer" }
+        messages.error(request, "Amount must be a positive integer")
     except:
-        context = {"bal_msg": "Something went wrong... Unable to transfer funds."}
+        messages.error(request, "Something went wrong... Unable to transfer funds.")
 
-    return profile(request, context=context)
+    return profile(request, None)
 
 def password_change(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(user=request.user.userprofile.user, data=request.POST)
-        if form.is_valid():
-            form.save()
-            update_session_auth_hash(request, form.user)
-            messages.success(request, 'Your password was successfully updated!')
-        else:
-            for errors in form.errors.values():
-                for error in errors:
-                    messages.error(request, error)
-    return profile(request)
+    form = PasswordChangeForm(user=request.user.userprofile.user, data=request.POST)
+    if form.is_valid():
+        form.save()
+        update_session_auth_hash(request, form.user)
+        messages.success(request, 'Your password was successfully updated!')
+    else:
+        for errors in form.errors.values():
+            for error in errors:
+                messages.error(request, error)
+    return profile(request, None)
+
 
 def search_for_res(request):
     time_now = timezone.now()

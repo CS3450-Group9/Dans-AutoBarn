@@ -45,9 +45,9 @@ const router = createRouter({
     history: createWebHistory("/{% block base_url %}{% endblock base_url %}/"), // The argument here is the base url for the page
     routes: [
         {% for tab in tabs %}
-        { path: '/{{ tab.url }}', component: {{ tab.component_name }}},
+        { path: '/{{ tab.url }}/', component: {{ tab.component_name }}},
         {% endfor %}
-        { path: '/:catchAll(.*)', redirect: '/{{ tabs.0.url }}'}, // Default to the first tab if none matched
+        { path: '/:catchAll(.*)/', redirect: '/{{ tabs.0.url }}/'}, // Default to the first tab if none matched
     ]
 });
 
@@ -58,12 +58,15 @@ let app = createApp({
     },
     computed: {
         currentTab() {
-            return this.$route.path.split('/').pop()
+            let path = this.$route.path;
+            path = path.replace(/\/$/, "");
+
+            return path.split('/').pop()
         },
     },
     methods: {
         tabURL(tab) {
-            return `/${tab}`;
+            return `/${tab}/`;
         },
         isTabActive(tab) {
             return this.currentTab === tab;
