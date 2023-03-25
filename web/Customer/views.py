@@ -151,6 +151,8 @@ def confirm_res(request, token, res_id):
         return redirect('/search')
 
     if request.method == "POST":
+        reservation.confirmed = True
+        reservation.save()
         messages.success(request, "Successfully created reservation!")
         return redirect("/search")
     
