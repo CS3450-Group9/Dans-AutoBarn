@@ -21,7 +21,35 @@
                 {% endfor %}
             {% else %}
                 <p>Sorry! All our cars were stolen by Dan Watson, if you find him please report him to the authorities.</p>
-            {% endif %}    
+            {% endif %}
+            <h3>Shop for cars to add to your inventory!</h3>
+            <div class="card d-flex flex-row">
+                <div><img src="{{ MEDIA_URL }}storeCars/acura.png" class="img" alt="Image of Acura Integra" width="200"></div>
+                <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
+                    <h2 style="text-align: left; padding-bottom: 0%;">Acura Integra</h2>
+                    <p>2023</p>
+                    <p><span>$500</span><span style="color: #505050; font-size: 0.75em;"></span></p>
+                </div>
+                <input type="button" value="Purchase" style="border-radius: 0 10px 10px 0; border-style: none; background-color: var(--ac); color: white;">
+            </div>
+            <div class="card d-flex flex-row">
+                <div><img src="{{ MEDIA_URL }}storeCars/cadillac.png" class="img" alt="Image of Cadillac Escalade" width="200"></div>
+                <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
+                    <h2 style="text-align: left; padding-bottom: 0%;">Cadillac Escalade</h2>
+                    <p>2014</p>
+                    <p><span>$300</span><span style="color: #505050; font-size: 0.75em;"></span></p>
+                </div>
+                <input type="button" value="Purchase" style="border-radius: 0 10px 10px 0; border-style: none; background-color: var(--ac); color: white;">
+            </div>
+            <div class="card d-flex flex-row">
+                <div><img src="{{ MEDIA_URL }}storeCars/audi.png" class="img" alt="Image of Audi Q7" width="200"></div>
+                <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
+                    <h2 style="text-align: left; padding-bottom: 0%;">Audi Q7</h2>
+                    <p>2007</p>
+                    <p><span>$150</span><span style="color: #505050; font-size: 0.75em;"></span></p>
+                </div>
+                <input type="button" value="Purchase" style="border-radius: 0 10px 10px 0; border-style: none; background-color: var(--ac); color: white;">
+            </div>              
     {% else %}
         <div>
             <h2>This page is only accessible to the Manager</h2>

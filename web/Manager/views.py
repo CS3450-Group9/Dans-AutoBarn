@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from .models import Car
 from Customer.models import Reservation
 
+
 def car_inventory(request):
     time_now = timezone.now()
     formattedDate = time_now.strftime("%m-%d-%Y")
