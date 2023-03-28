@@ -5,6 +5,35 @@
 > Template at bottom
 
 ---
+## 03/27/2023 - Scrum Master: Carter Watson
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson | Worked on styling more | Style profile page, redo view cars page | Need more info on how and where profile page is put together |
+| Caden Maxwell |  |  |  |
+| Caleb Leavitt |  |  |  |
+| Joseph Giles  |  |  |  |
+### Screenshot of Burndown Chart
+![Burndown Update](referencePhotos/burndownUpdates/03-27-23.png)
+### Screenshot of Kanban Board
+![Kanban Update](referencePhotos/kanbanUpdates/03-27-23.png)
+### Questions for team discussion
+* None
+
+---
+## 03/24/2023 - Scrum Master: Carter Watson
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson | Absent | | |
+| Caden Maxwell | Attended |  |  |
+| Caleb Leavitt | Absent |  |  |
+| Joseph Giles  | Attended |  |  |
+### General Discussion
+* Talking about create reservation page
+* Caden got it figured out
+
+---
 ## 03/22/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
