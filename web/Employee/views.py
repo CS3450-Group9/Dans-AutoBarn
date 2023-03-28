@@ -1,6 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from Manager.models import Car
 
-def staff(request):
+def staff_default(request):
+    return redirect("staff/active-rentals")
+
+
+def staff(request, tab):
     tabs = [
         {"url": "active-rentals",
          "tab_title": "Active Rentals",
@@ -26,6 +31,8 @@ def staff(request):
         ]
         context = {"tabs": tabs}
     elif request.user.userprofile.auth_level == "MA":
+        # if tab == "cars" and request == "POST":
+        #     return render()
         tabs += [
             {"url": "cars",
              "tab_title": "Manage Cars",
@@ -40,7 +47,10 @@ def staff(request):
              "component_name": "Hours",
              "template": 'Manager/managerTabs/reviewHours.html' },
         ]
-        context = {"tabs": tabs}
+        context = {
+            "tabs": tabs,
+            "car_inventory": Car.objects.all()
+        }
     else:
         context = {"error": "User is not part of staff!"}
 
