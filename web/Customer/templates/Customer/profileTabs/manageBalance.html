@@ -8,7 +8,16 @@
                 <input type="number" min="1" class="form-control" id="inputBal" name="inputBal" placeholder="Add Balance">
             </div>
         </div>
-        <div>{{ bal_msg }}</div>
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {% if message.tags == "success" %}
+            <i class="fa-solid fa-circle-check me-2"></i>
+            {% elif message.tags == "danger" %}
+            <i class="fa-solid fa-triangle-exclamation me-2"></i>
+            {% endif %}
+            <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

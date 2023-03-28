@@ -15,72 +15,65 @@
 </head>
 <body>
     {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container-fluid content-container">
-            <ul class="navbar-nav">
-                <!-- TODO: conditionally show these items based on UserProfile.auth_level -->
-                <li class="nav-item">
+    <div class="content-container d-flex justify-content-center">
+        <img src="{% static "wideLogo.png" %}" alt="Cars Vending Machine" style="width:100%;">
+    </div>
+    <div class="d-flex flex-column sticky-top">
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="content-container d-flex justify-content-between align-items-center">
+            <div class="navbar-nav">
+                <div class="nav-item">
                     <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
+                </div>
+                <div class="nav-item">
                     <a class="nav-link" href="/search">Find Reservation</a>
-                </li>
-                <!-- invalid links for testing purposes -->
-                {% if request.user.userprofile.auth_level == "CU"%}
-                <li class="nav-item">
-                    <a class="nav-link" href="/badlink">Bad Link</a>
-                </li>
-                {% elif request.user.userprofile.auth_level == "TW" %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/badlink">bad link - til worker</a>
-                </li>
-                {% elif request.user.userprofile.auth_level == "CR" %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/badlink">bad link - Car Retrieval Specialist</a>
-                </li>
-                {% elif request.user.userprofile.auth_level == "MA" %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/badlink">bad link - Manager</a>
-                </li>
-                {% endif %}
-            </ul>
-            <!-- display login/out depending on auth status -->
-            <ul class="navbar-nav">
+                </div>
+            </div>
+            <div class="navbar-nav">
                 {% if request.user.is_authenticated %}
-
                 <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ request.user.userprofile.user}}
+                    <div class="navbar-nav">
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ request.user.userprofile.user }}
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="{% url 'Customer:profile' %}">Profile</a></li>
+                            <!-- drop down items -->
+                            <div class="dropdown-menu nav-item" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <div class="nav-item" style="margin-bottom: 0.25rem;">
+                                    <a class="nav-link" href="{% url 'Customer:profile' %}">Profile</a>
+                                </div>
                                 {% if request.user.userprofile.auth_level != "CU" %}
-                                <li><a class="dropdown-item" href="{% url 'Employee:staff' %}">Staff</a></li>
+                                <div class="nav-item" style="margin-bottom: 0.25rem; margin-top: 0.25rem;">
+                                    <a class="nav-link" href="{% url 'Employee:staff' %}">Staff</a>
+                                </div>
                                 {% endif %}
-                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                                <div class="nav-item" style="margin-top: 0.25rem;">
+                                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                                </div>
+                            </div>
+                            <!-- end of dropdown items -->
+                        </div>
+                    </div>
                 </div>
                 {% else %}
-                <li class="nav-item">
+                <div class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>
-                </li>
+                </div>
                 {% endif %}
-            </ul>
+            </div>
         </div>
     </nav>
-
+    <div class="chrome-bar"></div>
+</div>
 
     <!-- Vue script -->
     <script type="importmap">
         {
             "imports": {
                 "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
-                "@vue/devtools-api": "https://unpkg.com/@vue/devtools-api@6.5.0/lib/esm/index.js", // Dependency for vue-router
-                "vue-router": "https://unpkg.com/vue-router@4/dist/vue-router.esm-browser.js" // Helps map urls to views without refreshing the page
+                "@vue/devtools-api": "https://unpkg.com/@vue/devtools-api@6.5.0/lib/esm/index.js",
+                "vue-router": "https://unpkg.com/vue-router@4/dist/vue-router.esm-browser.js",
+                "axios": "https://unpkg.com/axios@1.3.4/dist/esm/axios.js"
             }
         }
     </script>
@@ -91,45 +84,44 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-dark">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <footer class="d-flex flex-column" style="background-color: var(--c1) !important;">
+        <div class="chrome-bar"></div>
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid content-container">
                 <!-- left hand side -->
-                <ul class="navbar-nav" style="margin-bottom: auto;">
-                    <li class="nav-item">
+                <div class="navbar-nav" style="margin-bottom: auto;">
+                    <div class="nav-item">
                         <a class="nav-link" href="https://github.com/CS3450-Group9" target="_blank">Created by: CS3450-Group9</a>
-                    </li>
-                </ul>
+                    </div>
+                </div>
                 <!-- right hand side -->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <div class="d-flex flex-column">
-                            <div class="d-flex flex-row">
-                                <span class="nav-link">Group Members</span>
-                            </div>
-                            <div class="d-flex flex-row">
-                                <a class="nav-link" href="https://github.com/cartwatson" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a>
-                                <a class="nav-link" href="https://linkedin.com/in/cartwatson" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
-                                <a class="nav-link" href="https://cartwatson.com/" target="_blank">Carter Watson</a>
-                            </div>
-                            <div class="d-flex flex-row">
-                                <a class="nav-link" href="https://github.com/caden-maxwell" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a>
-                                <a class="nav-link" href="https://www.linkedin.com/in/cadenmaxwell/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
-                                <a class="nav-link" href="#" target="_blank">Caden Maxwell</a>
-                            </div>
-                            <div class="d-flex flex-row">
-                                <a class="nav-link" href="https://github.com/jeonix" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a>
-                                <a class="nav-link" href="https://www.linkedin.com/in/joseph-giles-160346b2/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
-                                <a class="nav-link" href="#" target="_blank">Joe Giles</a>
-                            </div>
-                            <div class="d-flex flex-row">
-                                <a class="nav-link" href="https://github.com/Irion7-1" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a>
-                                <a class="nav-link" href="https://www.linkedin.com/in/caleb-leavitt-b21926224" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a>
-                                <a class="nav-link" href="#" target="_blank">Caleb Leavitt</a>
-                            </div>
+                <div class="navbar-nav">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex flex-row nav-item" style="margin-bottom: 0.5rem;">
+                            <a class="nav-link" href="https://github.com/orgs/CS3450-Group9/people" target="_blank">Group Members</a>
                         </div>
-                    </li>
-                </ul>
+                        <div class="d-flex flex-row" style="margin-bottom: 0.5rem;">
+                            <div class="nav-item"><a class="nav-link" href="https://github.com/cartwatson" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
+                            <div class="nav-item"><a class="nav-link" href="https://linkedin.com/in/cartwatson" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
+                            <div class="nav-item" style="min-width: 10rem;"><a class="nav-link" href="https://cartwatson.com/" target="_blank">Carter Watson</a></div>
+                        </div>
+                        <div class="d-flex flex-row" style="margin-bottom: 0.5rem;">
+                            <div class="nav-item"><a class="nav-link" href="https://github.com/caden-maxwell" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
+                            <div class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/cadenmaxwell/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
+                            <div class="nav-item" style="min-width: 10rem;"><a class="nav-link" href="#" target="_blank">Caden Maxwell</a></div>
+                        </div>
+                        <div class="d-flex flex-row" style="margin-bottom: 0.5rem;">
+                            <div class="nav-item"><a class="nav-link" href="https://github.com/jeonix" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
+                            <div class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/joseph-giles-160346b2/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
+                            <div class="nav-item" style="min-width: 10rem;"><a class="nav-link" href="#" target="_blank">Joe Giles</a></div>
+                        </div>
+                        <div class="d-flex flex-row" style="margin-bottom: 0.5rem;">
+                            <div class="nav-item"><a class="nav-link" href="https://github.com/Irion7-1" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
+                            <div class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/caleb-leavitt-b21926224" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
+                            <div class="nav-item" style="min-width: 10rem;"><a class="nav-link" href="#" target="_blank">Caleb Leavitt</a></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
     </footer>
