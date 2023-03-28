@@ -10,9 +10,9 @@
 | Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
 | ------------- | --- | --- | --- |
 | Carter Watson | Worked on styling more | Style profile page, redo view cars page | Need more info on how and where profile page is put together |
-| Caden Maxwell |  |  |  |
-| Caleb Leavitt |  |  |  |
-| Joseph Giles  |  |  |  |
+| Caden Maxwell | Absent |  |  |
+| Caleb Leavitt | Absent |  |  |
+| Joseph Giles  | Working on manage inventory page for manager |  |  |
 ### Screenshot of Burndown Chart
 ![Burndown Update](referencePhotos/burndownUpdates/03-27-23.png)
 ### Screenshot of Kanban Board
