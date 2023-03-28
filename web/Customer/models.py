@@ -1,20 +1,19 @@
 from django.db import models
-from UserAuth.models import User
+from UserAuth.models import UserProfile
 from Manager.models import Car
-
-# Create your models here.
 
 class Reservation(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    startDate = models.DateField()
-    endDate = models.DateField()
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    confirmed = models.BooleanField()
+    processed_on = models.DateTimeField()
     
     def get_num_days(self):
-        days = self.endDate.day - self.startDate.day
-        return days
-    
-    def return_date(self):
-        days = self.get_num_days()
-        return f"Reserved for {days} days from {self.startDate} to {self.endDate}"
+        days = self.end_date - self.start_date
+        return days.days + 1
+
+    def get_total_cost(self):
+        return self.car.reservation_cost * self.get_num_days()
     

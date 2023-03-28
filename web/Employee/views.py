@@ -23,10 +23,6 @@ def staff(request):
              "tab_title": "Log Hours Worked",
              "component_name": "LogHours",
              "template": 'Employee/staffTabs/logHours.html' },
-            {"url": "pay-history",
-             "tab_title": "Pay History",
-             "component_name": "PayHistory",
-             "template": 'Employee/staffTabs/payHistory.html' },
         ]
         context = {"tabs": tabs}
     elif request.user.userprofile.auth_level == "MA":
