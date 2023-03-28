@@ -1,16 +1,12 @@
 <div>
-    {% if users %}
     {% for user in users %}
-    <div class="container py-1">
-        <div class="card d-flex flex-row">
-            <div class="d-flex flex-column justify-content-between flex-grow-1 px-3">
-                <h3 class="align-middle my-2">{{user.user}} -- {{user.get_auth_level_display }}</h3>
-            </div>
-            <input type="button" value="Some Action" onclick="location.href = '#';" style="border-radius: 0 10px 10px 0; border-style: none; background-color: var(--ac); color: white;">
+    <div>
+        <div>
+            <h3>{{user.user}} -- {{user.get_auth_level_display }}</h3>
         </div>
+        <button>Some Action</button>
     </div>
-    {% endfor %}
-    {% else %}
+    {% empty %}
     <p>No users found!</p>
-    {% endif %}
+    {% endfor %}
 </div>
