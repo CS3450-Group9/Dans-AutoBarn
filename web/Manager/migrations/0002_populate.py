@@ -7,25 +7,25 @@ def populate_db(apps, schema_editor):
     # CUSTOM DATA MIGRATIONS FOR CARS
     Car = apps.get_model('Manager', 'Car')
     
-    car1 = Car(make='Honda', model='Civic', year='1993', plateNumber='aaaaa', image='cars/civic.png', gasFillPercent=100, reservationCost=10)
+    car1 = Car(make='Honda', model='Civic', year='1993', plate_number='aaaaa', image='cars/civic.png', gas_fill_percent=100, reservation_cost=10)
     car1.save()
     
-    car2 = Car(make='Ford', model='Cobra', year='1993', plateNumber='bbbbb', image='cars/cobra.png', gasFillPercent=100, reservationCost=10)
+    car2 = Car(make='Ford', model='Cobra', year='1993', plate_number='bbbbb', image='cars/cobra.png', gas_fill_percent=100, reservation_cost=10)
     car2.save()
     
-    car2 = Car(make='Isuzu', model='Trooper', year='1999', plateNumber='ccccc', image='cars/trooper.png', gasFillPercent=100, reservationCost=50)
+    car2 = Car(make='Isuzu', model='Trooper', year='1999', plate_number='ccccc', image='cars/trooper.png', gas_fill_percent=100, reservation_cost=50)
     car2.save()
     
-    car3 = Car(make='Lamborghini', model='Diablo', year='1996', plateNumber='ddddd', image='cars/diablo.png', gasFillPercent=100, reservationCost=100)
+    car3 = Car(make='Lamborghini', model='Diablo', year='1996', plate_number='ddddd', image='cars/diablo.png', gas_fill_percent=100, reservation_cost=100)
     car3.save()
     
-    car4 = Car(make='BMW', model='M-5', year='1997', plateNumber='eeeee', image='cars/bmw.png', gasFillPercent=100, reservationCost=50)
+    car4 = Car(make='BMW', model='M-5', year='1997', plate_number='eeeee', image='cars/bmw.png', gas_fill_percent=100, reservation_cost=50)
     car4.save()
     
-    car5 = Car(make='Dodge', model='Viper', year='1994', plateNumber='fffff', image='cars/viper.png', gasFillPercent=100, reservationCost=100)
+    car5 = Car(make='Dodge', model='Viper', year='1994', plate_number='fffff', image='cars/viper.png', gas_fill_percent=100, reservation_cost=100)
     car5.save()
 
-    car6 = Car(make='Jeep', model='Cherokee', year='1999', plateNumber='gggggg', image='cars/jeep.png', gasFillPercent=100, reservationCost=50)
+    car6 = Car(make='Jeep', model='Cherokee', year='1999', plate_number='gggggg', image='cars/jeep.png', gas_fill_percent=100, reservation_cost=50)
     car6.save()
 
 class Migration(migrations.Migration):

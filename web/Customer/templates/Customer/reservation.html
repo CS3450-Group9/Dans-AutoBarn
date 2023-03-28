@@ -1,55 +1,134 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Dan's Auto Barn{% endblock %}
-    {% block content %}
-        <div class="d-flex flex-column">
-            <div style="width: 100%; background-color: var(--bg)">
-                <h1 class="text-center" style="color: var(--ac)">Dan's Auto Barn</h1>
-            </div>
-            <div align="center" style="width: 100%; background-color: var(--bg)">
-                <h2 style="color: var(--ac)">Reservation</h2>
-                <p>Today's Date: {{formatedDate}}</p>
-            </div>
+{% block content %}
+
+    <div class="d-flex flex-column">
+        <div style="width: 100%; background-color: var(--bg)">
+            <h1 class="text-center" style="color: var(--ac)">Dan's Auto Barn</h1>
         </div>
-        <div class="d-flex flex-column container" align="center">
-            <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
-            <p>
-                Vehicle: {{car.make}} {{car.model}}<br>
-                Year: {{car.year}}<br> 
-                Reservation Price: ${{car.reservationCost}}<br>
-            </p>
-            <div class="container">
-                {% if curr_reservations %}
-                    <p>Current reservation dates for this car:</p>
-                    {{curr_reservations }}
-                {% else %}
-                    <p>There are no current scheduled reservations at this time</p>
-                {% endif %}
-            </div>
-            <p> Select dates for your reservation
-                <form action={% url 'Customer:search' %} method="get">
-                    <label for="start">Start date:</label>
-                    <input type="date" id="startDate" name="startDate"
-                        value={{formatedDate}}
-                        min={{formatedDate}}>
-                    <label for="end">End date:</label>
-                    <input type="date" id="endDate" name="endDate"
-                        value={{formatedDate}}
-                        min={{formatedDate}}>
-                    <input type="submit" value="Reserve">
-                </form>
-            </p>
+        <div align="center" style="width: 100%; background-color: var(--bg)">
+            <h2 style="color: var(--ac)">Reservation</h2>
+            <p>Today's Date: {{formatted_date}}</p>
         </div>
-        {% comment %} {% if request.user.is_authenticated %}
-        <div>
-            <P>User: {{request.user}}</P>
-            <p>User Authlevel: {{request.user.userprofile.auth_level}}</p>
-            <P>Balance: {{request.user.userprofile.balance}}</P>
-            <P>Staff: {{request.user.is_staff}}</P>
+    </div>
+
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {% if message.tags == "success" %}
+        <i class="fa-solid fa-circle-check me-2"></i>
+        {% elif message.tags == "danger" %}
+        <i class="fa-solid fa-triangle-exclamation me-2"></i>
+        {% endif %}
+        <strong>{{ message }}</strong>
+    </div>
+    {% endfor %}
+
+    {% if request.user.is_authenticated %}
+    <div class="d-flex flex-column container" align="center">
+        <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
+        <p>
+            Vehicle: {{car.make}} {{car.model}}<br>
+            Year: {{car.year}}<br> 
+            Reservation Price: ${{car.reservation_cost}} (per day)<br>
+        </p>
+        <div class="container">
+            <p>Current reservations for this car:</p>
+            {% for res in curr_reservations %}
+                <p>Reserved for {{ res.get_num_days }} day{{ res.get_num_days|pluralize }} from {{ res.start_date }} to {{ res.end_date }}</p>
+            {% empty %}
+                <p>There are currently no reservations scheduled.</p>
+            {% endfor %}
         </div>
-        {% else %}
-        <div>
-            <p>User is not signed in!</p>
-        </div>
-        {% endif %} {% endcomment %}
-    {% endblock %}
+        <p> Select dates for your reservation </p>
+        <form action={% url 'Customer:reservation' car.id %} method="post">
+            {% csrf_token %}
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" name="start-date" v-model="startDate">
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date" name="end-date" v-model="endDate">
+            <p v-cloak >[[ availabilityMessage ]]</p>
+            <p v-cloak >[[ costMessage ]]</p>
+            <button class="btn btn-primary" :class="{ 'disabled': buttonDisabled }" type="submit" v-cloak>Make Reservation</button>
+        </form>
+    </div>
+
+    {% else %}
+    <div>
+        <h2>User is not signed in!</h2>
+    </div>
+
+    {% endif %}
+
+{% endblock content %}
+
+{% block vue_app %}
+import axios from 'axios';
+import { createApp } from 'vue';
+
+let app = createApp({
+    delimiters: ['[[', ']]'],
+    data() {
+        return {
+            startDate: '',
+            endDate: '',
+            available: undefined,
+            price: undefined,
+        };
+    },
+    watch: {
+        startDate() {
+            this.checkAvailability();
+        },
+        endDate() {
+            this.checkAvailability();
+        },
+    },
+    methods: {
+        checkAvailability() { // Submit a post request to check for the availability of a certain car
+
+            axios.get(`{% url 'Customer:availability'%}?carID={{ car.id }}&start=${this.startDate}&end=${this.endDate}`)
+            .then((response) => {
+                if ("error" in response.data) {
+                    console.log(response.data.error)
+                    this.available = undefined;
+                    this.price = 0;
+                } else {
+                    this.available = response.data.available;
+                    this.price = response.data.price;
+                }
+            })
+            .catch((error) => console.log(error));
+        },
+    },
+    computed: {
+        availabilityMessage() {
+            if (!this.startDate && !this.endDate) {
+                return 'Please enter a start date and an end date.'
+            } else if (!this.startDate) {
+                return 'Please enter a start date.'
+            } else if (!this.endDate) {
+                return 'Please enter an end date.'
+            }
+
+            if (this.available) {
+                return 'The selected dates are available.';
+            } else {
+                return 'The selected dates are not available.';
+            }
+        },
+        costMessage() {
+            if (this.price) {
+                return `Reservation Cost: $${this.price}`
+            }
+            return ''
+        },
+        buttonDisabled() {
+            if (!this.startDate || !this.endDate) return true;
+            return !this.available
+        },
+    },
+})
+
+app.mount('#app');
+
+{% endblock vue_app %}
