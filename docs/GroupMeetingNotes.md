@@ -6,6 +6,16 @@
 > Template at bottom
 
 ---
+## 03/28/2023
+### Questions for Dan
+* None
+### Things we could improve on
+* Round out the final bits of functionality
+### Things we're doing well
+* Furthest along out of groups he's seen today (half of class)
+* remaining functionality is similar to what is already completed
+
+---
 ## 03/02/2023
 ### Questions for Dan
 * Database hosting options
@@ -26,6 +36,7 @@
 ### Things we're doing well
 * working together
 * documentation/software dev process
+
 ---
 ## 01/26/2023 - Sprint 1
 ### Questions for Dan

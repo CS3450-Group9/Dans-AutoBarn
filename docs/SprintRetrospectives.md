@@ -5,6 +5,30 @@
 > Template at bottom
 
 ---
+## 03/29/2023
+> Scrum Master: Carter Watson
+### What we did well
+* more colaborative work
+* communication was better
+* code worked better together, less merge conflicts and those kinds of issues
+* estimations of ticket length were better
+* created a sick ass AI generated logo
+### What didn't go well
+* didn't use the kanban as much
+* burndown chart isn't a good reflection of our work/hours put in
+### What we can improve on
+* Tickets that better reflect the upcoming work
+### Measurement criteria for improvements
+* all tickets to done by end of next sprint
+### Percentage of work done by each team member (decided together)
+* Carter Watson - 25%
+* Joe Giles     - 25%
+* Caden Maxwell - 25%
+* Caleb Leavitt - 25%
+### Other Notes
+* N/A
+
+---
 ## 03/15/2022
 > Scrum Master: Carter Watson
 ### What we did well
@@ -106,7 +130,7 @@
 * 
 ### What didn't go well
 * 
-### What we can imporve on
+### What we can improve on
 * 
 ### Measurement criteria for improvements
 * 
