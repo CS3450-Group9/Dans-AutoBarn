@@ -24,6 +24,12 @@
 
     <div>
         <!-- Selected Tab Content -->
+        <div v-if="displayMessages">
+            <div v-for="message in messages" class="alert alert-danger" v-cloak>
+                <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                [[ message.message ]]
+            </div>
+        </div>
         <router-view class="p-2"></router-view>
     </div>
 </div>
@@ -58,14 +64,12 @@ let app = createApp({
     delimiters: ['[[', ']]'],
     data() {
         return {
-            {% for message in messages %}
-
-            "{{  }}"
-                {% if message.tags == "success" %}
-                {% elif message.tags == "danger" %}
-                {% endif %}
-                <strong>{{ message }}</strong>
-            {% endfor %}
+            messages: [
+                {% for message in messages %}
+                { "message": "{{ message }}",
+                    "tags": "{{ message.tags }}" },
+                {% endfor %}
+            ]
         }
     },
     computed: {
@@ -73,6 +77,21 @@ let app = createApp({
             let path = this.$route.path;
             path = path.replace(/\/$/, "");
             return path.split('/').pop()
+        },
+        displayMessages() {
+            console.log(this.currentTab)
+            if (this.messages.length > 0) {
+                console.log(this.messages)
+                tags = this.messages[0]["tags"].split()
+            } else return false;
+            print(tags)
+            if (this.messages.length > 0 && this.currentTab in this.messages[0]["tags"].split()) {
+                console.log("True")
+                return true;
+            } else {
+                console.log("False")
+                return false;
+            }
         },
     },
 });

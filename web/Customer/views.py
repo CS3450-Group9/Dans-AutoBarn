@@ -19,7 +19,7 @@ def profile_default(request):
 def profile(request, tab: str):
     if request.method == "POST":
         if tab == "balance":
-            return add_balance(request)
+            return add_balance(request, tab)
         elif tab == "pass-change":
             return password_change(request)
 
@@ -53,14 +53,14 @@ def profile(request, tab: str):
         context["error"] = "User is not signed in!"
     return render(request, 'Customer/profile.html', context)
 
-def add_balance(request):
+def add_balance(request, tabname):
     try:
         amount = int(request.POST.get("inputBal", 0))
         if amount < 1: raise ValueError
         request.user.userprofile.balance += amount
         request.user.userprofile.full_clean()
         request.user.userprofile.save()
-        messages.success(request, f"Successfully added ${amount} to account!")
+        messages.success(request, f"Successfully added ${amount} to account!", extra_tags=tabname)
     except ValueError:
         messages.error(request, "Amount must be a positive integer")
     except:
