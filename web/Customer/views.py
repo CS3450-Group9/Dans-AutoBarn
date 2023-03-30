@@ -16,9 +16,11 @@ def profile_default(request):
 
 def profile(request, tab: str):
     if request.method == "POST":
-        match tab:
-            case "balance": return add_balance(request)
-            case "pass-change": return password_change(request)
+        if tab == "balance":
+            return add_balance(request)
+        elif tab == "pass-change":
+            return password_change(request)
+
     tabs = [
         {"url": "info",
          "tab_title": "Personal Information",
