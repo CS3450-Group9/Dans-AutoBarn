@@ -9,7 +9,7 @@ def staff_default(request):
     return redirect("/staff/active-rentals")
 
 
-def staff(request, context={}):
+def staff(request, tab):
     tabs = [
         {"url": "active-rentals",
          "tab_title": "Active Rentals",

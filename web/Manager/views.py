@@ -39,14 +39,14 @@ def car_inventory(request):
 
     except MultiValueDictKeyError as e:
         messages.error(request, "POST did not include necessary info.")
-        return redirect("Employee:staff")
+        return redirect("Employee:staff", "cars")
 
     except (ValueError, IntegrityError) as e:
         messages.error(request, f"Incorrect value in input '{e}'")
-        return redirect("Employee:staff")
+        return redirect("Employee:staff", "cars")
 
     except Exception as e:
         print("ERROR: " + e)
         messages.error(request, "An error occurred. Please try again later.")
 
-    return redirect("Employee:staff")
+    return redirect("Employee:staff", "cars")

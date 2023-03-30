@@ -21,7 +21,7 @@ def profile(request, tab: str):
         if tab == "balance":
             return add_balance(request, tab)
         elif tab == "pass-change":
-            return password_change(request)
+            return password_change(request, tab)
 
     tabs = [
         {"url": "info",
@@ -62,22 +62,22 @@ def add_balance(request, tabname):
         request.user.userprofile.save()
         messages.success(request, f"Successfully added ${amount} to account!", extra_tags=tabname)
     except ValueError:
-        messages.error(request, "Amount must be a positive integer")
+        messages.error(request, "Amount must be a positive integer", extra_tags=tabname)
     except:
-        messages.error(request, "Something went wrong... Unable to transfer funds.")
+        messages.error(request, "Something went wrong... Unable to transfer funds.", extra_tags=tabname)
 
     return profile(request, None)
 
-def password_change(request):
+def password_change(request, tabname):
     form = PasswordChangeForm(user=request.user.userprofile.user, data=request.POST)
     if form.is_valid():
         form.save()
         update_session_auth_hash(request, form.user)
-        messages.success(request, 'Your password was successfully updated!')
+        messages.success(request, 'Your password was successfully updated!', extra_tags=tabname)
     else:
         for errors in form.errors.values():
             for error in errors:
-                messages.error(request, error)
+                messages.error(request, error, extra_tags=tabname)
     return profile(request, None)
 
 
