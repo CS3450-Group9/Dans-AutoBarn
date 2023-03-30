@@ -9,9 +9,9 @@
 <div class="d-flex">
 
     <!-- Sidebar -->
-    <ul class="nav nav-pills flex-column flex-shrink-0">
+    <ul class="nav flex-column flex-shrink-0">
         {% for tab in tabs %}
-        <li class="nav-item p-2">
+        <li class="nav-item" style="margin-bottom: 0.25rem;">
             <router-link
             :to="tabURL('{{ tab.url }}')"
             class="nav-link"
