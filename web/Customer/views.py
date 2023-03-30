@@ -1,15 +1,17 @@
-from django.conf import settings
-from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone
 from datetime import datetime, timedelta
-from .models import Car, Reservation
+from secrets import token_urlsafe
+
+from django.conf import settings
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-from django.http import JsonResponse
-from django.utils.datastructures import MultiValueDictKeyError
 from django.db import IntegrityError
-import secrets
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
+from django.utils.datastructures import MultiValueDictKeyError
+
+from .models import Car, Reservation
 
 def profile_default(request):
     return redirect('/profile/info/')
@@ -129,7 +131,7 @@ def create_res(request, car_id):
         processed_on=timezone.now()
     )
 
-    token = secrets.token_urlsafe(16)
+    token = token_urlsafe(16)
     expiration = timezone.now() + timedelta(minutes=settings.RESERVATION_EXPIRY_TIME)
     request.session['res_session'] = {
         "res_id": new_reservation.pk,

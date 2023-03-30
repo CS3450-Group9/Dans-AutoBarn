@@ -21,8 +21,10 @@
         {% endfor %}
     </ul>
 
-    <!-- Selected Tab Content -->
-    <router-view class="p-2"></router-view>
+    <div>
+        <!-- Selected Tab Content -->
+        <router-view class="p-2"></router-view>
+    </div>
 </div>
 
 {% else %}
@@ -54,7 +56,16 @@ const router = createRouter({
 let app = createApp({
     delimiters: ['[[', ']]'],
     data() {
-        return {}
+        return {
+            {% for message in messages %}
+
+            "{{  }}"
+                {% if message.tags == "success" %}
+                {% elif message.tags == "danger" %}
+                {% endif %}
+                <strong>{{ message }}</strong>
+            {% endfor %}
+        }
     },
     computed: {
         currentTab() {

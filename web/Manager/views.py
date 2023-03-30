@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone
 from django.contrib import messages
-from datetime import datetime, timedelta
+from django.db import IntegrityError
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.utils.datastructures import MultiValueDictKeyError
+
 from .models import Car
-from Customer.models import Reservation
 
 
 def car_inventory(request):
@@ -14,16 +15,16 @@ def car_inventory(request):
         'formattedDate': formattedDate,
         'car_inventory': car_inventory,
     }
-    if request.method == 'POST':
-        try:
-            car_make = request.POST['car-make']
-            car_model = request.POST['car-model']
-            car_year = request.POST['car-year']
-            car_license = request.POST['car-license']
-            car_res_cost = request.POST['car-res-cost']
-        except ValueError:
-            messages.error(request, "Incorrectly formatted inputs.")
-            return render(request, 'Manager/managerTabs/manageCars.html', context)
+
+    if request.method != 'POST':
+        return redirect("Employee:staff")
+
+    try:
+        car_make = request.POST['car-make']
+        car_model = request.POST['car-model']
+        car_year = request.POST['car-year']
+        car_license = request.POST['car-license']
+        car_res_cost = request.POST['car-res-cost']
         new_car = Car.objects.create(
             make=car_make,
             model=car_model,
@@ -35,5 +36,17 @@ def car_inventory(request):
             reservation_cost=car_res_cost,
         )
         new_car.save()
-        return render(request, 'Manager/managerTabs/manageCars.html', context)
-    return render(request, 'Manager/managerTabs/manageCars.html', context)
+
+    except MultiValueDictKeyError as e:
+        messages.error(request, "POST did not include necessary info.")
+        return redirect("Employee:staff")
+
+    except (ValueError, IntegrityError) as e:
+        messages.error(request, f"Incorrect value in input '{e}'")
+        return redirect("Employee:staff")
+
+    except Exception as e:
+        print("ERROR: " + e)
+        messages.error(request, "An error occurred. Please try again later.")
+
+    return redirect("Employee:staff")

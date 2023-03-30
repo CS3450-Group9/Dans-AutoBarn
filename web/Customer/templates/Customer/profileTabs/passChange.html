@@ -1,14 +1,4 @@
 <div>
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">
-        {% if message.tags == "success" %}
-        <i class="fa-solid fa-circle-check me-2"></i>
-        {% elif message.tags == "danger" %}
-        <i class="fa-solid fa-triangle-exclamation me-2"></i>
-        {% endif %}
-        <strong>{{ message }}</strong>
-    </div>
-    {% endfor %}
     <form method="post" class="p-3 m-0">
         {% csrf_token %}
         {{ password_form }}

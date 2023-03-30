@@ -1,8 +1,11 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
+
 from Manager.models import Car
 
+
 def staff_default(request):
-    return redirect("staff/active-rentals")
+    return redirect("/staff/active-rentals")
 
 
 def staff(request, tab):
@@ -20,16 +23,19 @@ def staff(request, tab):
          "component_name": "BrokenCars",
          "template": 'Employee/staffTabs/brokenCars.html' },
     ]
+    context = {}
     if not request.user.is_authenticated:
-        context = {"error": "User is not signed in!"}
+        context["error"] = "User is not signed in!"
+
     elif request.user.userprofile.auth_level == "TW" or request.user.userprofile.auth_level == "CR":
+        # For now, CR and TW have the same tabs
         tabs += [
             {"url": "log-hours",
              "tab_title": "Log Hours Worked",
              "component_name": "LogHours",
              "template": 'Employee/staffTabs/logHours.html' },
         ]
-        context = {"tabs": tabs}
+        context["tabs"] = tabs
     elif request.user.userprofile.auth_level == "MA":
         # if tab == "cars" and request == "POST":
         #     return render()
@@ -47,11 +53,9 @@ def staff(request, tab):
              "component_name": "Hours",
              "template": 'Manager/managerTabs/reviewHours.html' },
         ]
-        context = {
-            "tabs": tabs,
-            "car_inventory": Car.objects.all()
-        }
+        context["tabs"] = tabs
+        context["car_inventory"] = Car.objects.all()
     else:
-        context = {"error": "User is not part of staff!"}
+        return HttpResponseForbidden("Unauthorized: User not part of staff!")
 
     return render(request, 'Employee/staff.html', context)
