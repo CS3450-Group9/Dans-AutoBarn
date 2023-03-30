@@ -1,8 +1,6 @@
-{% load static %}
-
-<div class="container">
-    <h2>Car Inventory</h2>
-    <p style="text-align: center;">Today's Date: {{formattedDate}}</p>
+<div>
+    <h3 class="text-center">Car Inventory</h3>
+    <p style="text-align: center;">Today's Date: {{formatted_date}}</p>
     {% if request.user.userprofile.auth_level == 'MA' %}
         {% for car in car_inventory %}
             <div class="card d-flex flex-row">
@@ -18,7 +16,7 @@
         {% endfor %}
         <h3>Enter information for a car you would like to add to the Inventory!</h3>
         <div class="card d-flex flex-row">
-            <form action={% url "Manager:cars" %} method="post">
+            <form action={% url "Manager:cars" %} method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <label for="car-make">Car Make:</label>
                 <input type="text" id="car-make" name="car-make">
@@ -28,8 +26,10 @@
                 <input type="text" id="car-year" name="car-year">
                 <label for="car-license">Car License Plate:</label>
                 <input type="text" id="car-license" name="car-license">
-                <label for="car-res-cost">Car Reservation Cost /day:</label>
+                <label for="car-res-cost">Car Reservation Cost Per Day:</label>
                 <input type="text" id="car-res-cost" name="car-res-cost">
+                <label for="car-pic">Choose a picture:</label>
+                <input type="file" id="car-pic" name="car-pic" accept="image/png, image/jpeg">
                 <button class="btn btn-primary" type="submit">Add To Inventory</button>
             </form>    
         </div>         

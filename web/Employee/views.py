@@ -1,30 +1,33 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
+from django.utils import timezone
 
 from Manager.models import Car
 from UserAuth.models import UserProfile
 
 
 def staff_default(request):
-    return redirect("/staff/active-rentals")
-
+    return redirect("Employee:staff", "active-rentals")
 
 def staff(request, tab):
+    time_now = timezone.now()
+    formatted_date = time_now.strftime("%m-%d-%Y")
+    context = {"formatted_date": formatted_date}
     tabs = [
         {"url": "active-rentals",
-         "tab_title": "Active Rentals",
-         "component_name": "ActiveRentals",
-         "template": 'Employee/staffTabs/activeRentals.html' },
+            "tab_title": "Active Rentals",
+            "component_name": "ActiveRentals",
+            "template": 'Employee/staffTabs/activeRentals.html' },
         {"url": "verify",
-         "tab_title": "Verify Pick-Up",
-         "component_name": "Verify",
-         "template": 'Employee/staffTabs/verifyPickup.html' },
+            "tab_title": "Verify Pick-Up",
+            "component_name": "Verify",
+            "template": 'Employee/staffTabs/verifyPickup.html' },
         {"url": "broken-cars",
-         "tab_title": "Currently Broken Cars",
-         "component_name": "BrokenCars",
-         "template": 'Employee/staffTabs/brokenCars.html' },
+            "tab_title": "Currently Broken Cars",
+            "component_name": "BrokenCars",
+            "template": 'Employee/staffTabs/brokenCars.html' },
     ]
-    context = {}
+
     if not request.user.is_authenticated:
         context["error"] = "User is not signed in!"
 
