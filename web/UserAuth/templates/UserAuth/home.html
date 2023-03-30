@@ -1,17 +1,23 @@
-{% extends 'UserAuth/base.html' %}
-{% block title %}Home Page{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dan's Auto Barn{% endblock %}
 {% block content %}
-    <h1>HOME PAGE</h1>
-    {% if request.user.is_authenticated %}
-    <div>
-        <P>User: {{request.user}}</P>
-        <p>User Authlevel: {{request.user.userprofile.auth_level}}</p>
-        <P>Balance: {{request.user.userprofile.balance}}</P>
-        <P>Staff: {{request.user.is_staff}}</P>
+    <div class="d-flex flex-column">
+        <div style="position: relative;">
+            <div class="" style="width: 100%">
+                <img src="{% static "UserAuth/media/testarossa.jpg" %}" alt="Ferrari Testarossa" style="width:100%;">
+            </div>
+            <div class="home-button nav-item">
+                <a class="nav-link" align="center" href="/search">Make a reservation now!</a>
+            </div>
+        </div>
+        {% comment %} Filler Content below {% endcomment %}
+        <div class="" style="width: 100%">
+            <img src="{% static "UserAuth/media/testarossa.jpg" %}" alt="Cars Vending Machine" style="width:100%;">
+        </div>
+        <div class="" style="width: 100%">
+            <img src="{% static "UserAuth/media/testarossa.jpg" %}" alt="Cars Vending Machine" style="width:100%;">
+        </div>  
+        {% comment %} TODO: Signin/login section OR profile page depending on authorization {% endcomment %}
     </div>
-    {% else %}
-    <div>
-        <p>User is not signed in!</p>
-    </div>
-    {% endif %}
 {% endblock %}

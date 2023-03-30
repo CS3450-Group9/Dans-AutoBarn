@@ -1,0 +1,23 @@
+<div>
+    <form method="post" class="p-3 m-0">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="inputBal">Enter an amount to transfer:</label>
+            <div class="input-group mb-2">
+                <div class="input-group-text">$</div>
+                <input type="number" min="1" class="form-control" id="inputBal" name="inputBal" placeholder="Add Balance">
+            </div>
+        </div>
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {% if message.tags == "success" %}
+            <i class="fa-solid fa-circle-check me-2"></i>
+            {% elif message.tags == "danger" %}
+            <i class="fa-solid fa-triangle-exclamation me-2"></i>
+            {% endif %}
+            <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

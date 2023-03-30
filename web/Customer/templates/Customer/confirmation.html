@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="d-flex flex-column">
+    <div style="width: 100%; background-color: var(--bg)">
+        <h1 class="text-center" style="color: var(--ac)">Dan's Auto Barn</h1>
+    </div>
+    <div align="center" style="width: 100%; background-color: var(--bg)">
+        <h2 style="color: var(--ac)">Confirm Reservation</h2>
+        <p>Today's Date: {{ formatted_date }}</p>
+    </div>
+</div>
+
+{% if request.user.is_authenticated %}
+    <div class="d-flex flex-column container" align="center">
+        <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
+        <p>Vehicle: {{reservation.car.year}} {{reservation.car.make}} {{reservation.car.model}}</p> 
+        <p>Total Reservation Cost: ${{ reservation.get_total_cost }}</p>
+        <form action={% url 'Customer:confirmation' token reservation.pk %} method="post">
+            {% csrf_token %}
+            <p>Review the reservation details and click the button below to confirm your reservation!</p>
+            <button class="btn btn-primary" type="submit">Confirm Reservation!</button>
+        </form>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    </div>
+{% else %}
+<div>
+    <p>User is not signed in!</p>
+</div>
+{% endif %}
+
+{% endblock content %}

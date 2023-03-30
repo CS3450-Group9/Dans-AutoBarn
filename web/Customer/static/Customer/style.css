@@ -1,3 +1,11 @@
+:root {
+  /* Primary    */ --c1: #ec0d0e; 
+  /* Secondary  */ --c2: #ee7518;
+  /* Tertiary   */ --c3: #ffc702;
+  /* Background */ --bg: #e8cba3;
+  /* Accent     */ --ac: #307e8a;
+}
+
 body {font-family: Arial, Helvetica, sans-serif;}
 
 h2 {

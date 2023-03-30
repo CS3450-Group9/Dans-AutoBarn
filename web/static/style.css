@@ -1,0 +1,196 @@
+:root {
+  /* Primary    */ --c1: #321325; 
+  /* Secondary  */ --c2: #ee7518;
+  /* Tertiary   */ --c3: #ffc702;
+  /* Background */ --bg: #e8cba3;
+  /* Accent     */ --ac: #307e8a;
+  /* Chrome     */ --chrome:
+  linear-gradient(
+    180deg,
+    #787878 0%,
+    #b5b5b5 25%,
+    #e3e3e3 50%,
+    #b5b5b5 75%,
+    #787878 100%
+  );
+}
+
+@font-face {
+  font-family: 'segoe-ui-bold';
+  src: local('segoe-ui-bold'),
+       url('../fonts/segoe-ui-bold.ttf') format("truetype");
+}
+
+body {
+  font-family: 'segoe-ui-bold', Helvetica, sans-serif; 
+  background-color: var(--bg);
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.chrome-bar {
+  height: 1em;
+  background: var(--chrome);
+}
+
+.custom-navbar {
+  background-color: var(--bg);
+}
+
+.nav-item {
+  background-color: var(--c3);
+  border-color: var(--chrome);
+  border-width: 3px;
+  border-radius: 1px;
+  border-style: outset;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
+}
+
+.nav-item:hover {
+  background-color: var(--ac);
+}
+
+.nav-item .active {
+  background-color: var(--ac);
+}
+
+.nav-link.active {
+  color: white !important;
+}
+
+.nav-item > .nav-link {
+  color: black;
+}
+
+.nav-item:hover > .nav-link {
+  color: white !important;
+}
+
+.dropdown-menu {
+  /* this is just a temp, need to do something for positioning */
+  color: black;
+}
+
+.page-content {
+  flex: 1;
+}
+
+.content-container {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+  margin-bottom: 2rem;
+  background-color: var(--c3);
+  border-color: var(--chrome);
+  border-width: 3px;
+  border-radius: 1px;
+  border-style: outset;
+}
+
+.btn-secondary {
+  color: white;
+  background-color: var(--c1);
+  padding: 0.5rem;
+}
+
+.btn-secondary:hover {
+  color: white;
+  background-color: var(--ac);
+}
+
+.home-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-size: 16px;
+  padding: 12px 24px;
+}
+
+h2 {
+  text-align: center;
+}
+
+form {
+  border: var(--chrome);
+  max-width: fit-content;
+  margin: 0 auto;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.password {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Container holding the image and the text */
+.img-container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+[v-cloak] { /* Can be used to hide an element until Vue finishes compilation */
+  display: none;
+}
+
+.nav-pills .nav-item .nav-link {
+  color: var(--ac);
+}
+
+.nav-pills .nav-item .nav-link.active {
+  background-color: var(--ac);
+  color: white;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--ac);
+  --bs-btn-border-color: var(--ac);
+  --bs-btn-hover-bg: var(--ac);
+  --bs-btn-hover-border-color: var(--ac);
+  --bs-btn-active-bg: var(--ac);
+  --bs-btn-active-border-color: var(--ac);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #0d6efd;
+  --bs-btn-disabled-border-color: #0d6efd;
+}
