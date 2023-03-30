@@ -6,15 +6,7 @@
   /* Accent     */ --ac: #307e8a;
 }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  
-}
-.content-container {
-  background-color: var(--b);
-}
-
-/* end theme colorss */
+body {font-family: Arial, Helvetica, sans-serif;}
 
 h2 {
   text-align: center;
@@ -63,19 +55,3 @@ span.password {
   float: right;
   padding-top: 16px;
 }
-
-/* Container holding the image and the text */
-.img-container {
-  position: relative;
-  text-align: center;
-  color: white;
-}
-
-/* Centered text */
-.centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
