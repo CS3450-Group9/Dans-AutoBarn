@@ -2,13 +2,14 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 
 from Manager.models import Car
+from UserAuth.models import UserProfile
 
 
 def staff_default(request):
     return redirect("/staff/active-rentals")
 
 
-def staff(request, tab):
+def staff(request, context={}):
     tabs = [
         {"url": "active-rentals",
          "tab_title": "Active Rentals",
@@ -55,6 +56,7 @@ def staff(request, tab):
         ]
         context["tabs"] = tabs
         context["car_inventory"] = Car.objects.all()
+        context["users"] = UserProfile.objects.all()
     else:
         return HttpResponseForbidden("Unauthorized: User not part of staff!")
 

@@ -13,9 +13,10 @@
         {% for tab in tabs %}
         <li class="nav-item" style="margin-bottom: 0.25rem;">
             <router-link
-            :to="tabURL('{{ tab.url }}')"
             class="nav-link"
-            :class="{ active: isTabActive('{{ tab.url }}') }"
+            to="/{{ tab.url }}/"
+            active-class="active" 
+            exact-active-class="active"
             >{{ tab.tab_title }}</router-link>
         </li>
         {% endfor %}
@@ -71,16 +72,7 @@ let app = createApp({
         currentTab() {
             let path = this.$route.path;
             path = path.replace(/\/$/, "");
-
             return path.split('/').pop()
-        },
-    },
-    methods: {
-        tabURL(tab) {
-            return `/${tab}/`;
-        },
-        isTabActive(tab) {
-            return this.currentTab === tab;
         },
     },
 });
