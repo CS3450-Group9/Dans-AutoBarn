@@ -1,4 +1,7 @@
+
 {% load static %}
+{% block title %}Dan's Auto Barn{% endblock %}
+{% block content %}
     <div class="container">
         <h2>Car Inventory</h2>
         <p style="text-align: center;">Today's Date: {{formattedDate}}</p>
@@ -42,3 +45,4 @@
         </div>
     {% endif %}     
     </div>
+{% endblock %}
