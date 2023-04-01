@@ -1,24 +1,28 @@
-from django.conf import settings
-from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone
 from datetime import datetime, timedelta
-from .models import Car, Reservation
+from secrets import token_urlsafe
+
+from django.conf import settings
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-from django.http import JsonResponse
-from django.utils.datastructures import MultiValueDictKeyError
 from django.db import IntegrityError
-import secrets
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
+from django.utils.datastructures import MultiValueDictKeyError
+
+from .models import Car, Reservation
 
 def profile_default(request):
     return redirect('/profile/info/')
 
 def profile(request, tab: str):
     if request.method == "POST":
-        match tab:
-            case "balance": return add_balance(request)
-            case "pass-change": return password_change(request)
+        if tab == "balance":
+            return add_balance(request, tab)
+        elif tab == "pass-change":
+            return password_change(request, tab)
+
     tabs = [
         {"url": "info",
          "tab_title": "Personal Information",
@@ -49,31 +53,31 @@ def profile(request, tab: str):
         context["error"] = "User is not signed in!"
     return render(request, 'Customer/profile.html', context)
 
-def add_balance(request):
+def add_balance(request, tabname):
     try:
         amount = int(request.POST.get("inputBal", 0))
         if amount < 1: raise ValueError
         request.user.userprofile.balance += amount
         request.user.userprofile.full_clean()
         request.user.userprofile.save()
-        messages.success(request, f"Successfully added ${amount} to account!")
+        messages.success(request, f"Successfully added ${amount} to account!", extra_tags=tabname)
     except ValueError:
-        messages.error(request, "Amount must be a positive integer")
+        messages.error(request, "Amount must be a positive integer", extra_tags=tabname)
     except:
-        messages.error(request, "Something went wrong... Unable to transfer funds.")
+        messages.error(request, "Something went wrong... Unable to transfer funds.", extra_tags=tabname)
 
     return profile(request, None)
 
-def password_change(request):
+def password_change(request, tabname):
     form = PasswordChangeForm(user=request.user.userprofile.user, data=request.POST)
     if form.is_valid():
         form.save()
         update_session_auth_hash(request, form.user)
-        messages.success(request, 'Your password was successfully updated!')
+        messages.success(request, 'Your password was successfully updated!', extra_tags=tabname)
     else:
         for errors in form.errors.values():
             for error in errors:
-                messages.error(request, error)
+                messages.error(request, error, extra_tags=tabname)
     return profile(request, None)
 
 
@@ -127,7 +131,7 @@ def create_res(request, car_id):
         processed_on=timezone.now()
     )
 
-    token = secrets.token_urlsafe(16)
+    token = token_urlsafe(16)
     expiration = timezone.now() + timedelta(minutes=settings.RESERVATION_EXPIRY_TIME)
     request.session['res_session'] = {
         "res_id": new_reservation.pk,

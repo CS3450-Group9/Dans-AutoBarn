@@ -1,48 +1,41 @@
-
-{% load static %}
-{% block title %}Dan's Auto Barn{% endblock %}
-{% block content %}
-    <div class="container">
-        <h2>Car Inventory</h2>
-        <p style="text-align: center;">Today's Date: {{formattedDate}}</p>
-    </div>
-    <div class="container">
+<div>
+    <h3 class="text-center">Car Inventory</h3>
+    <p style="text-align: center;">Today's Date: {{formatted_date}}</p>
     {% if request.user.userprofile.auth_level == 'MA' %}
-            {% if car_inventory %}
-                {% for car in car_inventory%}
-                    <div class="card d-flex flex-row">
-                        <div><img src="{{ MEDIA_URL }}{{ car.image }}" class="img" alt="Image of {{ car.make }} {{ car.model }}" width="200"></div>
-                        <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
-                            <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
-                            <p>{{car.year}}</p>
-                            <p><span>${{car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p>Sorry! All our cars were stolen by Dan Watson, if you find him please report him to the authorities.</p>
-            {% endif %}
-            <h3>Enter information for a car you would like to add to the Inventory!</h3>
+        {% for car in car_inventory %}
             <div class="card d-flex flex-row">
-                <form action={% url 'Manager:manageCars' %} method="post">
-                    {% csrf_token %}
-                    <label for="car-make">Car Make:</label>
-                    <input type="text" id="car-make" name="car-make">
-                    <label for="car-model">Car Model:</label>
-                    <input type="text" id="car-model" name="car-model">
-                    <label for="car-year">Car Year:</label>
-                    <input type="text" id="car-year" name="car-year">
-                    <label for="car-license">Car License Plate:</label>
-                    <input type="text" id="car-license" name="car-license">
-                    <label for="car-res-cost">Car Reservation Cost /day:</label>
-                    <input type="text" id="car-res-cost" name="car-res-cost">
-                    <button class="btn btn-primary" :class="{ 'disabled': buttonDisabled }" type="submit" v-cloak>Add To Inventory</button>
-                </form>    
-            </div>         
+                <div><img src="{{ MEDIA_URL }}{{ car.image }}" class="img" alt="Image of {{ car.make }} {{ car.model }}" width="200"></div>
+                <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
+                    <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
+                    <p>{{car.year}}</p>
+                    <p><span>${{car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
+                </div>
+            </div>
+        {% empty %}
+            <p>Sorry! All our cars were stolen by Dan Watson, if you find him please report him to the authorities.</p>
+        {% endfor %}
+        <h3>Enter information for a car you would like to add to the Inventory!</h3>
+        <div class="card d-flex flex-row">
+            <form action={% url "Manager:cars" %} method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="car-make">Car Make:</label>
+                <input type="text" id="car-make" name="car-make">
+                <label for="car-model">Car Model:</label>
+                <input type="text" id="car-model" name="car-model">
+                <label for="car-year">Car Year:</label>
+                <input type="text" id="car-year" name="car-year">
+                <label for="car-license">Car License Plate:</label>
+                <input type="text" id="car-license" name="car-license">
+                <label for="car-res-cost">Car Reservation Cost Per Day:</label>
+                <input type="text" id="car-res-cost" name="car-res-cost">
+                <label for="car-pic">Choose a picture:</label>
+                <input type="file" id="car-pic" name="car-pic" accept="image/png, image/jpeg">
+                <button class="btn btn-primary" type="submit">Add To Inventory</button>
+            </form>    
+        </div>         
     {% else %}
         <div>
             <h2>This page is only accessible to the Manager</h2>
         </div>
     {% endif %}     
-    </div>
-{% endblock %}
+</div>
