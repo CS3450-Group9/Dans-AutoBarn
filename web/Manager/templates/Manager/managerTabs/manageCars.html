@@ -9,6 +9,8 @@
                     <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
                     <p>{{car.year}}</p>
                     <p><span>${{car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
+                    <input class="nav-item btn-secondary" type="button" value="Remove car from Inventory" onclick="location.href = '{% url 'Manager:remove' car.id %}'"
+                    style="position: relative; margin-top: 4.5rem; margin-right: 1rem; height: 3rem;">
                 </div>
             </div>
         {% empty %}

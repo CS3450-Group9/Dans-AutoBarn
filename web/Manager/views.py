@@ -1,11 +1,33 @@
 from django.contrib import messages
 from django.db import IntegrityError
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
 
 from .models import Car
+from Customer.models import Reservation
 
+def remove_car(request, car_id):
+    car = get_object_or_404(Car, pk=car_id)
+    curr_reservations = Reservation.objects.filter(car=car_id)
+    time_now = timezone.now()
+    formatted_date = time_now.strftime("%m-%d-%Y")
+    context = {
+        'car': car,
+        'curr_reservations': curr_reservations,
+        'formatted_date': formatted_date,
+    }
+    tabname = "cars"
+    if request.method == 'POST':
+        if curr_reservations is None:
+            car.delete()
+        else:
+            curr_reservations.delete()
+            car.delete()
+            messages.success(request, "Successfully removed car from inventory!", extra_tags=tabname)
+            return redirect("Employee:staff", "cars")
+            
+    return render(request, 'Manager/remove.html', context)
 
 def car_inventory(request):
     if request.method != 'POST':
