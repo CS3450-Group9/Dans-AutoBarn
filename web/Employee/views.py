@@ -41,28 +41,8 @@ def staff(request, tab):
         ]
         context["tabs"] = tabs
     elif request.user.userprofile.auth_level == "MA":
-        if tab == "cars" and request == "POST":
-            try:
-                car_make = request.POST['car-make']
-                car_model = request.POST['car-model']
-                car_year = request.POST['car-year']
-                car_license = request.POST['car-license']
-                car_res_cost = request.POST['car-res-cost']
-            except ValueError:
-                messages.error(request, "Incorrectly formatted inputs.")
-                return render(request, 'Employee/staff.html', context)
-            new_car = Car.objects.create(
-                make=car_make,
-                model=car_model,
-                year=car_year,
-                gas_fill_percent=100,
-                plate_number=car_license,
-                image='cars/placeholder-car.png',
-                lowjacked=False,
-                reservation_cost=car_res_cost,
-            )
-            new_car.save()
-            return render(request, 'Employee/staff.html', context)
+        # if tab == "cars" and request == "POST":
+        #     return render()
         tabs += [
             {"url": "cars",
              "tab_title": "Manage Cars",
