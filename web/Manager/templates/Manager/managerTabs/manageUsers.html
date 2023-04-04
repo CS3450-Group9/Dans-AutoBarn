@@ -1,7 +1,7 @@
 <div>
     {% if request.user.userprofile.auth_level == 'MA' %}
         {% for user in users %}
-            <div>
+            <div class="border border-2 my-3">
                 <h3 class="text-center">{{ user.user | title }} -- {{user.get_auth_level_display}}</h3>
                 <button type="submit" class="btn btn-primary">Remove User</button>
             </div>
