@@ -1,6 +1,6 @@
 <div>
     <h3 class="text-center">Car Inventory</h3>
-    <p style="text-align: center;">Today's Date: {{formatted_date}}</p>
+    <p class="text-center">Today's Date: {{formatted_date}}</p>
     {% if request.user.userprofile.auth_level == 'MA' %}
         {% for car in car_inventory %}
             <div class="card d-flex flex-row">
