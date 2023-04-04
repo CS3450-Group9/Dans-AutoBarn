@@ -40,11 +40,11 @@
                             <!-- drop down items -->
                             <div class="dropdown-menu nav-item" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <div class="nav-item" style="margin-bottom: 0.25rem;">
-                                    <a class="nav-link" href="{% url 'Customer:profile' %}">Profile</a>
+                                    <a class="nav-link" href="{% url 'Customer:profile_default' %}">Profile</a>
                                 </div>
                                 {% if request.user.userprofile.auth_level != "CU" %}
                                 <div class="nav-item" style="margin-bottom: 0.25rem; margin-top: 0.25rem;">
-                                    <a class="nav-link" href="{% url 'Employee:staff' %}">Staff</a>
+                                    <a class="nav-link" href="{% url 'Employee:staff_default' %}">Staff</a>
                                 </div>
                                 {% endif %}
                                 <div class="nav-item" style="margin-top: 0.25rem;">

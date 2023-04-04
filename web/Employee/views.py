@@ -1,33 +1,48 @@
-from django.shortcuts import render
+from django.http import HttpResponseForbidden
+from django.shortcuts import render, redirect
+from django.utils import timezone
+
+from Manager.models import Car
 from UserAuth.models import UserProfile
 
 
-def staff(request, context={}):
+def staff_default(request):
+    return redirect("Employee:staff", "active-rentals")
+
+def staff(request, tab):
+    time_now = timezone.now()
+    formatted_date = time_now.strftime("%m-%d-%Y")
+    context = {"formatted_date": formatted_date}
     tabs = [
         {"url": "active-rentals",
-         "tab_title": "Active Rentals",
-         "component_name": "ActiveRentals",
-         "template": 'Employee/staffTabs/activeRentals.html' },
+            "tab_title": "Active Rentals",
+            "component_name": "ActiveRentals",
+            "template": 'Employee/staffTabs/activeRentals.html' },
         {"url": "verify",
-         "tab_title": "Verify Pick-Up",
-         "component_name": "Verify",
-         "template": 'Employee/staffTabs/verifyPickup.html' },
+            "tab_title": "Verify Pick-Up",
+            "component_name": "Verify",
+            "template": 'Employee/staffTabs/verifyPickup.html' },
         {"url": "broken-cars",
-         "tab_title": "Currently Broken Cars",
-         "component_name": "BrokenCars",
-         "template": 'Employee/staffTabs/brokenCars.html' },
+            "tab_title": "Currently Broken Cars",
+            "component_name": "BrokenCars",
+            "template": 'Employee/staffTabs/brokenCars.html' },
     ]
+
     if not request.user.is_authenticated:
-        context = {"error": "User is not signed in!"}
+        context["error"] = "User is not signed in!"
+
     elif request.user.userprofile.auth_level == "TW" or request.user.userprofile.auth_level == "CR":
+        # For now, CR and TW have the same tabs
         tabs += [
             {"url": "log-hours",
              "tab_title": "Log Hours Worked",
              "component_name": "LogHours",
              "template": 'Employee/staffTabs/logHours.html' },
         ]
-        context.update({"tabs": tabs})
+        context["tabs"] = tabs
     elif request.user.userprofile.auth_level == "MA":
+        # if tab == "cars" and request == "POST":
+        #     return render()
         tabs += [
             {"url": "cars",
              "tab_title": "Manage Cars",
@@ -42,9 +57,10 @@ def staff(request, context={}):
              "component_name": "Hours",
              "template": 'Manager/managerTabs/reviewHours.html' },
         ]
-        context.update({"tabs": tabs})
-        context.update({"users": UserProfile.objects.all()})
+        context["tabs"] = tabs
+        context["car_inventory"] = Car.objects.all()
+        context["users"] = UserProfile.objects.all()
     else:
-        context = {"error": "User is not part of staff!"}
+        return HttpResponseForbidden("Unauthorized: User not part of staff!")
 
     return render(request, 'Employee/staff.html', context)
