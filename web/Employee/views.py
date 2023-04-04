@@ -41,8 +41,6 @@ def staff(request, tab):
         ]
         context["tabs"] = tabs
     elif request.user.userprofile.auth_level == "MA":
-        # if tab == "cars" and request == "POST":
-        #     return render()
         tabs += [
             {"url": "cars",
              "tab_title": "Manage Cars",
