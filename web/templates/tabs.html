@@ -9,20 +9,40 @@
 <div class="d-flex">
 
     <!-- Sidebar -->
-    <ul class="nav flex-column flex-shrink-0">
-        {% for tab in tabs %}
-        <li class="nav-item" style="margin-bottom: 0.25rem;">
-            <router-link
-            :to="tabURL('{{ tab.url }}')"
-            class="nav-link"
-            :class="{ active: isTabActive('{{ tab.url }}') }"
-            >{{ tab.tab_title }}</router-link>
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="flex-shrink-0" style="width:17.5%">
+        <ul class="nav flex-column">
+            {% for tab in tabs %}
+            <li class="nav-item" style="margin-bottom: 0.25rem;">
+                <router-link
+                class="nav-link"
+                to="/{{ tab.url }}/"
+                active-class="active" 
+                exact-active-class="active"
+                >{{ tab.tab_title }}</router-link>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-    <!-- Selected Tab Content -->
-    <router-view class="p-2"></router-view>
+    <!-- Main tab content -->
+    <div class="d-flex flex-column flex-fill p-2">
+
+        <!-- Display POST alerts -->
+        <div v-for="alert in tabAlerts" v-cloak>
+            <div class="d-flex">
+                <div class="py-2 mx-auto alert" :class="alert.class">
+                    <i class="me-2" :class="alert.icon"></i>
+                    [[ alert.message ]]
+                </div>
+            </div>
+        </div>
+
+        <!-- Selected Tab Content -->
+        <router-view class="py-2 mx-auto"></router-view>
+    </div>
+
+    <!-- Empty sidebar to make the middle things centered --> 
+    <div class="flex-shrink-0" style="width:17.5%"></div>
 </div>
 
 {% else %}
@@ -40,7 +60,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 const {{ tab.component_name }} = { template: `{% include tab.template %}` };
 {% endfor %}
 
-// Create router so we can jump straight to these tabs from other pages
+// Create router so we can switch to other views without refreshing
 const router = createRouter({
     history: createWebHistory("/{% block base_url %}{% endblock base_url %}/"), // The argument here is the base url for the page
     routes: [
@@ -54,25 +74,49 @@ const router = createRouter({
 let app = createApp({
     delimiters: ['[[', ']]'],
     data() {
-        return {}
+        return {
+            messages: [
+                {% for message in messages %}
+                { "message": "{{ message }}",
+                    "tags": "{{ message.tags }}" },
+                {% endfor %}
+            ]
+        }
     },
     computed: {
         currentTab() {
             let path = this.$route.path;
             path = path.replace(/\/$/, "");
-
             return path.split('/').pop()
         },
+        tabAlerts() {
+            // Filter out any messages not intended for the current tab
+            let displayed = this.messages.filter(message => this.displayMessage(message))
+            
+            // Maps each message to an object
+            let alerts = displayed.map(message => ({
+                message: message.message,
+                class: this.getAlertClass(message),
+                icon: this.getAlertIcon(message)
+            }));
+            return alerts;
+        }
     },
     methods: {
-        tabURL(tab) {
-            return `/${tab}/`;
+        displayMessage(message) {
+            return message.tags.split(" ").includes(this.currentTab); // The django views are set up to include the tabname as a message tag
         },
-        isTabActive(tab) {
-            return this.currentTab === tab;
+        isSuccess(message) {
+            return message.tags.split(" ").includes("success"); // "success" is the default tag for a django success message
         },
+        getAlertClass(message) {
+            return this.isSuccess(message) ? 'alert-success' : 'alert-danger';
+        },
+        getAlertIcon(message) {
+            return this.isSuccess(message) ? 'fa-solid fa-circle-check' : 'fa-solid fa-triangle-exclamation';
+        }
     },
-});
+})
 
 app.use(router);
 app.mount('#app');

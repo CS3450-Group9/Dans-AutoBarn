@@ -1,0 +1,12 @@
+<div>
+    {% for user in users %}
+    <div>
+        <div>
+            <h3>{{user.user}} -- {{user.get_auth_level_display }}</h3>
+        </div>
+        <button>Some Action</button>
+    </div>
+    {% empty %}
+    <p>No users found!</p>
+    {% endfor %}
+</div>
