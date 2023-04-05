@@ -67,7 +67,6 @@ const router = createRouter({
         {% for tab in tabs %}
         { path: '/{{ tab.url }}/', component: {{ tab.component_name }}},
         {% endfor %}
-        { path: '/:catchAll(.*)/', redirect: '/{{ tabs.0.url }}/'}, // Default to the first tab if none matched
     ]
 });
 
