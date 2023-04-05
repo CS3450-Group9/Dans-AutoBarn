@@ -7,13 +7,20 @@
                     <button class="flex-row btn btn-secondary nav-item" type="button"
                         data-bs-toggle="collapse" data-bs-target="#collapseExample{{ user.id }}"
                         aria-expanded="false" aria-controls="collapseExample">
-                        Change User Status
+                        Promote/Demote User
                     </button>
+                    <div>{{ user_buttons }}</div>
+                    {% for button in buttons %}
                     <div class="flex-row collapse" id="collapseExample{{ user.id }}">
                         <button class="btn btn-secondary nav-item" type="button">
-                            Change to Manager
+                            {{ button.text }}
                         </button>
                     </div>
+                    {% empty %}
+                    <div>
+                        <p>Nothing to do here</p>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         {% empty %}

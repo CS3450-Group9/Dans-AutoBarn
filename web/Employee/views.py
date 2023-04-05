@@ -55,9 +55,24 @@ def staff(request, tab):
              "component_name": "Hours",
              "template": 'Manager/managerTabs/reviewHours.html' },
         ]
+        buttons = {
+            'CR': [
+                {'text': 'Change to Till Worker', 'value': 'change_to_till_worker'},
+                {'text': 'Demote to Customer', 'value': 'demote_to_customer'},
+            ],
+            'TW': [
+                {'text': 'Change to Car Retrieval Specialist', 'value': 'change_to_car_retrieval_specialist'},
+                {'text': 'Demote to Customer', 'value': 'demote_to_customer'},
+            ],
+            'CU': [
+                {'text': 'Promote to Car Retrieval Specialist', 'value': 'promote_to_car_retrieval_specialist'},
+                {'text': 'Promote to Till Worker', 'value': 'promote_to_till_worker'},
+            ],
+        }
         context["tabs"] = tabs
         context["car_inventory"] = Car.objects.all()
         context["users"] = UserProfile.objects.all()
+        context["user_buttons"] = buttons
     else:
         return HttpResponseForbidden("Unauthorized: User not part of staff!")
 
