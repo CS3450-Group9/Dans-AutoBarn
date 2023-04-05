@@ -66,7 +66,7 @@
     <div class="chrome-bar"></div>
 </div>
 
-    <!-- Vue script -->
+    {% comment %} <!-- Vue script ( use this as a fallback in case unpkg.com goes down ) -->
     <script type="importmap">
         {
             "imports": {
@@ -74,6 +74,18 @@
                 "@vue/devtools-api": "{% static 'vue-devtools/lib/esm/index.js' %}",
                 "vue-router": "{% static 'vue-router/dist/vue-router.esm-browser.js' %}",
                 "axios": "{% static 'axios/dist/esm/axios.js' %}"
+            }
+        }
+    </script> {% endcomment %}
+
+    <!-- Vue script -->
+    <script type="importmap">
+        {
+            "imports": {
+                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+                "@vue/devtools-api": "https://unpkg.com/@vue/devtools-api@6.5.0/lib/esm/index.js",
+                "vue-router": "https://unpkg.com/vue-router@4/dist/vue-router.esm-browser.js",
+                "axios": "https://unpkg.com/axios@1.3.4/dist/esm/axios.js"
             }
         }
     </script>
