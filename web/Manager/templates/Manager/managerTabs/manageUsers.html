@@ -16,7 +16,8 @@
                     <form method="post">
                         {% csrf_token %}
                         <div class="flex-row collapse" id="collapseExample{{ user.id }}">
-                            <button class="btn btn-secondary nav-item" name="{{ user.id }}" type="submit" value="{{ button.value }}">
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <button class="btn btn-secondary nav-item" name="new_auth_level" type="submit" value="{{ button.value }}">
                                 {{ button.text }}
                             </button>
                         </div>

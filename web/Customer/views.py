@@ -66,7 +66,7 @@ def add_balance(request, tabname):
     except:
         messages.error(request, "Something went wrong... Unable to transfer funds.", extra_tags=tabname)
 
-    return profile(request, None)
+    return redirect('Customer:profile', tabname)
 
 def password_change(request, tabname):
     form = PasswordChangeForm(user=request.user.userprofile.user, data=request.POST)
@@ -78,8 +78,7 @@ def password_change(request, tabname):
         for errors in form.errors.values():
             for error in errors:
                 messages.error(request, error, extra_tags=tabname)
-    return profile(request, None)
-
+    return redirect('Customer:profile', tabname)
 
 def search_for_res(request):
     time_now = timezone.now()

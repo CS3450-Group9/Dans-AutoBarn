@@ -10,6 +10,7 @@ def staff_default(request):
     return redirect("Employee:staff", "active-rentals")
 
 def staff(request, tab):
+
     time_now = timezone.now()
     formatted_date = time_now.strftime("%m-%d-%Y")
     context = {"formatted_date": formatted_date}
@@ -71,16 +72,16 @@ def staff(request, tab):
         ]
         user_buttons = {
             "CR": [
-                {"text": "Change to Till Worker", "value": "change_to_till_worker"},
-                {"text": "Demote to Customer", "value": "demote_to_customer"},
+                {"text": "Change to Till Worker", "value": "TW"},
+                {"text": "Demote to Customer", "value": "CU"},
             ],
             "TW": [
-                {"text": "Change to Car Retrieval Specialist", "value": "change_to_car_retrieval_specialist"},
-                {"text": "Demote to Customer", "value": "demote_to_customer"},
+                {"text": "Change to Car Retrieval Specialist", "value": "CR"},
+                {"text": "Demote to Customer", "value": "CU"},
             ],
             "CU": [
-                {"text": "Promote to Car Retrieval Specialist", "value": "promote_to_car_retrieval_specialist"},
-                {"text": "Promote to Till Worker", "value": "promote_to_till_worker"},
+                {"text": "Promote to Car Retrieval Specialist", "value": "CR"},
+                {"text": "Promote to Till Worker", "value": "TW"},
             ]
         }
         users_data = []
@@ -96,4 +97,20 @@ def staff(request, tab):
     else:
         return HttpResponseForbidden("Unauthorized: User not part of staff!")
 
+    if request.method == "POST":
+        if tab == "users":
+            change_user_auth_level(request)
+
     return render(request, 'Employee/staff.html', context)
+
+
+def change_user_auth_level(request):
+    try:
+        user = UserProfile.objects.get(id=int(request.POST.get("user_id")))
+        user.auth_level = request.POST.get("new_auth_level")
+        user.save()
+        return redirect("Employee:staff", "users")
+    except UserProfile.DoesNotExist:
+        return HttpResponseForbidden("User with id '{user}' does not exist!")
+    except ValueError:
+        return HttpResponseForbidden("Invalid user id!")
