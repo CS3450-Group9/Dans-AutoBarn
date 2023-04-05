@@ -71,15 +71,23 @@ def staff(request, tab):
             },
         ]
         user_buttons = {
+            "MA": [
+                {"text": "Demote to Till Worker", "value": "TW"},
+                {"text": "Demote to Car Retrieval Specialist", "value": "CR"},
+                {"text": "Demote to Customer", "value": "CU"},
+            ],
             "CR": [
+                {"text": "Promote to Manager", "value": "MA"},
                 {"text": "Change to Till Worker", "value": "TW"},
                 {"text": "Demote to Customer", "value": "CU"},
             ],
             "TW": [
+                {"text": "Promote to Manager", "value": "MA"},
                 {"text": "Change to Car Retrieval Specialist", "value": "CR"},
                 {"text": "Demote to Customer", "value": "CU"},
             ],
             "CU": [
+                {"text": "Promote to Manager", "value": "MA"},
                 {"text": "Promote to Car Retrieval Specialist", "value": "CR"},
                 {"text": "Promote to Till Worker", "value": "TW"},
             ]
@@ -99,18 +107,23 @@ def staff(request, tab):
 
     if request.method == "POST":
         if tab == "users":
-            change_user_auth_level(request)
+            return change_user_auth_level(request)
 
     return render(request, 'Employee/staff.html', context)
 
 
 def change_user_auth_level(request):
+    if request.user.userprofile.auth_level != "MA":
+        return HttpResponseForbidden("You do not have permission!")
     try:
-        user = UserProfile.objects.get(id=int(request.POST.get("user_id")))
-        user.auth_level = request.POST.get("new_auth_level")
-        user.save()
+        user_id = int(request.POST.get("user_id"))
+        user_to_change = UserProfile.objects.get(id=user_id)
+        user_to_change.auth_level = request.POST.get("new_auth_level")
+        user_to_change.save()
         return redirect("Employee:staff", "users")
     except UserProfile.DoesNotExist:
         return HttpResponseForbidden("User with id '{user}' does not exist!")
     except ValueError:
         return HttpResponseForbidden("Invalid user id!")
+    except:
+        return HttpResponseForbidden("Bad request")
