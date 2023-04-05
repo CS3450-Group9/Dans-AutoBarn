@@ -1,6 +1,8 @@
 <div>
     {% if request.user.userprofile.auth_level == 'MA' %}
-        {% for user in users %}
+        {% for user_info in users_data %}
+        {% with user=user_info.user_profile buttons=user_info.buttons %}
+
             <div class="d-flex card my-3 p-3">
                 <h3 class="text-center">{{ user.user | title }} -- {{user.get_auth_level_display}}</h3>
                 <div class="d-flex flex-column">
@@ -9,20 +11,18 @@
                         aria-expanded="false" aria-controls="collapseExample">
                         Promote/Demote User
                     </button>
-                    <div>{{ user_buttons }}</div>
                     {% for button in buttons %}
                     <div class="flex-row collapse" id="collapseExample{{ user.id }}">
-                        <button class="btn btn-secondary nav-item" type="button">
+                        <button class="btn btn-secondary nav-item" type="button" value="{{ button.value }}">
                             {{ button.text }}
                         </button>
                     </div>
                     {% empty %}
-                    <div>
-                        <p>Nothing to do here</p>
-                    </div>
+                    <p>Nothing to do here. :P</p>
                     {% endfor %}
                 </div>
             </div>
+        {% endwith %}
         {% empty %}
             <p>No users found!</p>
         {% endfor %}
