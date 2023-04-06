@@ -44,8 +44,6 @@ body {
   border-width: 3px;
   border-radius: 1px;
   border-style: outset;
-  margin-right: 0.25rem;
-  margin-left: 0.25rem;
 }
 
 .nav-item:hover {
