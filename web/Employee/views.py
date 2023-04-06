@@ -1,9 +1,11 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from datetime import date
 
 from Manager.models import Car
 from UserAuth.models import UserProfile
+from Customer.models import Reservation
 
 
 def staff_default(request):
@@ -23,7 +25,7 @@ def staff(request, tab):
             "component_name": "Verify",
             "template": 'Employee/staffTabs/verifyPickup.html' },
         {"url": "broken-cars",
-            "tab_title": "Currently Broken Cars",
+            "tab_title": "Broken Cars",
             "component_name": "BrokenCars",
             "template": 'Employee/staffTabs/brokenCars.html' },
     ]
@@ -63,4 +65,41 @@ def staff(request, tab):
     else:
         return HttpResponseForbidden("Unauthorized: User not part of staff!")
 
+    # handle requests for modifying car fields
+    if request.method == "POST":
+        if tab == "broken-cars":
+            return toggle_low_jacked(request)
+        if tab == "active-rentals":
+            # decide lowjack or return
+            if request.POST.get("button") == "lowjack":
+                return toggle_low_jacked(request)
+            elif request.POST.get("button") == "return":
+                return return_car(request)
+
     return render(request, 'Employee/staff.html', context)
+
+def toggle_low_jacked(request):
+    try: 
+        car_id = int(request.POST.get("car_id"))
+        car = Car.objects.get(id=car_id)
+        car.lowjacked = not car.lowjacked
+        car.location = "No Location Yet"
+        car.save()
+    except:
+        print("ERROR")
+        pass
+    return redirect("Employee:staff", "broken-cars")
+
+def return_car(request):
+    try: 
+        car_id = int(request.POST.get("car_id"))
+        car = Car.objects.get(id=car_id)
+        car.checked_out = False
+        car.save()
+        # delete last reservation
+        reservations = Reservation.objects.filter(car=car_id, end_date__lte=date.today())
+        reservations.delete()
+    except:
+        print("ERROR")
+        pass
+    return redirect("Employee:staff", "active-rentals")
