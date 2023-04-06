@@ -1,7 +1,6 @@
 <div>
     <!-- desc text -->
-    <h3>Active Rentals</h3>
-    <p>Today's Date: {{formatted_date}}</p>
+    <h3 class="text-center">Active Rentals</h3>
     <!-- active rentals -->
     <div class="container">
         <!-- create success or error message -->
@@ -25,13 +24,12 @@
                         <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
                         <p>{{car.year}}</p>
                         <p><span>${{car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
-                        <!-- LOWJACK BUTTON TODO: implement broken down-->
-                        <input class="nav-item btn-secondary" type="button" value="Low-Jack" onclick=""
-                        style="position: relative; margin-top: 4.5rem; margin-right: 1rem; height: 3rem;">
-                        <!-- TODO: RETURN BUTTON -->
                     </div>
-                    <input class="nav-item btn-secondary" type="button" value="View Availability" onclick="location.href = '{% url 'Customer:reservation' car.id %}'"
-                    style="position: relative; margin-top: 4.5rem; margin-right: 1rem; height: 3rem;">
+                    <!-- BUTTONS -->
+                    <div class="d-flex justify-content-evenly flex-row" style="position: relative; margin-top: 7.5rem; margin-bottom: 0.5rem; margin-right: 0.5rem;">
+                        <input class="nav-item btn-secondary" type="button" value="Low-Jack"   onclick="" style="height: 3rem;">
+                        <input class="nav-item btn-secondary" type="button" value="Return Car" onclick="" style="height: 3rem;">
+                    </div>
                 </div>
             {% endif %}
         {% empty %}
