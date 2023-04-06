@@ -25,7 +25,7 @@ def staff(request, tab):
             "component_name": "Verify",
             "template": 'Employee/staffTabs/verifyPickup.html' },
         {"url": "broken-cars",
-            "tab_title": "Currently Broken Cars",
+            "tab_title": "Broken Cars",
             "component_name": "BrokenCars",
             "template": 'Employee/staffTabs/brokenCars.html' },
     ]
