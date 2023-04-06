@@ -25,7 +25,7 @@ def profile(request, tab: str):
 
     tabs = [
         {"url": "info",
-         "tab_title": "Personal Information",
+         "tab_title": "Personal Info",
          "component_name": "Info",
          "template": 'Customer/profileTabs/personalInfo.html'},
         {"url": "balance",
@@ -33,7 +33,7 @@ def profile(request, tab: str):
          "component_name": "Balance",
          "template": 'Customer/profileTabs/manageBalance.html'},
         {"url": "reservations",
-         "tab_title": "Current Reservations",
+         "tab_title": "Reservations",
          "component_name": "Reservations",
          "template": 'Customer/profileTabs/reservations.html'},
         {"url": "pass-change",
