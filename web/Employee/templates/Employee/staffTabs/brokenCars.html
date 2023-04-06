@@ -26,8 +26,12 @@
                         <p><span>${{car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
                         <p>{{ car.location }}</p>
                     </div>
-                    <input class="nav-item btn-secondary" type="button" value="Verify Car Pickedup" onclick=""
-                    style="position: relative; margin-top: 7.5rem; margin-bottom: 0.5rem; margin-right: 0.5rem;">
+                    <form method='POST'>
+                        {% csrf_token %}
+                        <input type="hidden" name="car_id" value="{{ car.id }}">
+                        <button class="nav-item btn-secondary" type="submit"
+                        style="position: relative; margin-top: 7.5rem; margin-bottom: 0.5rem; margin-right: 0.5rem;">Verify Car Fixed</button>
+                    </form>
                 </div>
             {% endif %}
         {% empty %}

@@ -27,8 +27,19 @@
                     </div>
                     <!-- BUTTONS -->
                     <div class="d-flex justify-content-evenly flex-row" style="position: relative; margin-top: 7.5rem; margin-bottom: 0.5rem; margin-right: 0.5rem;">
-                        <input class="nav-item btn-secondary" type="button" value="Low-Jack"   onclick="" style="height: 3rem;">
-                        <input class="nav-item btn-secondary" type="button" value="Return Car" onclick="" style="height: 3rem;">
+                        <form method='POST'>
+                            {% csrf_token %}
+                            <input type="hidden" name="button" value="lowjack">
+                            <input type="hidden" name="car_id" value="{{ car.id }}">
+                            <button class="nav-item btn-secondary" type="submit"
+                            style="position: relative; margin-top: 7.5rem; margin-bottom: 0.5rem; margin-right: 0.5rem;">Low-Jack</button>
+                        </form>
+                        <form method='POST'>
+                            {% csrf_token %}
+                            <input type="hidden" name="button" value="return">
+                            <input type="hidden" name="car_id" value="{{ car.id }}">
+                            <button class="nav-item btn-secondary" type="submit">Return Car</button>
+                        </form>
                     </div>
                 </div>
             {% endif %}
