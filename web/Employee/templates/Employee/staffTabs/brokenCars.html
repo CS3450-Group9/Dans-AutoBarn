@@ -1,0 +1,40 @@
+<div>
+    <!-- desc text -->
+    <h3 class="text-center">Broken Down Cars</h3>
+    <!-- broken cars -->
+    <div class="container">
+        <!-- create success or error message -->
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {% if message.tags == "success" %}
+            <i class="fa-solid fa-circle-check me-2"></i>
+            {% elif message.tags == "danger" %}
+            <i class="fa-solid fa-triangle-exclamation me-2"></i>
+            {% endif %}
+            <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
+        <!-- Populate page with all cars -->
+        {% for car in car_inventory%}
+            <!-- only display cars that are checkedout -->
+            {% if car.lowjacked %}
+                <div class="card d-flex flex-row">
+                    <div><img src="{{ MEDIA_URL }}{{ car.image }}" class="img" alt="Image of {{ car.make }} {{ car.model }}" width="200"></div>
+                    <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
+                        <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
+                        <p>{{car.year}}</p>
+                        <p><span>${{car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
+                        <p>{{ car.location }}</p>
+                    </div>
+                    <form method='POST' style="position: relative; margin-top: 6.5rem; margin-bottom: 0.5rem; margin-right: 0.5rem;">
+                        {% csrf_token %}
+                        <input type="hidden" name="car_id" value="{{ car.id }}">
+                        <button class="nav-item btn-secondary" type="submit">Verify Car Fixed</button>
+                    </form>
+                </div>
+            {% endif %}
+        {% empty %}
+        <p>No broken down cars! Go lowjack some rentals!!!</p>
+        {% endfor %}
+    </div>
+</div>  

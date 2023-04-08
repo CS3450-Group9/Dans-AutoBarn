@@ -10,3 +10,4 @@ class Car(models.Model):
     lowjacked = models.BooleanField(default=False)
     reservation_cost = models.IntegerField()
     checked_out = models.BooleanField(default=False)
+    location = models.CharField(max_length=150, default="No Location Yet")
