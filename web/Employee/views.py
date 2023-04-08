@@ -26,16 +26,16 @@ def checkout(request, res_id):
         try:
             if request.POST['insurance']:
                 user.balance -= 50
-                print("insurance radio button flagged")
                 res.car.checked_out = True
                 user.save()
-                messages.success(request, f"Insurance selected, checked out status: {res.car.checked_out}", extra_tags=tabname)
+                print(f"Checked out status: {res.car.checked_out}")
+                messages.success(request, "Reservation has been checked out!", extra_tags=tabname)
         except MultiValueDictKeyError:
             res.car.lowjacked = True
             res.car.checked_out = True
-            print("no insurance")
+            print(f"Checked out status: {res.car.checked_out}")
             res.save()
-            messages.success(request, f"No insurance, checked out status: {res.car.checked_out}", extra_tags=tabname)
+            messages.success(request, "Reservation has been checked out!", extra_tags=tabname)
         except IntegrityError:
             messages.error(request, "Insufficient Funds.")
             return redirect('/search')
@@ -53,17 +53,16 @@ def staff(request, tab):
     today = date.today()
     today_reservations = Reservation.objects.filter(start_date=today)
     return_reservations = Reservation.objects.filter(end_date=today)
-    context = {"formatted_date": formatted_date}
+    car_inventory = Car.objects.all()
+    context = {
+        "formatted_date": formatted_date,
+        "car_inventory": car_inventory}
     tabs = [
         {
             "url": "active-rentals",
             "tab_title": "Active Rentals",
             "component_name": "ActiveRentals",
             "template": 'Employee/staffTabs/activeRentals.html' },
-        # {"url": "verify",
-        #     "tab_title": "Verify Pick-Up",
-        #     "component_name": "Verify",
-        #     "template": 'Employee/staffTabs/verifyPickup.html' },
         {"url": "broken-cars",
             "tab_title": "Currently Broken Cars",
             "component_name": "BrokenCars",
