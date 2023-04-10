@@ -15,7 +15,7 @@
                         <p><img src="{{ MEDIA_URL }}{{ res.car.image }}" class="image-container" alt="Image of {{ res.car.make }} {{ res.car.model }}" width="200"></p>
                             Car: {{ res.car.make }} {{ res.car.model }}<br>
                             Reserved from {{ res.start_date }} to {{ res.end_date }}<br>
-                            Reserved by {{ res.user.username }}<br>
+                            Reserved by {{ res.user.user }}<br>
                             Processed on: {{res.processed_on}}<br>
                             <input class="nav-item btn-secondary" type="button" value="Checkout Reservation" onclick="location.href = '{% url 'Employee:checkout' res.id %}'"
                             style="position: relative; margin-top: 4.5rem; margin-right: 1rem; height: 3rem;">

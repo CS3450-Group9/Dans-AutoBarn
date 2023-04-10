@@ -28,13 +28,15 @@ def checkout(request, res_id):
                 user.balance -= 50
                 res.car.checked_out = True
                 user.save()
+                res.car.save()
                 print(f"Checked out status: {res.car.checked_out}")
                 messages.success(request, "Reservation has been checked out!", extra_tags=tabname)
         except MultiValueDictKeyError:
             res.car.lowjacked = True
             res.car.checked_out = True
             print(f"Checked out status: {res.car.checked_out}")
-            res.save()
+            user.save()
+            res.car.save()
             messages.success(request, "Reservation has been checked out!", extra_tags=tabname)
         except IntegrityError:
             messages.error(request, "Insufficient Funds.")
@@ -84,10 +86,6 @@ def staff(request, tab):
             "tab_title": "Verify Pick-Up",
             "component_name": "Verify",
             "template": 'Employee/staffTabs/verifyPickup.html' },
-            {"url": "verifyDrop",
-            "tab_title": "Verify Drop-Off",
-            "component_name": "VerifyDrop",
-            "template": 'Employee/staffTabs/verifyDropOff.html' },
         ]
         context["tabs"] = tabs
         context["today_reservations"] = today_reservations
@@ -110,10 +108,6 @@ def staff(request, tab):
             "tab_title": "Verify Pick-Up",
             "component_name": "Verify",
             "template": 'Employee/staffTabs/verifyPickup.html' },
-            {"url": "verifyDrop",
-            "tab_title": "Verify Drop-Off",
-            "component_name": "VerifyDrop",
-            "template": 'Employee/staffTabs/verifyDropOff.html' },
         ]
         user_buttons = {
             "MA": [
