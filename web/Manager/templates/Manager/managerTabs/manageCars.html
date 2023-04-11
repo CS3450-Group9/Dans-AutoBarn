@@ -1,5 +1,4 @@
 <div>
-    <h3 class="text-center">Car Inventory</h3>
     <div class="container">
         {% if request.user.userprofile.auth_level == 'MA' %}
             {% for car in car_inventory %}

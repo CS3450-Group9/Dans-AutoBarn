@@ -1,6 +1,4 @@
 <div>
-    <!-- desc text -->
-    <h3 class="text-center">Active Rentals</h3>
     <!-- active rentals -->
     <div class="container">
         <!-- create success or error message -->
@@ -15,7 +13,7 @@
         </div>
         {% endfor %}
         <!-- Populate page with all cars -->
-        {% for car in car_inventory%}
+        {% for car in car_inventory %}
             <!-- only display cars that are checkedout -->
             {% if car.checked_out %}
                 <div class="card d-flex flex-row">
