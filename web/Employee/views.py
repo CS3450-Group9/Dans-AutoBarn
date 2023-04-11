@@ -1,38 +1,72 @@
 from django.http import HttpResponseForbidden
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.db import IntegrityError
+from django.utils.datastructures import MultiValueDictKeyError
 from django.utils import timezone
-from datetime import date
-
+from django.contrib import messages
+from datetime import datetime, date
 from Manager.models import Car
-from UserAuth.models import UserProfile
 from Customer.models import Reservation
+from UserAuth.models import UserProfile
 
+def verify_pickup(request):
+    return staff(request, None)
+
+def checkout(request, res_id):
+    res = get_object_or_404(Reservation, pk=res_id)
+    time_now = timezone.now()
+    formatted_date = time_now.strftime("%m-%d-%Y")
+    context = {
+        'res': res,
+        'formatted_date': formatted_date,
+    }
+    tabname = "CheckoutRes"
+    if request.method == 'POST':
+        user = res.user
+        try:
+            if request.POST['insurance']:
+                user.balance -= 50
+                res.car.checked_out = True
+                user.save()
+                res.car.save()
+                print(f"Checked out status: {res.car.checked_out}")
+                messages.success(request, "Reservation has been checked out!", extra_tags=tabname)
+        except MultiValueDictKeyError:
+            res.car.lowjacked = True
+            res.car.checked_out = True
+            print(f"Checked out status: {res.car.checked_out}")
+            user.save()
+            res.car.save()
+            messages.success(request, "Reservation has been checked out!", extra_tags=tabname)
+        except IntegrityError:
+            messages.error(request, "Insufficient Funds.")
+            return redirect('/search')
+        return redirect("Employee:staff", "CheckoutRes")
+            
+    return render(request, 'Employee/checkoutRes.html', context)
 
 def staff_default(request):
     return redirect("Employee:staff", "active-rentals")
 
 def staff(request, tab):
 
-    time_now = timezone.now()
+    time_now = datetime.now()
     formatted_date = time_now.strftime("%m-%d-%Y")
-    context = {"formatted_date": formatted_date}
+    today = date.today()
+    today_reservations = Reservation.objects.filter(start_date=today)
+    return_reservations = Reservation.objects.filter(end_date=today)
+    car_inventory = Car.objects.all()
+    context = {
+        "formatted_date": formatted_date,
+        "car_inventory": car_inventory}
     tabs = [
         {
             "url": "active-rentals",
             "tab_title": "Active Rentals",
             "component_name": "ActiveRentals",
-            "template": 'Employee/staffTabs/activeRentals.html'
-        },
-        {
-            "url": "verify",
-            "tab_title": "Verify Pick-Up",
-            "component_name": "Verify",
-
-            "template": 'Employee/staffTabs/verifyPickup.html'
-        },
-        {
-            "url": "broken-cars",
-            "tab_title": "Broken Cars",
+            "template": 'Employee/staffTabs/activeRentals.html' },
+        {"url": "broken-cars",
+            "tab_title": "Currently Broken Cars",
             "component_name": "BrokenCars",
             "template": 'Employee/staffTabs/brokenCars.html'
         },
@@ -44,34 +78,36 @@ def staff(request, tab):
     elif request.user.userprofile.auth_level == "TW" or request.user.userprofile.auth_level == "CR":
         # For now, CR and TW have the same tabs
         tabs += [
-            {
-                "url": "log-hours",
-                "tab_title": "Log Hours Worked",
-                "component_name": "LogHours",
-                "template": 'Employee/staffTabs/logHours.html'
-            },
+            {"url": "log-hours",
+             "tab_title": "Log Hours Worked",
+             "component_name": "LogHours",
+             "template": 'Employee/staffTabs/logHours.html' },
+            {"url": "verify",
+            "tab_title": "Verify Pick-Up",
+            "component_name": "Verify",
+            "template": 'Employee/staffTabs/verifyPickup.html' },
         ]
         context["tabs"] = tabs
+        context["today_reservations"] = today_reservations
+        context["return_reservations"] = return_reservations
     elif request.user.userprofile.auth_level == "MA":
         tabs += [
-            {
-                "url": "cars",
-                "tab_title": "Manage Cars",
-                "component_name": "CarsView",
-                "template": 'Manager/managerTabs/manageCars.html'
-            },
-            {
-                "url": "users",
-                "tab_title": "Manage Users",
-                "component_name": "UsersView",
-                "template": 'Manager/managerTabs/manageUsers.html'
-            },
-            {
-                "url": "hours",
-                "tab_title": "Review Hours",
-                "component_name": "HoursView",
-                "template": 'Manager/managerTabs/reviewHours.html'
-            },
+            {"url": "cars",
+             "tab_title": "Manage Cars",
+             "component_name": "CarsView",
+             "template": 'Manager/managerTabs/manageCars.html' },
+            {"url": "users",
+             "tab_title": "Manage Users",
+             "component_name": "UsersView",
+             "template": 'Manager/managerTabs/manageUsers.html' },
+            {"url": "hours",
+             "tab_title": "Review Hours",
+             "component_name": "Hours",
+             "template": 'Manager/managerTabs/reviewHours.html' },
+            {"url": "verify",
+            "tab_title": "Verify Pick-Up",
+            "component_name": "Verify",
+            "template": 'Employee/staffTabs/verifyPickup.html' },
         ]
         user_buttons = {
             "MA": [
@@ -103,6 +139,8 @@ def staff(request, tab):
             }]
 
         context["tabs"] = tabs
+        context["today_reservations"] = today_reservations
+        context["return_reservations"] = return_reservations
         context["car_inventory"] = Car.objects.all()
         context["users_data"] = users_data 
     else:
