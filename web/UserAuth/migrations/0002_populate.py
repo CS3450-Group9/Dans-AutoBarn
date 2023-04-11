@@ -14,7 +14,7 @@ def populate_db(apps, schema_editor):
     staff = User.objects.create_superuser(username="staff", password="staff")
     new_admin = UserProfile(user=user1, auth_level="MA", balance=999)
     new_customer = UserProfile(user=user2, auth_level="CU", balance=1)
-    new_carperson = UserProfile(user=user3, auth_level="CR")
+    new_carperson = UserProfile(user=user3, auth_level="CR", hours_worked=99)
     new_till = UserProfile(user=user4, auth_level="TW", balance=32436) 
     new_staff = UserProfile(user=staff, auth_level="MA", balance=999999)
     new_admin.save()
