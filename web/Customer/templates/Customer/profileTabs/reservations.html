@@ -1,3 +1,43 @@
 <div>
-    <p>This is a list of your current reservations</p>
-</div>
+    <!-- desc text -->
+    <h3 class="text-center">Your Reservations</h3>
+    <!-- active rentals -->
+    <div class="container">
+        <!-- create success or error message -->
+        <!-- Populate page with all cars -->
+        {% for res in user_cars%}
+            <!-- only display cars that are checkedout -->
+                <div class="card d-flex flex-row">
+                    <div><img src="{{ MEDIA_URL }}{{ res.car.image }}" class="img" alt="Image of {{ res.car.make }} {{ res.car.model }}" width="200"></div>
+                    <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
+                        <h2 style="text-align: left; padding-bottom: 0%;">{{res.car.make}} {{res.car.model}}</h2>
+                        <p>{{res.car.year}}</p>
+                        
+                        <p>Active Days {{res.start_date}} - {{res.end_date}}</p>
+                        <p><span>${{res.car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
+                    
+                    <!-- BUTTONS -->
+                    {% if res.car.lowjacked == 'False' %}
+                    <div class="d-flex justify-content-evenly flex-row" style="position: relative; margin-top: 6.5rem; margin-bottom: 0.5rem; margin-right: 0.5rem;">
+                        <form method='POST' style="margin-right: 0.5rem;">
+                            {% csrf_token %}
+                            <input type="hidden" name="button" value="CarBroke">
+                            <input type="hidden" name="car_id" value="{{ res.car.id }}">
+                            <label for="car_location" >Broken Car Location</label>
+                            <input type="text" name="car_location" id="car_location" class="shortTextBox">
+                            <button class="nav-item btn-secondary" type="submit">Car Broke?</button>
+                        </form>
+                    </div>
+                        
+                    </div>
+                    {% else %}
+                    <p>your car is at {{ res.car.location }}</p>
+                </div>
+                    {% endif %}
+                </div>
+            
+        {% empty %}
+        <p>You have no reservations</p>
+        {% endfor %}
+    </div>
+</div>  

@@ -17,11 +17,15 @@ def profile_default(request):
     return redirect('/profile/info/')
 
 def profile(request, tab: str):
+    user_cars = Reservation.objects.filter(user=request.user.id)
     if request.method == "POST":
         if tab == "balance":
             return add_balance(request, tab)
         elif tab == "pass-change":
             return password_change(request, tab)
+        elif tab == "reservations":
+            if request.POST.get("button") == "CarBroke":
+                return carBroke(request)
 
     tabs = [
         {"url": "info",
@@ -40,12 +44,9 @@ def profile(request, tab: str):
          "tab_title": "Change Password",
          "component_name": "PassChange",
          "template": 'Customer/profileTabs/passChange.html'},
-        {"url": "car-broke",
-         "tab_title": "Car Broken?",
-         "component_name": "CarBroken",
-         "template": 'Customer/profileTabs/carBroke.html'},
+        
     ]
-    context = {}
+    context = {"user_cars" : user_cars}
     if request.user.is_authenticated:
         context["tabs"] = tabs
         context["password_form"] = PasswordChangeForm(request.user.userprofile.user)
@@ -67,6 +68,25 @@ def add_balance(request, tabname):
         messages.error(request, "Something went wrong... Unable to transfer funds.", extra_tags=tabname)
 
     return redirect('Customer:profile', tabname)
+
+
+def carBroke(request):
+    try: 
+        car_id = int(request.POST.get("car_id"))
+        car = Car.objects.get(id=car_id)
+        car.location = request.POST.get("car_location")
+        if car.lowjacked == True:
+            car.lowjacked = True
+        else:
+            car.lowjacked = True
+        
+        car.save()
+        messages.success(request, f"Help is on the way", extra_tags=tabname)
+    except:
+        print("ERROR")
+        pass
+    return redirect("Customer:profile", "reservations")
+
 
 def password_change(request, tabname):
     form = PasswordChangeForm(user=request.user.userprofile.user, data=request.POST)
