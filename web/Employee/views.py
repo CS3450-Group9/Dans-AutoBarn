@@ -50,7 +50,7 @@ def staff_default(request):
 
 def staff(request, tab):
 
-    time_now = timezone.now()
+    time_now = datetime.now()
     formatted_date = time_now.strftime("%m-%d-%Y")
     today = date.today()
     today_reservations = Reservation.objects.filter(start_date=today)
