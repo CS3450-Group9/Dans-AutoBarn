@@ -1,0 +1,14 @@
+<div class="card" style="padding: 1rem;">
+    <p>Current hours worked: {{ request.user.userprofile.hours_worked }} </p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="inputBal">Enter the amount of hours worked</label>
+            <div class="input-group mb-2">
+                <input type="number" min="1" class="form-control" id="inputHours" name="inputHours" placeholder="Log Hours">
+                <div class="input-group-text">Hours </div>
+            </div>
+        </div>
+        <button type="submit" class="nav-item btn-secondary">Submit</button>
+    </form>
+</div>

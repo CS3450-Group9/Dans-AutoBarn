@@ -1,6 +1,7 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from django.contrib import messages
 from datetime import date
 
 from Manager.models import Car
@@ -12,7 +13,6 @@ def staff_default(request):
     return redirect("Employee:staff", "active-rentals")
 
 def staff(request, tab):
-
     time_now = timezone.now()
     formatted_date = time_now.strftime("%m-%d-%Y")
     context = {"formatted_date": formatted_date}
@@ -120,6 +120,8 @@ def staff(request, tab):
                 return return_car(request)
         elif tab == "users":
             return change_user_auth_level(request)
+        elif tab=="log-hours":
+            return log_hours(request, tab)
 
     return render(request, 'Employee/staff.html', context)
 
@@ -164,3 +166,18 @@ def return_car(request):
         print("ERROR")
         pass
     return redirect("Employee:staff", "active-rentals")
+
+def log_hours(request, tabname):
+    try:
+        amount = int(request.POST.get("inputHours", 0))
+        if amount < 1: raise ValueError
+        request.user.userprofile.hours_worked += amount
+        request.user.userprofile.full_clean()
+        request.user.userprofile.save()
+        messages.success(request, f"Successfully logged {amount} hours!", extra_tags=tabname)
+    except ValueError:
+        messages.error(request, "Amount must be a positive integer", extra_tags=tabname)
+    except:
+        messages.error(request, "Something went wrong... Unable to log hours.", extra_tags=tabname)
+
+    return redirect('Employee:staff', tabname)
