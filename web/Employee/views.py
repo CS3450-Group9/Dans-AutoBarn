@@ -4,12 +4,7 @@ from django.db import IntegrityError
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils import timezone
 from django.contrib import messages
-<<<<<<< HEAD
-from datetime import date
-
-=======
 from datetime import datetime, date
->>>>>>> dev
 from Manager.models import Car
 from Customer.models import Reservation
 from UserAuth.models import UserProfile
