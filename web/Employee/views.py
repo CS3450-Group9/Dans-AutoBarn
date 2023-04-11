@@ -66,7 +66,7 @@ def staff(request, tab):
             "component_name": "ActiveRentals",
             "template": 'Employee/staffTabs/activeRentals.html' },
         {"url": "broken-cars",
-            "tab_title": "Currently Broken Cars",
+            "tab_title": "Broken Cars",
             "component_name": "BrokenCars",
             "template": 'Employee/staffTabs/brokenCars.html'
         },
