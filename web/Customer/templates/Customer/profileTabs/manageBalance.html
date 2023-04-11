@@ -1,4 +1,5 @@
-<div>
+<div class="card" style="padding: 1rem;">
+    <p>Current Balance: ${{ request.user.userprofile.balance }} </p>
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
@@ -8,6 +9,6 @@
                 <input type="number" min="1" class="form-control" id="inputBal" name="inputBal" placeholder="Add Balance">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="nav-item btn-secondary">Submit</button>
     </form>
 </div>
