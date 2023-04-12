@@ -24,31 +24,36 @@ def profile(request, tab: str):
             return password_change(request, tab)
 
     tabs = [
-        {"url": "info",
-         "tab_title": "Personal Info",
-         "component_name": "Info",
-         "template": 'Customer/profileTabs/personalInfo.html'},
-        {"url": "balance",
-         "tab_title": "Manage Balance",
-         "component_name": "Balance",
-         "template": 'Customer/profileTabs/manageBalance.html'},
-        {"url": "reservations",
-         "tab_title": "Reservations",
-         "component_name": "Reservations",
-         "template": 'Customer/profileTabs/reservations.html'},
-        {"url": "pass-change",
-         "tab_title": "Change Password",
-         "component_name": "PassChange",
-         "template": 'Customer/profileTabs/passChange.html'},
-        {"url": "car-broke",
-         "tab_title": "Car Broken?",
-         "component_name": "CarBroken",
-         "template": 'Customer/profileTabs/carBroke.html'},
+        {
+            "url": "info",
+            "tab_title": "Personal Info",
+            "component_name": "Info",
+            "template": 'Customer/profileTabs/personalInfo.html'
+        },
+        {
+            "url": "balance",
+            "tab_title": "Manage Balance",
+            "component_name": "Balance",
+            "template": 'Customer/profileTabs/manageBalance.html'
+        },
+        {
+            "url": "reservations",
+            "tab_title": "Reservations",
+            "component_name": "Reservations",
+            "template": 'Customer/profileTabs/reservations.html'
+        },
+        {
+            "url": "pass-change",
+            "tab_title": "Change Password",
+            "component_name": "PassChange",
+            "template": 'Customer/profileTabs/passChange.html'
+        },
     ]
     context = {}
     if request.user.is_authenticated:
         context["tabs"] = tabs
         context["password_form"] = PasswordChangeForm(request.user.userprofile.user)
+        context["reservations"] = Reservation.objects.filter(user=request.user.userprofile)
     else:
         context["error"] = "User is not signed in!"
     return render(request, 'Customer/profile.html', context)
