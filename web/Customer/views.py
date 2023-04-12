@@ -22,6 +22,8 @@ def profile(request, tab: str):
             return add_balance(request, tab)
         elif tab == "pass-change":
             return password_change(request, tab)
+        elif tab == "reservations":
+            return car_broken(request, tab)
 
     tabs = [
         {
@@ -238,3 +240,8 @@ def delete_unconfirmed(user):
     '''Delete all unconfirmed reservations for a user'''
     unconfirmed = Reservation.objects.filter(user=user, confirmed=False)
     unconfirmed.delete()
+
+def car_broken(request, tabname):
+    print(request.POST)
+    messages.success(request, "Car has been reported as broken.", extra_tags=tabname)
+    return redirect("Customer:profile", "reservations")
