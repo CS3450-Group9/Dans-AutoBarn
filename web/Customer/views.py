@@ -244,5 +244,18 @@ def delete_unconfirmed(user):
 
 def car_broken(request, tabname):
     print(request.POST)
-    messages.success(request, "Car has been reported as broken.", extra_tags=tabname)
+    try:
+        car_id = int(request.POST["car_id"])
+        car = Car.objects.get(id=car_id)
+        location = request.POST["location"]
+        car.location = location
+        car.lowjacked = True
+        car.save()
+        messages.success(request, "Car has been reported as broken.", extra_tags=tabname)
+    except (Car.DoesNotExist, ValueError):
+        messages.error(request, "You submitted a form for a car that does not exist.", extra_tags=tabname)
+    except MultiValueDictKeyError:
+        messages.error(request, "Please enter a location for the car.", extra_tags=tabname)
+    except:
+        messages.error(request, "Unable to submit car as broken.", extra_tags=tabname)
     return redirect("Customer:profile", "reservations")

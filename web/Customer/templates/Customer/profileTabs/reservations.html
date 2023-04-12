@@ -11,11 +11,26 @@
         <form method="POST">
             {% csrf_token %}
             <input type="hidden" name="car_id" value="{{ car.id }}"></input>
-            <input class="form-control" type="text" name="location"></input>
+            <div class="form-group">
+                <label for="location">Location of Car</label>
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="location" name="location" placeholder="Location">
+                </div>
+            </div>
             <button type="submit" class="btn btn-secondary nav-item">Report Broken</button>
         </form>
         {% else %}
-            <p>This car is broken.</p>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="car_id" value="{{ car.id }}"></input>
+            <div class="form-group">
+                <label for="location">Send car location:</label>
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="location" name="location" placeholder="Location">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-secondary nav-item">Update Location</button>
+        </form>
         {% endif %}
         </div>
     </div>
