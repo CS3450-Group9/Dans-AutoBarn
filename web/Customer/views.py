@@ -55,7 +55,8 @@ def profile(request, tab: str):
     if request.user.is_authenticated:
         context["tabs"] = tabs
         context["password_form"] = PasswordChangeForm(request.user.userprofile.user)
-        context["reservations"] = Reservation.objects.filter(user=request.user.userprofile)
+        context["active_reservations"] = Reservation.objects.filter(user=request.user.userprofile, car__checked_out=True)
+        context["inactive_reservations"] = Reservation.objects.filter(user=request.user.userprofile, car__checked_out=False)
     else:
         context["error"] = "User is not signed in!"
     return render(request, 'Customer/profile.html', context)

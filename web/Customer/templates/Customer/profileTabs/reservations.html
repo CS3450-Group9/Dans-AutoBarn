@@ -1,14 +1,12 @@
 <div>
-    <h3>Currently Checked Out</h3>
-    {% for reservation in reservations|dictsortreversed:"processed_on" %}{% with car=reservation.car %}
-    {% if car.checked_out %}
+    <h3>Active Reservations</h3>
+    {% for reservation in active_reservations|dictsortreversed:"processed_on" %}{% with car=reservation.car %}
     <div class="card d-flex flex-row p-2">
         <div><img src="{{ MEDIA_URL }}{{ car.image }}" class="img" alt="Image of {{ car.make }} {{ car.model }}" width="200"></div>
         <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
             <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
             <p>{{car.year}}</p>
             <p>{{reservation.start_date}} - {{reservation.end_date}}</p>
-        </div>
         {% if not car.lowjacked %}
         <form method="POST">
             {% csrf_token %}
@@ -17,11 +15,16 @@
             <button type="submit" class="btn btn-secondary nav-item">Report Broken</button>
         </form>
         {% else %}
-        <p>This car is broken.</p>
+            <p>This car is broken.</p>
         {% endif %}
+        </div>
     </div>
-    {% else %}
+    {% endwith %}
+    {% empty %}
+    <p>Go make some reservations you fool!!!!!!</p>
+    {% endfor %}
     <h3>Inactive Reservations</h3>
+    {% for reservation in inactive_reservations|dictsortreversed:"processed_on" %}{% with car=reservation.car %}
     <div class="card d-flex flex-row p-2">
         <div><img src="{{ MEDIA_URL }}{{ car.image }}" class="img" alt="Image of {{ car.make }} {{ car.model }}" width="200"></div>
         <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
@@ -30,7 +33,6 @@
             <p>{{reservation.start_date}} - {{reservation.end_date}}</p>
         </div>
     </div>
-    {% endif %}
     {% endwith %}
     {% empty %}
     <p>Go make some reservations you fool!!!!!!</p>
