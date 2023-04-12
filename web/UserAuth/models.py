@@ -22,6 +22,7 @@ class UserProfile(models.Model):
         default=UserType.Customer,
     )
     balance = models.PositiveIntegerField(default=0)
+    hours_worked = models.PositiveIntegerField(default=0)
 
     def __repr__(self): # For testing purposes
         return "Username:" + self.user.username

@@ -1,4 +1,9 @@
-<div>
-    <p>Authentication Level: {{ request.user.userprofile.auth_level }}</p>
-    <p>Current Balance: ${{ request.user.userprofile.balance }} </p>
+<div class="card"
+style="padding: 1rem; ">
+    <!-- add email and username and name and such -->
+    <div class="d-flex flex-column flex-justify-between">
+    <p>Authentication Level: {{ request.user.userprofile.get_auth_level_display }}</p>
+        <p>Current Balance: ${{ request.user.userprofile.balance }} </p>
+        <a class="nav-item btn-secondary" style="text-decoration: none; text-align: center;" href="/profile/balance">Add Balance</a>
+    </div>
 </div>

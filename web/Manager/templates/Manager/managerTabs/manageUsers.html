@@ -1,32 +1,27 @@
 <div>
     {% if request.user.userprofile.auth_level == 'MA' %}
-        {% for user_info in users_data %}
-        {% with user=user_info.user_profile buttons=user_info.buttons %}
+        {% for user_info in users_data %}{% with user=user_info.user_profile buttons=user_info.buttons %}
 
             <div class="d-flex card my-3 p-3">
-                <h3 class="text-center">{{ user.user | title }} -- {{user.get_auth_level_display}}</h3>
-                {% if buttons %}
-                <div class="d-flex flex-column">
-                    <button class="flex-row btn btn-secondary nav-item" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapseExample{{ user.id }}"
-                        aria-expanded="false" aria-controls="collapseExample">
+
+                <div class="dropdown">
+                    <h3 class="text-center">{{ user.user | title }} -- {{user.get_auth_level_display}}</h3>
+                    <button class="btn btn-secondary dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         User Options
                     </button>
-                    {% for button in buttons %}
                     <form method="post">
                         {% csrf_token %}
-                        <div class="flex-row collapse" id="collapseExample{{ user.id }}">
+                        <ul class="dropdown-menu nav-item">
                             <input type="hidden" name="user_id" value="{{ user.id }}">
+                            {% for button in buttons %}
                             <button class="btn btn-secondary nav-item" name="new_auth_level" type="submit" value="{{ button.value }}">
                                 {{ button.text }}
                             </button>
-                        </div>
+                            {% endfor %}
+                        </ul>
                     </form>
-                    {% endfor %}
                 </div>
-                {% endif %}
-            </div>
-        {% endwith %}
+            </div>{% endwith %}
         {% empty %}
             <p>No users found!</p>
         {% endfor %}
