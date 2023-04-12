@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
+from datetime import datetime, date
 
 from .models import Car, Reservation
 
@@ -18,6 +19,8 @@ def profile_default(request):
 
 def profile(request, tab: str):
     user_cars = Reservation.objects.filter(user=request.user.id)
+    today = date.today()
+    user_cars = user_cars.filter(start_date__lte=today, end_date__gte=today)
     if request.method == "POST":
         if tab == "balance":
             return add_balance(request, tab)

@@ -17,27 +17,26 @@
                         <p><span>${{res.car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
                     
                     <!-- BUTTONS -->
-                    {% if res.car.lowjacked == 'False' %}
-                    <div class="d-flex justify-content-evenly flex-row" style="position: relative; margin-top: 6.5rem; margin-bottom: 0.5rem; margin-right: 0.5rem;">
+                    {% if not res.car.lowjacked %}
+                    <div class="d-flex justify-content-evenly flex-row" style="position: relative; margin-top: 0rem; margin-bottom: 0.5rem; margin-right: 0.2rem;">
                         <form method='POST' style="margin-right: 0.5rem;">
                             {% csrf_token %}
                             <input type="hidden" name="button" value="CarBroke">
                             <input type="hidden" name="car_id" value="{{ res.car.id }}">
                             <label for="car_location" >Broken Car Location</label>
-                            <input type="text" name="car_location" id="car_location" class="shortTextBox">
+                            <input type="text" name="car_location" id="car_location" class="shortTextBox" placeholder="Enter where the car has been left, and click the button" required="true">
                             <button class="nav-item btn-secondary" type="submit">Car Broke?</button>
                         </form>
-                    </div>
                         
                     </div>
                     {% else %}
-                    <p>your car is at {{ res.car.location }}</p>
+                    <p> Car is broken down at: {{ res.car.location }}</p>
                 </div>
                     {% endif %}
                 </div>
             
         {% empty %}
-        <p>You have no reservations</p>
+        <p>You have no reservations currently active</p>
         {% endfor %}
     </div>
 </div>  
