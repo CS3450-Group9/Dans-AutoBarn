@@ -183,7 +183,10 @@ def toggle_low_jacked(request):
     try: 
         car_id = int(request.POST.get("car_id"))
         car = Car.objects.get(id=car_id)
-        car.lowjacked = not car.lowjacked
+        if car.lowjacked == False:
+            car.lowjacked = True
+        else:
+            car.lowjacked = True
         car.location = "No Location Yet"
         car.save()
     except:
@@ -196,6 +199,7 @@ def return_car(request):
         car_id = int(request.POST.get("car_id"))
         car = Car.objects.get(id=car_id)
         car.checked_out = False
+        car.lowjacked = False
         car.save()
         # delete last reservation
         reservations = Reservation.objects.filter(car=car_id, end_date__lte=date.today())
