@@ -23,7 +23,10 @@ def staff(request, tab):
     car_inventory = Car.objects.all()
     context = {
         "formatted_date": formatted_date,
-        "car_inventory": car_inventory}
+        "car_inventory": car_inventory,
+        "today_reservations": today_reservations,
+        "return_reservations": return_reservations,
+    }
     tabs = [
         {
             "url": "active-rentals",
@@ -53,8 +56,6 @@ def staff(request, tab):
             "template": 'Employee/staffTabs/verifyPickup.html' },
         ]
         context["tabs"] = tabs
-        context["today_reservations"] = today_reservations
-        context["return_reservations"] = return_reservations
     elif request.user.userprofile.auth_level == "MA":
         tabs += [
             {"url": "cars",
@@ -104,10 +105,9 @@ def staff(request, tab):
             }]
 
         context["tabs"] = tabs
-        context["today_reservations"] = today_reservations
-        context["return_reservations"] = return_reservations
         context["car_inventory"] = Car.objects.all()
         context["users_data"] = users_data 
+        context["employees"] = UserProfile.objects.filter(auth_level="TW") | UserProfile.objects.filter(auth_level="CR")
     else:
         return HttpResponseForbidden("Unauthorized: User not part of staff!")
 
