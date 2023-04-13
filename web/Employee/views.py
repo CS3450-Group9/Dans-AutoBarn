@@ -23,7 +23,10 @@ def staff(request, tab):
     car_inventory = Car.objects.all()
     context = {
         "formatted_date": formatted_date,
-        "car_inventory": car_inventory}
+        "car_inventory": car_inventory,
+        "today_reservations": today_reservations,
+        "return_reservations": return_reservations,
+    }
     tabs = [
         {
             "url": "active-rentals",
@@ -53,8 +56,6 @@ def staff(request, tab):
             "template": 'Employee/staffTabs/verifyPickup.html' },
         ]
         context["tabs"] = tabs
-        context["today_reservations"] = today_reservations
-        context["return_reservations"] = return_reservations
     elif request.user.userprofile.auth_level == "MA":
         tabs += [
             {"url": "cars",
@@ -104,10 +105,9 @@ def staff(request, tab):
             }]
 
         context["tabs"] = tabs
-        context["today_reservations"] = today_reservations
-        context["return_reservations"] = return_reservations
         context["car_inventory"] = Car.objects.all()
         context["users_data"] = users_data 
+        context["employees"] = UserProfile.objects.filter(auth_level="TW", hours_worked__gte=1) | UserProfile.objects.filter(auth_level="CR", hours_worked__gte=1)
     else:
         return HttpResponseForbidden("Unauthorized: User not part of staff!")
 
@@ -123,8 +123,10 @@ def staff(request, tab):
                 return return_car(request)
         elif tab == "users":
             return change_user_auth_level(request)
-        elif tab=="log-hours":
+        elif tab == "log-hours":
             return log_hours(request, tab)
+        elif tab == "hours":
+            return pay_employees(request, tab)
 
     return render(request, 'Employee/staff.html', context)
 
@@ -210,3 +212,36 @@ def log_hours(request, tabname):
         messages.error(request, "Something went wrong... Unable to log hours.", extra_tags=tabname)
 
     return redirect('Employee:staff', tabname)
+
+def pay_employees(request, tabname):
+    if request.user.userprofile.auth_level != "MA":
+        return redirect('Employee:staff_default')
+    manager = request.user.userprofile
+    try:
+        employee_id = int(request.POST.get("employee_id"))
+        employee = UserProfile.objects.get(id=employee_id)
+        pay = employee.get_pay()
+
+        # Subtract pay from current account
+        manager.balance -= pay
+        manager.full_clean()
+        manager.save()
+        
+        # Add pay to employee account
+        employee.balance += pay
+        employee.hours_worked = 0
+        employee.full_clean()
+        employee.save()
+
+        messages.success(request, f"Successfully paid employee!", extra_tags=tabname)
+    except UserProfile.DoesNotExist:
+        messages.error(request, "Employee with that ID does not exist.", extra_tags=tabname)
+    except MultiValueDictKeyError:
+        messages.error(request, "Employee ID not provided.", extra_tags=tabname)
+    except IntegrityError:
+        messages.error(request, "Insufficient Funds.", extra_tags=tabname)
+    except:
+        messages.error(request, "Something went wrong... Unable to pay employee.", extra_tags=tabname)
+
+    return redirect('Employee:staff', tabname)
+    
