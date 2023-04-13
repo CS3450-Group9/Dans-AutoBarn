@@ -14,29 +14,30 @@
             <div class="form-group">
                 <label for="location">Location of Car</label>
                 <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="location" name="location" placeholder="Location">
+                    <input type="text" class="form-control" id="location" name="location" placeholder="Current Location">
                 </div>
             </div>
             <button type="submit" class="btn btn-secondary nav-item">Report Broken</button>
         </form>
         {% else %}
+        <p>This car is currently broken.</p>
         <form method="POST">
             {% csrf_token %}
             <input type="hidden" name="car_id" value="{{ car.id }}"></input>
             <div class="form-group">
-                <label for="location">Send car location:</label>
+                <label for="location">Update current location:</label>
                 <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="location" name="location" placeholder="Location">
+                    <input type="text" class="form-control" id="location" name="location" placeholder="Current Location">
                 </div>
             </div>
-            <button type="submit" class="btn btn-secondary nav-item">Update Location</button>
+            <button type="submit" class="btn btn-secondary nav-item">Update</button>
         </form>
         {% endif %}
         </div>
     </div>
     {% endwith %}
     {% empty %}
-    <p>Go make some reservations you fool!!!!!!</p>
+    <p>There are no active reservations.</p>
     {% endfor %}
     <h3>Inactive Reservations</h3>
     {% for reservation in inactive_reservations|dictsortreversed:"processed_on" %}{% with car=reservation.car %}
