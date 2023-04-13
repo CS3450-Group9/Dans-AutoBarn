@@ -214,19 +214,33 @@ def log_hours(request, tabname):
     return redirect('Employee:staff', tabname)
 
 def pay_employees(request, tabname):
+    if request.user.userprofile.auth_level != "MA":
+        return redirect('Employee:staff_default')
+    PAY_PER_HOUR = 15
+    manager = request.user.userprofile
     try:
         employee_id = int(request.POST.get("employee_id"))
         employee = UserProfile.objects.get(id=employee_id)
+        pay = employee.hours_worked * PAY_PER_HOUR
 
-        # TODO: pay employee
+        # Subtract pay from current account
+        manager.balance -= pay
+        manager.full_clean()
+        manager.save()
+        
+        # Add pay to employee account
+        employee.balance += pay
+        employee.hours_worked = 0
+        employee.full_clean()
+        employee.save()
 
         messages.success(request, f"Successfully paid employee!", extra_tags=tabname)
     except UserProfile.DoesNotExist:
         messages.error(request, "Employee with that ID does not exist.", extra_tags=tabname)
     except MultiValueDictKeyError:
         messages.error(request, "Employee ID not provided.", extra_tags=tabname)
-    except ValueError:
-        messages.error(request, "Amount must be a positive integer", extra_tags=tabname)
+    except IntegrityError:
+        messages.error(request, "Insufficient Funds.", extra_tags=tabname)
     except:
         messages.error(request, "Something went wrong... Unable to pay employee.", extra_tags=tabname)
 

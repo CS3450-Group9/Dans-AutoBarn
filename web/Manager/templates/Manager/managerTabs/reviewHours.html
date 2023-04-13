@@ -1,5 +1,9 @@
 <div style="width: 70%;">
     {% if request.user.userprofile.auth_level == 'MA' %}
+        <div class="d-flex text-center card my-3 p-3">
+            <p>Your Current Balance: ${{ request.user.userprofile.balance }}</p>
+            <a class="nav-item btn-secondary" style="text-decoration: none; text-align: center;" href="/profile/balance">Add Balance</a>
+        </div>
         {% for employee in employees %}
         <div class="d-flex flex-row justify-content-between card my-3 p-3">
             <h3>{{ employee.user | title }}</h3>
@@ -7,6 +11,7 @@
                 {% csrf_token %}
                 <input type="hidden" name="employee_id" value="{{ employee.id }}">
                 <p>Hours worked: {{ employee.hours_worked }}</p>
+                <p>Total Compensation: ${{ employee.get_pay }}</p>
                 <button type="submit" class="btn-secondary">Pay</button>
             </form>
         </div>
