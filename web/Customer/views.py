@@ -263,7 +263,7 @@ def current_res(request, tabname):
         car.location = location
         car.lowjacked = True
         car.save()
-        messages.success(request, "Car has been reported as broken.", extra_tags=tabname)
+        messages.success(request, "Car reported broken. Location updated.", extra_tags=tabname)
     except Reservation.DoesNotExist:
         messages.error(request, "You submitted a form for a reservation that does not exist.", extra_tags=tabname)
     except Car.DoesNotExist:
