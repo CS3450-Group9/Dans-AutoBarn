@@ -16,14 +16,14 @@
                     </div>
                     <!-- BUTTONS -->
                     <div class="d-flex justify-content-evenly flex-row" style="position: relative; margin-top: 6.5rem; margin-bottom: 0.5rem; margin-right: 0.5rem;">
-                        
+                        {% if not car.lowjacked %}
                         <form method='POST' style="margin-right: 0.5rem;">
                             {% csrf_token %}
                             <input type="hidden" name="button" value="lowjack">
                             <input type="hidden" name="car_id" value="{{ car.id }}">
                             <button class="nav-item btn-secondary" type="submit">Low-Jack</button>
                         </form>
-                        
+                        {% endif %}
                         <form method='POST'>
                             {% csrf_token %}
                             <input type="hidden" name="button" value="return">
