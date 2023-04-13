@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
+from datetime import datetime, date
 
 from .models import Car, Reservation
 
@@ -75,6 +76,7 @@ def add_balance(request, tabname):
         messages.error(request, "Something went wrong... Unable to transfer funds.", extra_tags=tabname)
 
     return redirect('Customer:profile', tabname)
+
 
 def password_change(request, tabname):
     form = PasswordChangeForm(user=request.user.userprofile.user, data=request.POST)

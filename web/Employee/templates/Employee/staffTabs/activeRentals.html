@@ -3,19 +3,8 @@
     <h3 class="text-center">Active Rentals</h3>
     <!-- active rentals -->
     <div class="container">
-        <!-- create success or error message -->
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {% if message.tags == "success" %}
-            <i class="fa-solid fa-circle-check me-2"></i>
-            {% elif message.tags == "danger" %}
-            <i class="fa-solid fa-triangle-exclamation me-2"></i>
-            {% endif %}
-            <strong>{{ message }}</strong>
-        </div>
-        {% endfor %}
         <!-- Populate page with all cars -->
-        {% for car in car_inventory%}
+        {% for car in car_inventory %}
             <!-- only display cars that are checkedout -->
             {% if car.checked_out %}
                 <div class="card d-flex flex-row">
@@ -27,12 +16,14 @@
                     </div>
                     <!-- BUTTONS -->
                     <div class="d-flex justify-content-evenly flex-row" style="position: relative; margin-top: 6.5rem; margin-bottom: 0.5rem; margin-right: 0.5rem;">
+                        {% if not car.lowjacked %}
                         <form method='POST' style="margin-right: 0.5rem;">
                             {% csrf_token %}
                             <input type="hidden" name="button" value="lowjack">
                             <input type="hidden" name="car_id" value="{{ car.id }}">
                             <button class="nav-item btn-secondary" type="submit">Low-Jack</button>
                         </form>
+                        {% endif %}
                         <form method='POST'>
                             {% csrf_token %}
                             <input type="hidden" name="button" value="return">

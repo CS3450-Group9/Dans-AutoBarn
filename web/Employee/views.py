@@ -9,41 +9,6 @@ from Manager.models import Car
 from Customer.models import Reservation
 from UserAuth.models import UserProfile
 
-def verify_pickup(request):
-    return staff(request, None)
-
-def checkout(request, res_id):
-    res = get_object_or_404(Reservation, pk=res_id)
-    time_now = timezone.now()
-    formatted_date = time_now.strftime("%m-%d-%Y")
-    context = {
-        'res': res,
-        'formatted_date': formatted_date,
-    }
-    tabname = "CheckoutRes"
-    if request.method == 'POST':
-        user = res.user
-        try:
-            if request.POST['insurance']:
-                user.balance -= 50
-                res.car.checked_out = True
-                user.save()
-                res.car.save()
-                print(f"Checked out status: {res.car.checked_out}")
-                messages.success(request, "Reservation has been checked out!", extra_tags=tabname)
-        except MultiValueDictKeyError:
-            res.car.lowjacked = True
-            res.car.checked_out = True
-            print(f"Checked out status: {res.car.checked_out}")
-            user.save()
-            res.car.save()
-            messages.success(request, "Reservation has been checked out!", extra_tags=tabname)
-        except IntegrityError:
-            messages.error(request, "Insufficient Funds.")
-            return redirect('/search')
-        return redirect("Employee:staff", "CheckoutRes")
-            
-    return render(request, 'Employee/checkoutRes.html', context)
 
 def staff_default(request):
     return redirect("Employee:staff", "active-rentals")
@@ -196,6 +161,7 @@ def return_car(request):
         car_id = int(request.POST.get("car_id"))
         car = Car.objects.get(id=car_id)
         car.checked_out = False
+        car.lowjacked = False
         car.save()
         # delete last reservation
         reservations = Reservation.objects.filter(car=car_id, end_date__lte=date.today())
@@ -204,6 +170,31 @@ def return_car(request):
         print("ERROR")
         pass
     return redirect("Employee:staff", "active-rentals")
+
+def verify_pickup(request):
+    return staff(request, None)
+
+def checkout(request, res_id):
+    tabname = "verify"
+    res = get_object_or_404(Reservation, pk=res_id)
+    if request.method == 'POST':
+        user = res.user
+        car = res.car
+        try:
+            if request.POST.get('insurance') and not car.checked_out:
+                user.balance -= 50
+                user.save()
+            car.checked_out = True
+            car.save()
+            messages.success(request, "Reservation has been checked out!", extra_tags=tabname)
+        except IntegrityError:
+            messages.error(request, "Insufficient Funds.", extra_tags=tabname)
+            return redirect('/search')
+        return redirect("Employee:staff", "verify")
+            
+    time_now = timezone.now()
+    formatted_date = time_now.strftime("%m-%d-%Y")
+    return render(request, 'Employee/checkoutRes.html', {"res": res, "formatted_date": formatted_date})
 
 def log_hours(request, tabname):
     try:

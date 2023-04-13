@@ -3,17 +3,6 @@
     <h3 class="text-center">Broken Down Cars</h3>
     <!-- broken cars -->
     <div class="container">
-        <!-- create success or error message -->
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {% if message.tags == "success" %}
-            <i class="fa-solid fa-circle-check me-2"></i>
-            {% elif message.tags == "danger" %}
-            <i class="fa-solid fa-triangle-exclamation me-2"></i>
-            {% endif %}
-            <strong>{{ message }}</strong>
-        </div>
-        {% endfor %}
         <!-- Populate page with all cars -->
         {% for car in car_inventory%}
             <!-- only display cars that are checkedout -->
