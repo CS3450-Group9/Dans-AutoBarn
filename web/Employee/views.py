@@ -21,15 +21,21 @@ def staff(request, tab):
     today_reservations = Reservation.objects.filter(start_date=today)
     return_reservations = Reservation.objects.filter(end_date=today)
     car_inventory = Car.objects.all()
+    all_reservations = Reservation.objects.filter(start_date__gte=today)
     context = {
         "formatted_date": formatted_date,
-        "car_inventory": car_inventory}
+        "car_inventory": car_inventory,
+        "all_reservations": all_reservations}
     tabs = [
         {
             "url": "active-rentals",
             "tab_title": "Active Rentals",
             "component_name": "ActiveRentals",
             "template": 'Employee/staffTabs/activeRentals.html' },
+        {"url": "future-rentals",
+         "tab_title": "Future Reservations",
+         "component_name": "FutureRentals",
+         "template": 'Employee/staffTabs/futureRentals.html'},
         {"url": "broken-cars",
             "tab_title": "Currently Broken Cars",
             "component_name": "BrokenCars",
@@ -121,6 +127,9 @@ def staff(request, tab):
                 return toggle_low_jacked(request)
             elif request.POST.get("button") == "return":
                 return return_car(request)
+        elif tab == "future-rentals":
+            if request.POST.get("button") == "cancel":
+                return cancelReservation(request)
         elif tab == "users":
             return change_user_auth_level(request)
         elif tab=="log-hours":
@@ -170,6 +179,17 @@ def return_car(request):
         print("ERROR")
         pass
     return redirect("Employee:staff", "active-rentals")
+
+def cancelReservation(request):
+    try: 
+        res_id = int(request.POST.get("res_id"))
+        res = Reservation.objects.get(id=res_id)
+        res.delete()
+        # delete last reservation
+    except:
+        print("ERROR")
+        pass
+    return redirect("Employee:staff", "future-rentals")
 
 def verify_pickup(request):
     return staff(request, None)
