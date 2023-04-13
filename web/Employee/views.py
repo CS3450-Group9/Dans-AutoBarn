@@ -216,12 +216,11 @@ def log_hours(request, tabname):
 def pay_employees(request, tabname):
     if request.user.userprofile.auth_level != "MA":
         return redirect('Employee:staff_default')
-    PAY_PER_HOUR = 15
     manager = request.user.userprofile
     try:
         employee_id = int(request.POST.get("employee_id"))
         employee = UserProfile.objects.get(id=employee_id)
-        pay = employee.hours_worked * PAY_PER_HOUR
+        pay = employee.get_pay()
 
         # Subtract pay from current account
         manager.balance -= pay
