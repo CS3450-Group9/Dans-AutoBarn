@@ -10,9 +10,13 @@
                     </p>
                     <!-- drop down items -->
                     <div class="dropdown-menu btn-secondary" style="background-color: var(--c3); padding: 0.25rem;" aria-labelledby="navbarDarkDropdownMenuLink">
-                        {% for button in buttons %}
-                        <button class="btn-secondary"  style="margin-bottom: 0.25rem !important; margin-top: 0rem !important;" name="new_auth_level" type="submit" value="{{ button.value }}">{{ button.text }}</button>
-                        {% endfor %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            {% for button in buttons %}
+                                <button class="btn-secondary"  style="margin-bottom: 0.25rem !important; margin-top: 0rem !important;" name="new_auth_level" type="submit" value="{{ button.value }}">{{ button.text }}</button>
+                            {% endfor %}
+                        </form>
                     </div>
                     <!-- end of dropdown items -->
                 </div>
