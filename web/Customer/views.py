@@ -24,7 +24,7 @@ def profile(request, tab: str):
         elif tab == "pass-change":
             return password_change(request, tab)
         elif tab == "reservations":
-            return car_broken(request, tab)
+            return current_res(request, tab)
 
     tabs = [
         {
@@ -244,9 +244,19 @@ def delete_unconfirmed(user):
     unconfirmed = Reservation.objects.filter(user=user, confirmed=False)
     unconfirmed.delete()
 
-def car_broken(request, tabname):
+def current_res(request, tabname):
     print(request.POST)
     try:
+        if "cancel" in request.POST:
+            res_id = int(request.POST["res_id"])
+            res = Reservation.objects.get(id=res_id)
+            if request.user.userprofile != res.user:
+                messages.error(request, "You are not allowed to change this reservation!", extra_tags=tabname)
+                return redirect("Customer:profile", "reservations")
+            res.delete()
+            messages.success(request, "Reservation successfully cancelled!", extra_tags=tabname)
+            return redirect("Customer:profile", "reservations")
+                
         car_id = int(request.POST["car_id"])
         car = Car.objects.get(id=car_id)
         location = request.POST["location"]
@@ -254,7 +264,9 @@ def car_broken(request, tabname):
         car.lowjacked = True
         car.save()
         messages.success(request, "Car has been reported as broken.", extra_tags=tabname)
-    except (Car.DoesNotExist, ValueError):
+    except Reservation.DoesNotExist:
+        messages.error(request, "You submitted a form for a reservation that does not exist.", extra_tags=tabname)
+    except Car.DoesNotExist:
         messages.error(request, "You submitted a form for a car that does not exist.", extra_tags=tabname)
     except MultiValueDictKeyError:
         messages.error(request, "Please enter a location for the car.", extra_tags=tabname)

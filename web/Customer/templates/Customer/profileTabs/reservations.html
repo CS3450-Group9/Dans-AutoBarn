@@ -7,32 +7,32 @@
             <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
             <p>{{car.year}}</p>
             <p>{{reservation.start_date}} - {{reservation.end_date}}</p>
-        {% if not car.lowjacked %}
-        <form method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="car_id" value="{{ car.id }}"></input>
-            <div class="form-group">
-                <label for="location">Location of Car</label>
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="location" name="location" placeholder="Current Location">
+            {% if not car.lowjacked %}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="car_id" value="{{ car.id }}"></input>
+                <div class="form-group">
+                    <label for="location">Location of Car</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" id="location" name="location" placeholder="Current Location">
+                    </div>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-secondary nav-item">Report Broken</button>
-        </form>
-        {% else %}
-        <p>This car is currently broken.</p>
-        <form method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="car_id" value="{{ car.id }}"></input>
-            <div class="form-group">
-                <label for="location">Update current location:</label>
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="location" name="location" placeholder="Current Location">
+                <button type="submit" class="btn btn-secondary nav-item">Report Broken</button>
+            </form>
+            {% else %}
+            <p>This car is currently broken.</p>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="car_id" value="{{ car.id }}"></input>
+                <div class="form-group">
+                    <label for="location">Update current location:</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" id="location" name="location" placeholder="Current Location">
+                    </div>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-secondary nav-item">Update</button>
-        </form>
-        {% endif %}
+                <button type="submit" class="btn btn-secondary nav-item">Update</button>
+            </form>
+            {% endif %}
         </div>
     </div>
     {% endwith %}
@@ -47,6 +47,11 @@
             <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
             <p>{{car.year}}</p>
             <p>{{reservation.start_date}} - {{reservation.end_date}}</p>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="res_id" value="{{ reservation.id }}"></input>
+                <button type="submit" class="btn-secondary nav-item" name="cancel">Cancel Reservation</button>
+            </form>
         </div>
     </div>
     {% endwith %}
