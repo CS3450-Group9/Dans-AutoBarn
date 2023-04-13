@@ -1,18 +1,18 @@
 <div style="width: 70%;">
     {% if request.user.userprofile.auth_level == 'MA' %}
-    {% for employee in employees %}
-    <div class="d-flex flex-row justify-content-between card my-3 p-3">
-        <h3>{{ employee.user | title }}</h3>
-        <form method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="user_id" value="{{ employee.id }}">
-            <p>Hours worked: {{ employee.hours_worked }}</p>
-            <button type="submit" class="btn-secondary">Pay</button>
-        </form>
-    </div>
-    {% empty %}
-    <p>There are no reservations</p>
-    {% endfor %}
+        {% for employee in employees %}
+        <div class="d-flex flex-row justify-content-between card my-3 p-3">
+            <h3>{{ employee.user | title }}</h3>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="employee_id" value="{{ employee.id }}">
+                <p>Hours worked: {{ employee.hours_worked }}</p>
+                <button type="submit" class="btn-secondary">Pay</button>
+            </form>
+        </div>
+        {% empty %}
+        <p>There are no employees to pay</p>
+        {% endfor %}
     {% else %}
     <div>
         <h2>This page is only accessible to the Manager</h2>

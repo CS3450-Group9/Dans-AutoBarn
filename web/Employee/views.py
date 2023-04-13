@@ -107,7 +107,7 @@ def staff(request, tab):
         context["tabs"] = tabs
         context["car_inventory"] = Car.objects.all()
         context["users_data"] = users_data 
-        context["employees"] = UserProfile.objects.filter(auth_level="TW") | UserProfile.objects.filter(auth_level="CR")
+        context["employees"] = UserProfile.objects.filter(auth_level="TW", hours_worked__gte=1) | UserProfile.objects.filter(auth_level="CR", hours_worked__gte=1)
     else:
         return HttpResponseForbidden("Unauthorized: User not part of staff!")
 
@@ -123,8 +123,10 @@ def staff(request, tab):
                 return return_car(request)
         elif tab == "users":
             return change_user_auth_level(request)
-        elif tab=="log-hours":
+        elif tab == "log-hours":
             return log_hours(request, tab)
+        elif tab == "hours":
+            return pay_employees(request, tab)
 
     return render(request, 'Employee/staff.html', context)
 
@@ -210,3 +212,23 @@ def log_hours(request, tabname):
         messages.error(request, "Something went wrong... Unable to log hours.", extra_tags=tabname)
 
     return redirect('Employee:staff', tabname)
+
+def pay_employees(request, tabname):
+    try:
+        employee_id = int(request.POST.get("employee_id"))
+        employee = UserProfile.objects.get(id=employee_id)
+
+        # TODO: pay employee
+
+        messages.success(request, f"Successfully paid employee!", extra_tags=tabname)
+    except UserProfile.DoesNotExist:
+        messages.error(request, "Employee with that ID does not exist.", extra_tags=tabname)
+    except MultiValueDictKeyError:
+        messages.error(request, "Employee ID not provided.", extra_tags=tabname)
+    except ValueError:
+        messages.error(request, "Amount must be a positive integer", extra_tags=tabname)
+    except:
+        messages.error(request, "Something went wrong... Unable to pay employee.", extra_tags=tabname)
+
+    return redirect('Employee:staff', tabname)
+    
