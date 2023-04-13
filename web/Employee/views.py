@@ -76,24 +76,24 @@ def staff(request, tab):
         ]
         user_buttons = {
             "MA": [
-                {"text": "Demote to Till Worker", "value": "TW"},
-                {"text": "Demote to Car Retrieval Specialist", "value": "CR"},
-                {"text": "Demote to Customer", "value": "CU"},
+                {"text": "Till Worker", "value": "TW"},
+                {"text": "Car Retrieval Specialist", "value": "CR"},
+                {"text": "Customer", "value": "CU"},
             ],
             "CR": [
-                {"text": "Promote to Manager", "value": "MA"},
-                {"text": "Change to Till Worker", "value": "TW"},
-                {"text": "Demote to Customer", "value": "CU"},
+                {"text": "Manager", "value": "MA"},
+                {"text": "Till Worker", "value": "TW"},
+                {"text": "Customer", "value": "CU"},
             ],
             "TW": [
-                {"text": "Promote to Manager", "value": "MA"},
-                {"text": "Change to Car Retrieval Specialist", "value": "CR"},
-                {"text": "Demote to Customer", "value": "CU"},
+                {"text": "Manager", "value": "MA"},
+                {"text": "Car Retrieval Specialist", "value": "CR"},
+                {"text": "Customer", "value": "CU"},
             ],
             "CU": [
-                {"text": "Promote to Manager", "value": "MA"},
-                {"text": "Promote to Car Retrieval Specialist", "value": "CR"},
-                {"text": "Promote to Till Worker", "value": "TW"},
+                {"text": "Manager", "value": "MA"},
+                {"text": "Car Retrieval Specialist", "value": "CR"},
+                {"text": "Till Worker", "value": "TW"},
             ]
         }
         users_data = []

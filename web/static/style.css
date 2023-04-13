@@ -103,7 +103,7 @@ body {
 
 .btn-secondary:hover {
   color: white !important;
-  background-color: var(--ac);
+  background-color: var(--ac) !important;
 }
 
 .disabled.btn-secondary {
