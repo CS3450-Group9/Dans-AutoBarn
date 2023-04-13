@@ -148,10 +148,7 @@ def toggle_low_jacked(request):
     try: 
         car_id = int(request.POST.get("car_id"))
         car = Car.objects.get(id=car_id)
-        if car.lowjacked == False:
-            car.lowjacked = True
-        else:
-            car.lowjacked = True
+        car.lowjacked = not car.lowjacked
         car.location = "No Location Yet"
         car.save()
     except:
