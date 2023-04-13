@@ -11,8 +11,8 @@ class UserProfile(models.Model):
     # https://stackoverflow.com/questions/54802616/how-can-one-use-enums-as-a-choice-field-in-a-django-model
     class UserType(models.TextChoices):
         Customer    = 'CU', _('Customer')
-        TillWorker  = 'TW', _('TillWorker')
-        CarRetrival = "CR", _('CarRetrievalSpecialist')
+        TillWorker  = 'TW', _('Till Worker')
+        CarRetrival = "CR", _('Car Retrieval Specialist')
         Manager     = 'MA', _('Manager')
 
     user = models.OneToOneField(User, on_delete=models.CASCADE) # use existing django auth.user

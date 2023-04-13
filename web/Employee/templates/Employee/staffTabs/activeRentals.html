@@ -19,14 +19,22 @@
                             {% csrf_token %}
                             <input type="hidden" name="button" value="lowjack">
                             <input type="hidden" name="car_id" value="{{ car.id }}">
-                            <button class="nav-item btn-secondary" type="submit">Low-Jack</button>
+                            <button class="btn-secondary" type="submit">Low-Jack</button>
                         </form>
+                        {% else %}
+                        <!-- disabled lowjack button -->
+                        <div style="margin-right: 0.5rem;">
+                            {% csrf_token %}
+                            <input type="hidden" name="button" value="lowjack">
+                            <input type="hidden" name="car_id" value="{{ car.id }}">
+                            <button class="btn-secondary disabled">Low-Jack</button>
+                        </div>
                         {% endif %}
                         <form method='POST'>
                             {% csrf_token %}
                             <input type="hidden" name="button" value="return">
                             <input type="hidden" name="car_id" value="{{ car.id }}">
-                            <button class="nav-item btn-secondary" type="submit">Return Car</button>
+                            <button class="btn-secondary" type="submit">Return Car</button>
                         </form>
                     </div>
                 </div>
