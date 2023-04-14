@@ -7,7 +7,7 @@ from django.contrib import messages
 from datetime import datetime, date
 from Manager.models import Car
 from Customer.models import Reservation
-from UserAuth.models import UserProfile
+from UserAuth.models import UserProfile, User
 
 
 def staff_default(request):
@@ -185,6 +185,10 @@ def checkout(request, res_id):
         try:
             if request.POST.get('insurance') and not car.checked_out:
                 user.balance -= 50
+                manager = User.objects.get(username="admin")
+                manager_acc = UserProfile.objects.get(user=manager)
+                manager_acc.balance += 50
+                manager_acc.save()
                 user.save()
             car.checked_out = True
             car.save()
