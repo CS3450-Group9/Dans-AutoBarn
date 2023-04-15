@@ -12,7 +12,8 @@ from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
 from datetime import datetime, date
 
-from .models import Car, Reservation
+from .models import Car, Reservation, UserProfile
+from UserAuth.models import User
 
 def profile_default(request):
     return redirect('/profile/info/')
@@ -172,7 +173,11 @@ def confirm_res(request, token, res_id):
     if request.method == "POST":
         user = reservation.user
         user.balance -= reservation.get_total_cost()
+        manager = User.objects.get(username="admin")
+        manager_acc = UserProfile.objects.get(user=manager)
+        manager_acc.balance += reservation.get_total_cost()
         try:
+            manager_acc.save()
             user.save()
         except IntegrityError:
             messages.error(request, "Insufficient Funds.")
