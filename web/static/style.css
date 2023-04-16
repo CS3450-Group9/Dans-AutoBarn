@@ -16,12 +16,6 @@
   );
 }
 
-@font-face {
-  font-family: 'segoe-ui-bold';
-  src: local('segoe-ui-bold'),
-       url('../fonts/segoe-ui-bold.ttf') format("truetype");
-}
-
 body {
   font-family: 'segoe-ui-bold', Helvetica, sans-serif; 
   background-color: var(--bg);
