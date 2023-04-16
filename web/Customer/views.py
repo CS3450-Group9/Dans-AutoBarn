@@ -12,47 +12,53 @@ from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
 from datetime import datetime, date
 
-from .models import Car, Reservation
+from .models import Car, Reservation, UserProfile
+from UserAuth.models import User
 
 def profile_default(request):
     return redirect('/profile/info/')
 
 def profile(request, tab: str):
-    user_cars = Reservation.objects.filter(user=request.user.id)
-    today = date.today()
-    user_cars = user_cars.filter(start_date__lte=today, end_date__gte=today)
     if request.method == "POST":
         if tab == "balance":
             return add_balance(request, tab)
         elif tab == "pass-change":
             return password_change(request, tab)
         elif tab == "reservations":
-            if request.POST.get("button") == "CarBroke":
-                return carBroke(request)
+            return current_res(request, tab)
 
     tabs = [
-        {"url": "info",
-         "tab_title": "Personal Information",
-         "component_name": "Info",
-         "template": 'Customer/profileTabs/personalInfo.html'},
-        {"url": "balance",
-         "tab_title": "Manage Balance",
-         "component_name": "Balance",
-         "template": 'Customer/profileTabs/manageBalance.html'},
-        {"url": "reservations",
-         "tab_title": "Current Reservations",
-         "component_name": "Reservations",
-         "template": 'Customer/profileTabs/reservations.html'},
-        {"url": "pass-change",
-         "tab_title": "Change Password",
-         "component_name": "PassChange",
-         "template": 'Customer/profileTabs/passChange.html'},
-        
+        {
+            "url": "info",
+            "tab_title": "Personal Info",
+            "component_name": "Info",
+            "template": 'Customer/profileTabs/personalInfo.html'
+        },
+        {
+            "url": "balance",
+            "tab_title": "Manage Balance",
+            "component_name": "Balance",
+            "template": 'Customer/profileTabs/manageBalance.html'
+        },
+        {
+            "url": "reservations",
+            "tab_title": "Reservations",
+            "component_name": "Reservations",
+            "template": 'Customer/profileTabs/reservations.html'
+        },
+        {
+            "url": "pass-change",
+            "tab_title": "Change Password",
+            "component_name": "PassChange",
+            "template": 'Customer/profileTabs/passChange.html'
+        },
     ]
-    context = {"user_cars" : user_cars}
+    context = {}
     if request.user.is_authenticated:
         context["tabs"] = tabs
         context["password_form"] = PasswordChangeForm(request.user.userprofile.user)
+        context["active_reservations"] = Reservation.objects.filter(user=request.user.userprofile, car__checked_out=True, start_date__lte=date.today(), end_date__gte=date.today())
+        context["inactive_reservations"] = Reservation.objects.filter(user=request.user.userprofile, start_date__gt=date.today())
     else:
         context["error"] = "User is not signed in!"
     return render(request, 'Customer/profile.html', context)
@@ -71,24 +77,6 @@ def add_balance(request, tabname):
         messages.error(request, "Something went wrong... Unable to transfer funds.", extra_tags=tabname)
 
     return redirect('Customer:profile', tabname)
-
-
-def carBroke(request):
-    try: 
-        car_id = int(request.POST.get("car_id"))
-        car = Car.objects.get(id=car_id)
-        car.location = request.POST.get("car_location")
-        if car.lowjacked == True:
-            car.lowjacked = True
-        else:
-            car.lowjacked = True
-        
-        car.save()
-        messages.success(request, f"Help is on the way", extra_tags=tabname)
-    except:
-        print("ERROR")
-        pass
-    return redirect("Customer:profile", "reservations")
 
 
 def password_change(request, tabname):
@@ -185,7 +173,11 @@ def confirm_res(request, token, res_id):
     if request.method == "POST":
         user = reservation.user
         user.balance -= reservation.get_total_cost()
+        manager = User.objects.get(username="admin")
+        manager_acc = UserProfile.objects.get(user=manager)
+        manager_acc.balance += reservation.get_total_cost()
         try:
+            manager_acc.save()
             user.save()
         except IntegrityError:
             messages.error(request, "Insufficient Funds.")
@@ -256,3 +248,33 @@ def delete_unconfirmed(user):
     '''Delete all unconfirmed reservations for a user'''
     unconfirmed = Reservation.objects.filter(user=user, confirmed=False)
     unconfirmed.delete()
+
+def current_res(request, tabname):
+    print(request.POST)
+    try:
+        if "cancel" in request.POST:
+            res_id = int(request.POST["res_id"])
+            res = Reservation.objects.get(id=res_id)
+            if request.user.userprofile != res.user:
+                messages.error(request, "You are not allowed to change this reservation!", extra_tags=tabname)
+                return redirect("Customer:profile", "reservations")
+            res.delete()
+            messages.success(request, "Reservation successfully cancelled!", extra_tags=tabname)
+            return redirect("Customer:profile", "reservations")
+                
+        car_id = int(request.POST["car_id"])
+        car = Car.objects.get(id=car_id)
+        location = request.POST["location"]
+        car.location = location
+        car.lowjacked = True
+        car.save()
+        messages.success(request, "Car reported broken. Location updated.", extra_tags=tabname)
+    except Reservation.DoesNotExist:
+        messages.error(request, "You submitted a form for a reservation that does not exist.", extra_tags=tabname)
+    except Car.DoesNotExist:
+        messages.error(request, "You submitted a form for a car that does not exist.", extra_tags=tabname)
+    except MultiValueDictKeyError:
+        messages.error(request, "Please enter a location for the car.", extra_tags=tabname)
+    except:
+        messages.error(request, "Unable to submit car as broken.", extra_tags=tabname)
+    return redirect("Customer:profile", "reservations")
