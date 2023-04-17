@@ -25,7 +25,8 @@ def staff(request, tab):
     context = {
         "formatted_date": formatted_date,
         "car_inventory": car_inventory,
-        "all_reservations": all_reservations}
+        "all_reservations": all_reservations,
+    }
     tabs = [
         {
             "url": "active-rentals",
