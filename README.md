@@ -1,4 +1,21 @@
 # CS3450-Group9
+## Usage information
+> IMPORTANT:  
+> Site should only be viewed from a desktop environment  
+> Site is not available over HTTPS due to django errors  
+> Due to the nature of the site, a user with malintent can delete the manager account and lock out functionality, this will be prevented by perdiodically wiping the database and recreating users  
+> If you are unable to log in with an account higher than customer (you can create a customer account by going to dansautobarn.com/signup) wait approx 24hrs for the above to happen  
+
+Live site available [here](http://dansautobarn.com)  
+Login information is as follows  
+| Username   | Password | Auth Level   |
+|------------|----------|--------------|
+| staff      | staff    | Django Admin |
+| admin      | password | Manager      |
+| carperson  | password | Employee     |
+| Tillperson | password | Employee     |
+| customer   | hello    | Customer     |
+
 ## Organization & Name Scheme
 ### File Structure
 All documentation will be located in the /docs/ folder   
