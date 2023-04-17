@@ -5,6 +5,22 @@
 > Template at bottom
 
 ---
+## 04/03/2023 - Scrum Master: Carter Watson
+### Team Notes
+| Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
+| ------------- | --- | --- | --- |
+| Carter Watson | None | Active rentals - employee | Might need to add "checked out" flag on reservation/car |
+| Caden Maxwell | Worked on formatting manager view of cars | manager tabs |  |
+| Caleb Leavitt | Absent |  |  |
+| Joseph Giles  | Remove cars from inventory - deleted associated reservations, view cars in inventory page fixed | verify pickup page | generating code |
+### Screenshot of Burndown Chart
+![Burndown Update](referencePhotos/burndownUpdates/04-03-23.png)
+### Screenshot of Kanban Board
+![Kanban Update](referencePhotos/kanbanUpdates/MM-DD-YY.png)
+### Questions for team discussion
+* None
+
+---
 ## 03/27/2023 - Scrum Master: Carter Watson
 ### Team Notes
 | Team Member   | Accomplishments from last standup | Plan for work until next standup | Roadblocks |
