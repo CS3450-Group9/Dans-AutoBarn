@@ -28,6 +28,7 @@ def staff(request, tab):
         "today_reservations": today_reservations,
         "return_reservations": return_reservations,
     }
+
     tabs = [
         {
             "url": "active-rentals",
