@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% block title %}SignUp{% endblock %}
+{% block title %}Sign Up{% endblock %}
 {% block content %}
-    <h2>Sign Up</h2>
-    <form method="post">
+<form method="post" class="card" style="margin-top: 1rem; padding: 1rem;">
+        <h2>Sign Up</h2>
         <!-- TODO: edit layout of page & error message -->
         {% csrf_token %}{{form}}
-        <button type="submit" class="btn btn-success">Register</button>
+        <button type="submit" class="btn btn-success">Sign Up</button>
         
         <div class="container text-center">
             <p>Have an account? Log in <a href="/login">here</a></p>

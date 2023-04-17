@@ -4,6 +4,7 @@
   /* Tertiary   */ --c3: #ffc702;
   /* Background */ --bg: #e8cba3;
   /* Accent     */ --ac: #307e8a;
+  /* Disabled   */ --da: #787878;
   /* Chrome     */ --chrome:
   linear-gradient(
     180deg,
@@ -13,12 +14,6 @@
     #b5b5b5 75%,
     #787878 100%
   );
-}
-
-@font-face {
-  font-family: 'segoe-ui-bold';
-  src: local('segoe-ui-bold'),
-       url('../fonts/segoe-ui-bold.ttf') format("truetype");
 }
 
 body {
@@ -94,11 +89,24 @@ body {
   color: white;
   background-color: var(--c1);
   padding: 0.5rem;
+  border-color: var(--chrome);
+  border-width: 3px;
+  border-radius: 1px;
+  border-style: outset;
 }
 
 .btn-secondary:hover {
-  color: white;
-  background-color: var(--ac);
+  color: white !important;
+  background-color: var(--ac) !important;
+}
+
+.disabled.btn-secondary {
+  background-color: var(--da);
+  cursor: not-allowed;
+}
+
+.disabled.btn-secondary:hover {
+  background-color: var(--da);
 }
 
 .home-button {
@@ -132,10 +140,6 @@ button {
   border: none;
   cursor: pointer;
   width: 100%;
-}
-
-button:hover {
-  opacity: 0.8;
 }
 
 .container {

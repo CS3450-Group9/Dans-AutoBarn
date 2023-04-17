@@ -1,42 +1,61 @@
 <div>
-    <!-- desc text -->
-    <h3 class="text-center">Your Reservations</h3>
-    <!-- active rentals -->
-    <div class="container">
-        <!-- create success or error message -->
-        <!-- Populate page with all cars -->
-        {% for res in user_cars%}
-            <!-- only display cars that are checkedout -->
-                <div class="card d-flex flex-row">
-                    <div><img src="{{ MEDIA_URL }}{{ res.car.image }}" class="img" alt="Image of {{ res.car.make }} {{ res.car.model }}" width="200"></div>
-                    <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
-                        <h2 style="text-align: left; padding-bottom: 0%;">{{res.car.make}} {{res.car.model}}</h2>
-                        <p>{{res.car.year}}</p>
-                        
-                        <p>Active Days {{res.start_date}} - {{res.end_date}}</p>
-                        <p><span>${{res.car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
-                    
-                    <!-- BUTTONS -->
-                    {% if not res.car.lowjacked %}
-                    <div class="d-flex justify-content-evenly flex-row" style="position: relative; margin-top: 0rem; margin-bottom: 0.5rem; margin-right: 0.2rem;">
-                        <form method='POST' style="margin-right: 0.5rem;">
-                            {% csrf_token %}
-                            <input type="hidden" name="button" value="CarBroke">
-                            <input type="hidden" name="car_id" value="{{ res.car.id }}">
-                            <label for="car_location" >Broken Car Location</label>
-                            <input type="text" name="car_location" id="car_location" class="shortTextBox" placeholder="Enter where the car has been left, and click the button" required="true">
-                            <button class="nav-item btn-secondary" type="submit">Car Broke?</button>
-                        </form>
-                        
+    <h3>Active Reservations</h3>
+    {% for reservation in active_reservations|dictsortreversed:"processed_on" %}{% with car=reservation.car %}
+    <div class="card d-flex flex-row p-2">
+        <div><img src="{{ MEDIA_URL }}{{ car.image }}" class="img" alt="Image of {{ car.make }} {{ car.model }}" width="200"></div>
+        <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
+            <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
+            <p>{{car.year}}</p>
+            <p>{{reservation.start_date}} - {{reservation.end_date}}</p>
+            {% if not car.lowjacked %}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="car_id" value="{{ car.id }}"></input>
+                <div class="form-group">
+                    <label for="location">Location of Car</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" id="location" name="location" placeholder="Current Location">
                     </div>
-                    {% else %}
-                    <p> Car is broken down at: {{ res.car.location }}</p>
                 </div>
-                    {% endif %}
+                <button type="submit" class="btn btn-secondary nav-item">Report Broken</button>
+            </form>
+            {% else %}
+            <p>This car is currently broken.</p>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="car_id" value="{{ car.id }}"></input>
+                <div class="form-group">
+                    <label for="location">Update current location:</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" id="location" name="location" placeholder="Current Location">
+                    </div>
                 </div>
-            
-        {% empty %}
-        <p>You have no reservations currently active</p>
-        {% endfor %}
+                <button type="submit" class="btn btn-secondary nav-item">Update</button>
+            </form>
+            {% endif %}
+        </div>
     </div>
-</div>  
+    {% endwith %}
+    {% empty %}
+    <p>There are no active reservations.</p>
+    {% endfor %}
+    <h3>Inactive Reservations</h3>
+    {% for reservation in inactive_reservations|dictsortreversed:"processed_on" %}{% with car=reservation.car %}
+    <div class="card d-flex flex-row p-2">
+        <div><img src="{{ MEDIA_URL }}{{ car.image }}" class="img" alt="Image of {{ car.make }} {{ car.model }}" width="200"></div>
+        <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
+            <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
+            <p>{{car.year}}</p>
+            <p>{{reservation.start_date}} - {{reservation.end_date}}</p>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="res_id" value="{{ reservation.id }}"></input>
+                <button type="submit" class="btn-secondary nav-item" name="cancel">Cancel Reservation</button>
+            </form>
+        </div>
+    </div>
+    {% endwith %}
+    {% empty %}
+    <p>Go make some reservations you fool!!!!!!</p>
+    {% endfor %}
+</div>

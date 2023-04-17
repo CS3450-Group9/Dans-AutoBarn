@@ -1,12 +1,10 @@
 <div>
-    <h3 class="text-center">Verify Pick-Up</h3>
-    <p style="text-align: center;">Today's Date: {{formatted_date}}</p>
     {% if request.user.userprofile.auth_level == 'MA' or request.user.userprofile.auth_level == 'TW' %}
     <div class="d-flex flex-column container card" align="center">
         <!-- show current reservations for today -->
         <div class="d-flex flex-row">
             <div class="d-flex flex-column justify-content-start container">
-                <p style="text-align: left;">Current reservations for today:</p>
+                <h3 style="text-align: center;">Current reservations for today</h3>
                 {% for res in today_reservations %}
                     {% if res.car.checked_out %}
                         <p style="text-align: left;">{{res.car.make}} {{res.car.model}} has been checked out already.</p>
