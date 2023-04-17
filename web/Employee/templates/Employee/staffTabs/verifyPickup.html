@@ -1,0 +1,34 @@
+<div>
+    {% if request.user.userprofile.auth_level == 'MA' or request.user.userprofile.auth_level == 'TW' %}
+    <div class="d-flex flex-column container card" align="center">
+        <!-- show current reservations for today -->
+        <div class="d-flex flex-row">
+            <div class="d-flex flex-column justify-content-start container">
+                <h3 style="text-align: center;">Current reservations for today</h3>
+                {% for res in today_reservations %}
+                    {% if res.car.checked_out %}
+                        <p style="text-align: left;">{{res.car.make}} {{res.car.model}} has been checked out already.</p>
+                    {% else %}
+                        <div class="d-flex flex-column justify-content-start container card">
+                        <p><img src="{{ MEDIA_URL }}{{ res.car.image }}" class="image-container" alt="Image of {{ res.car.make }} {{ res.car.model }}" width="200"></p>
+                            Car: {{ res.car.make }} {{ res.car.model }}<br>
+                            Reserved from {{ res.start_date }} to {{ res.end_date }}<br>
+                            Reserved by {{ res.user.user }}<br>
+                            Processed on: {{res.processed_on}}<br>
+                            <input class="nav-item btn-secondary" type="button" value="Checkout Reservation" onclick="location.href = '{% url 'Employee:checkout' res.id %}'"
+                            style="position: relative; margin-top: 4.5rem; margin-right: 1rem; height: 3rem;">
+                        </p>
+                        </div>
+                    {% endif %}   
+                {% empty %}
+                    <p style="text-align: left;">Reservations for today have already been checked out or there are currently no reservations scheduled for today.</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div>
+            <h2>This page is only accessible to the staff</h2>
+        </div>
+    </div>
+    {% endif %}     
+</div>

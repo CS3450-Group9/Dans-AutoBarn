@@ -1,0 +1,46 @@
+<div>
+    <!-- active rentals -->
+    <div class="container">
+        <!-- Populate page with all cars -->
+        {% for car in car_inventory %}
+            <!-- only display cars that are checkedout -->
+            {% if car.checked_out %}
+                <div class="card d-flex flex-row">
+                    <div><img src="{{ MEDIA_URL }}{{ car.image }}" class="img" alt="Image of {{ car.make }} {{ car.model }}" width="200"></div>
+                    <div class="d-flex flex-column justify-content-between flex-grow-1" style="padding-left: 1rem;">
+                        <h2 style="text-align: left; padding-bottom: 0%;">{{car.make}} {{car.model}}</h2>
+                        <p>{{car.year}}</p>
+                        <p><span>${{car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
+                    </div>
+                    <!-- BUTTONS -->
+                    <div class="d-flex justify-content-evenly flex-row" style="position: relative; margin-top: 6.5rem; margin-bottom: 0.5rem; margin-right: 0.5rem;">
+                        {% if not car.lowjacked %}
+                        <form method='POST' style="margin-right: 0.5rem;">
+                            {% csrf_token %}
+                            <input type="hidden" name="button" value="lowjack">
+                            <input type="hidden" name="car_id" value="{{ car.id }}">
+                            <button class="btn-secondary" type="submit">Low-Jack</button>
+                        </form>
+                        {% else %}
+                        <!-- disabled lowjack button -->
+                        <div style="margin-right: 0.5rem;">
+                            {% csrf_token %}
+                            <input type="hidden" name="button" value="lowjack">
+                            <input type="hidden" name="car_id" value="{{ car.id }}">
+                            <button class="btn-secondary disabled">Low-Jack</button>
+                        </div>
+                        {% endif %}
+                        <form method='POST'>
+                            {% csrf_token %}
+                            <input type="hidden" name="button" value="return">
+                            <input type="hidden" name="car_id" value="{{ car.id }}">
+                            <button class="btn-secondary" type="submit">Return Car</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        {% empty %}
+        <p>No rentals today! Go sell some rentals!!! Get your ass up and work!</p>
+        {% endfor %}
+    </div>
+</div>  

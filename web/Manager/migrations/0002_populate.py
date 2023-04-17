@@ -28,6 +28,9 @@ def populate_db(apps, schema_editor):
     car6 = Car(make='Jeep', model='Cherokee', year='1999', plate_number='gggggg', image='cars/jeep.png', gas_fill_percent=100, reservation_cost=50)
     car6.save()
 
+    car7 = Car(make='Jeep2', model='Cherokee', year='1999', plate_number='hhhhhh', image='cars/jeep.png', gas_fill_percent=100, reservation_cost=50, checked_out=True, location='blah blah blah street', lowjacked=True)
+    car7.save()
+
 class Migration(migrations.Migration):
 
     dependencies = [

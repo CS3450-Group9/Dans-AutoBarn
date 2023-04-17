@@ -1,17 +1,7 @@
-<div>
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">
-        {% if message.tags == "success" %}
-        <i class="fa-solid fa-circle-check me-2"></i>
-        {% elif message.tags == "danger" %}
-        <i class="fa-solid fa-triangle-exclamation me-2"></i>
-        {% endif %}
-        <strong>{{ message }}</strong>
-    </div>
-    {% endfor %}
-    <form method="post" class="p-3 m-0">
+<div class="card" style="padding: 0.5rem;">
+    <form method="post">
         {% csrf_token %}
         {{ password_form }}
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-secondary nav-item">Submit</button>
     </form>
 </div>

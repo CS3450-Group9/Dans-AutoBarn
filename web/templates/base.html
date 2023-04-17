@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="content-container d-flex justify-content-between align-items-center">
             <div class="navbar-nav">
-                <div class="nav-item">
+                <div class="nav-item me-2">
                     <a class="nav-link" href="/">Home</a>
                 </div>
                 <div class="nav-item">
@@ -38,13 +38,13 @@
                             {{ request.user.userprofile.user }}
                             </a>
                             <!-- drop down items -->
-                            <div class="dropdown-menu nav-item" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <div class="dropdown-menu nav-item" style="padding: 0.25rem;" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <div class="nav-item" style="margin-bottom: 0.25rem;">
-                                    <a class="nav-link" href="{% url 'Customer:profile' %}">Profile</a>
+                                    <a class="nav-link" href="{% url 'Customer:profile_default' %}">Profile</a>
                                 </div>
                                 {% if request.user.userprofile.auth_level != "CU" %}
                                 <div class="nav-item" style="margin-bottom: 0.25rem; margin-top: 0.25rem;">
-                                    <a class="nav-link" href="{% url 'Employee:staff' %}">Staff</a>
+                                    <a class="nav-link" href="{% url 'Employee:staff_default' %}">Staff</a>
                                 </div>
                                 {% endif %}
                                 <div class="nav-item" style="margin-top: 0.25rem;">
@@ -104,23 +104,23 @@
                             <a class="nav-link" href="https://github.com/orgs/CS3450-Group9/people" target="_blank">Group Members</a>
                         </div>
                         <div class="d-flex flex-row" style="margin-bottom: 0.5rem;">
-                            <div class="nav-item"><a class="nav-link" href="https://github.com/cartwatson" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
-                            <div class="nav-item"><a class="nav-link" href="https://linkedin.com/in/cartwatson" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
+                            <div class="nav-item me-2"><a class="nav-link" href="https://github.com/cartwatson" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
+                            <div class="nav-item me-2"><a class="nav-link" href="https://linkedin.com/in/cartwatson" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
                             <div class="nav-item" style="min-width: 10rem;"><a class="nav-link" href="https://cartwatson.com/" target="_blank">Carter Watson</a></div>
                         </div>
                         <div class="d-flex flex-row" style="margin-bottom: 0.5rem;">
-                            <div class="nav-item"><a class="nav-link" href="https://github.com/caden-maxwell" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
-                            <div class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/cadenmaxwell/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
+                            <div class="nav-item me-2"><a class="nav-link" href="https://github.com/caden-maxwell" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
+                            <div class="nav-item me-2"><a class="nav-link" href="https://www.linkedin.com/in/cadenmaxwell/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
                             <div class="nav-item" style="min-width: 10rem;"><a class="nav-link" href="#" target="_blank">Caden Maxwell</a></div>
                         </div>
                         <div class="d-flex flex-row" style="margin-bottom: 0.5rem;">
-                            <div class="nav-item"><a class="nav-link" href="https://github.com/jeonix" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
-                            <div class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/joseph-giles-160346b2/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
+                            <div class="nav-item me-2"><a class="nav-link" href="https://github.com/jeonix" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
+                            <div class="nav-item me-2"><a class="nav-link" href="https://www.linkedin.com/in/joseph-giles-160346b2/" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
                             <div class="nav-item" style="min-width: 10rem;"><a class="nav-link" href="#" target="_blank">Joe Giles</a></div>
                         </div>
                         <div class="d-flex flex-row" style="margin-bottom: 0.5rem;">
-                            <div class="nav-item"><a class="nav-link" href="https://github.com/Irion7-1" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
-                            <div class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/caleb-leavitt-b21926224" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
+                            <div class="nav-item me-2"><a class="nav-link" href="https://github.com/Irion7-1" target="_blank"><i class="fa-brands fa-square-github fa-xl"></i></a></div>
+                            <div class="nav-item me-2"><a class="nav-link" href="https://www.linkedin.com/in/caleb-leavitt-b21926224" target="_blank"><i class="fa-brands fa-linkedin fa-xl"></i></a></div>
                             <div class="nav-item" style="min-width: 10rem;"><a class="nav-link" href="#" target="_blank">Caleb Leavitt</a></div>
                         </div>
                     </div>

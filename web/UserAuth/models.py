@@ -11,8 +11,8 @@ class UserProfile(models.Model):
     # https://stackoverflow.com/questions/54802616/how-can-one-use-enums-as-a-choice-field-in-a-django-model
     class UserType(models.TextChoices):
         Customer    = 'CU', _('Customer')
-        TillWorker  = 'TW', _('TillWorker')
-        CarRetrival = "CR", _('CarRetrievalSpecialist')
+        TillWorker  = 'TW', _('Till Worker')
+        CarRetrival = "CR", _('Car Retrieval Specialist')
         Manager     = 'MA', _('Manager')
 
     user = models.OneToOneField(User, on_delete=models.CASCADE) # use existing django auth.user
@@ -22,10 +22,15 @@ class UserProfile(models.Model):
         default=UserType.Customer,
     )
     balance = models.PositiveIntegerField(default=0)
+    hours_worked = models.PositiveIntegerField(default=0)
+    pay_rate = models.PositiveIntegerField(default=15)
 
     def __repr__(self): # For testing purposes
         return "Username:" + self.user.username
     
+    def get_pay(self):
+        return self.hours_worked * self.pay_rate
+
 # these functions tie together the UserProfile model and the default django User profile
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

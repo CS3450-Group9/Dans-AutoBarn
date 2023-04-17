@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <h3 class="text-center">Car Removal</h3>
+    <p class="text-center">Today's Date: {{formatted_date}}</p>
+    {% if request.user.userprofile.auth_level == 'MA' %}
+    <div class="d-flex flex-column container card" align="center">
+        <div class="d-flex flex-row">
+            <p><img src="{{ MEDIA_URL }}{{ car.image }}" class="image-container" alt="Image of {{ car.make }} {{ car.model }}" width="200"></p>
+            <div class="d-flex flex-column" style="padding-left: 1rem;">
+                <h2 class="text-start pb-0">{{car.make}} {{car.model}}</h2>
+                <p class="text-start pb-0">{{car.year}}</p>
+                <p class="text-start pb-0"><span>${{car.reservation_cost}}</span><span style="color: #505050; font-size: 0.75em;">/day</span></p>
+            </div>
+        </div>
+        <!-- show current reservations on car -->
+        <div class="d-flex flex-row">
+            <div class="d-flex flex-column justify-content-start container">
+                <p class="text-start">Current reservations for this car:</p>
+                {% for res in curr_reservations %}
+                    <p class="text-start">{{ res.start_date }} to {{ res.end_date }}</p>
+                {% empty %}
+                    <p class="text-start">There are currently no reservations scheduled.</p>
+                {% endfor %}
+            </div>
+        </div>
+        <form action={% url 'Manager:remove' car.id %} method="post" style="min-width: 20rem; padding: 0.5rem; margin-bottom: 0rem !important;" class="card">
+            {% csrf_token %}
+            <p>Confirm car removal</p>
+            <button class="nav-item btn-secondary" :class="{ 'disabled': buttonDisabled }" type="submit" v-cloak>Remove Car</button>
+        </form>
+    {% else %}
+        <div>
+            <h2>This page is only accessible to the Manager</h2>
+        </div>
+    {% endif %}     
+</div>
+{% endblock content %}

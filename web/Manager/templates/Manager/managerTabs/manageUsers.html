@@ -1,0 +1,33 @@
+<div style="width: 70%;">
+    {% if request.user.userprofile.auth_level == 'MA' %}
+        {% for user_info in users_data %}
+        {% with user=user_info.user_profile buttons=user_info.buttons %}
+            <div class="d-flex flex-row justify-content-between card my-3 p-3">
+                <h3>{{ user.user | title }}</h3>
+                <div class="dropdown">
+                    <p class="btn-secondary dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ user.get_auth_level_display }}
+                    </p>
+                    <!-- drop down items -->
+                    <div class="dropdown-menu btn-secondary" style="background-color: var(--c3); padding: 0.25rem;" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            {% for button in buttons %}
+                                <button class="btn-secondary"  style="margin-bottom: 0.25rem !important; margin-top: 0rem !important;" name="new_auth_level" type="submit" value="{{ button.value }}">{{ button.text }}</button>
+                            {% endfor %}
+                        </form>
+                    </div>
+                    <!-- end of dropdown items -->
+                </div>
+            </div>
+        {% endwith %}
+        {% empty %}
+            <p>No users found!</p>
+        {% endfor %}
+    {% else %}
+        <div>
+            <h2>This page is only accessible to the Manager</h2>
+        </div>
+    {% endif %}     
+</div>
