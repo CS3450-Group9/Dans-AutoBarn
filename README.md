@@ -10,7 +10,6 @@ Live site available [here](http://dansautobarn.com)
 Login information is as follows  
 | Username   | Password | Auth Level   |
 |------------|----------|--------------|
-| staff      | staff    | Django Admin |
 | admin      | password | Manager      |
 | carperson  | password | Employee     |
 | Tillperson | password | Employee     |
