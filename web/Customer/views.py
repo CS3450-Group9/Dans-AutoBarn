@@ -175,14 +175,15 @@ def confirm_res(request, token, res_id):
         user.balance -= reservation.get_total_cost()
         manager = User.objects.get(username="admin")
         manager_acc = UserProfile.objects.get(user=manager)
-        manager_acc.balance += reservation.get_total_cost()
         try:
-            manager_acc.save()
             user.save()
         except IntegrityError:
             messages.error(request, "Insufficient Funds.")
             reservation.delete()
-            return redirect('/search') # TODO: Take user to the 'add balance' page if they don't have enough money then bring them back
+            return redirect('/search')
+
+        manager_acc.balance += reservation.get_total_cost()
+        manager_acc.save()
 
         reservation.confirmed = True
         reservation.save()
