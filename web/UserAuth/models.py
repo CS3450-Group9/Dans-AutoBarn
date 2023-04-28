@@ -23,10 +23,14 @@ class UserProfile(models.Model):
     )
     balance = models.PositiveIntegerField(default=0)
     hours_worked = models.PositiveIntegerField(default=0)
+    pay_rate = models.PositiveIntegerField(default=15)
 
     def __repr__(self): # For testing purposes
         return "Username:" + self.user.username
     
+    def get_pay(self):
+        return self.hours_worked * self.pay_rate
+
 # these functions tie together the UserProfile model and the default django User profile
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

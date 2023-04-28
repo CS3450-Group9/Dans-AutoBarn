@@ -21,6 +21,7 @@ class Migration(migrations.Migration):
                 ('auth_level', models.CharField(choices=[('CU', 'Customer'), ('TW', 'TillWorker'), ('CR', 'CarRetrievalSpecialist'), ('MA', 'Manager')], default='CU', max_length=2)),
                 ('balance', models.PositiveIntegerField(default=0)),
                 ('hours_worked', models.PositiveIntegerField(default=0)),
+                ('pay_rate', models.PositiveIntegerField(default=15)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

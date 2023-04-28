@@ -12,7 +12,8 @@ from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
 from datetime import datetime, date
 
-from .models import Car, Reservation
+from .models import Car, Reservation, UserProfile
+from UserAuth.models import User
 
 def profile_default(request):
     return redirect('/profile/info/')
@@ -56,7 +57,7 @@ def profile(request, tab: str):
     if request.user.is_authenticated:
         context["tabs"] = tabs
         context["password_form"] = PasswordChangeForm(request.user.userprofile.user)
-        context["active_reservations"] = Reservation.objects.filter(user=request.user.userprofile, car__checked_out=True, start_date__lte=date.today())
+        context["active_reservations"] = Reservation.objects.filter(user=request.user.userprofile, car__checked_out=True, start_date__lte=date.today(), end_date__gte=date.today())
         context["inactive_reservations"] = Reservation.objects.filter(user=request.user.userprofile, start_date__gt=date.today())
     else:
         context["error"] = "User is not signed in!"
@@ -172,7 +173,11 @@ def confirm_res(request, token, res_id):
     if request.method == "POST":
         user = reservation.user
         user.balance -= reservation.get_total_cost()
+        manager = User.objects.get(username="admin")
+        manager_acc = UserProfile.objects.get(user=manager)
+        manager_acc.balance += reservation.get_total_cost()
         try:
+            manager_acc.save()
             user.save()
         except IntegrityError:
             messages.error(request, "Insufficient Funds.")
