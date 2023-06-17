@@ -15,6 +15,9 @@ Login information is as follows
 | Tillperson | password | Employee     |
 | customer   | hello    | Customer     |
 
+## Use Case Videos
+To view the functionality without using the site yourself you can watch use case videos [here](https://www.youtube.com/playlist?list=PLY7a540W2V3Uface3frI61mU53oRxRQO-)
+
 ## Organization & Name Scheme
 ### File Structure
 All documentation will be located in the /docs/ folder   
